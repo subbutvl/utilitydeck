@@ -57,7 +57,7 @@ export const HandwritingConverter: React.FC = () => {
     }
   };
 
-  const clearEditor = () => {
+  const resetAll = () => {
     setPlainText('');
     setRichText('');
     if (richEditorRef.current) {
@@ -74,7 +74,7 @@ export const HandwritingConverter: React.FC = () => {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <label className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Editor</label>
-                  <button onClick={clearEditor} className="text-[9px] uppercase text-neutral-700 hover:text-red-500 font-bold transition-colors">Clear</button>
+                  <button onClick={resetAll} className="text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold tracking-widest transition-colors">Reset All</button>
                 </div>
                 <div className="flex bg-neutral-900 border border-neutral-800 p-0.5">
                   <button 

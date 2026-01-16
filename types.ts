@@ -9,10 +9,10 @@ export type Category =
   | 'Text Tools' 
   | 'Social Tools' 
   | 'Utilities' 
-  | 'World Clock' 
-  | 'Calendar'
+  | 'Time & Date'
   | 'Unit Converters'
-  | 'Theme Generator';
+  | 'Theme Generator'
+  | 'Photography';
 
 export interface Tool {
   id: string;
