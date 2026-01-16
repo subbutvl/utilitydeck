@@ -12,7 +12,8 @@ export type Category =
   | 'Time & Date'
   | 'Unit Converters'
   | 'Theme Generator'
-  | 'Photography';
+  | 'Photography'
+  | 'Curated Resources';
 
 export interface Tool {
   id: string;

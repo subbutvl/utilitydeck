@@ -50,54 +50,61 @@ const Layout: React.FC<LayoutProps> = ({ children, activeToolId, onToolSelect, o
         </div>
 
         <div className="flex items-center h-full">
-          {CATEGORIES.map((cat) => (
-            <div 
-              key={cat}
-              className="relative h-full flex items-center"
-              onMouseEnter={() => handleMouseEnter(cat)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button className={`px-3 h-full text-[13px] font-medium transition-all ${openCategory === cat ? 'bg-neutral-900 text-white' : 'text-neutral-400 hover:text-white'}`}>
-                {cat}
-              </button>
-              
-              {openCategory === cat && (
-                <div 
-                  onMouseEnter={handleMenuEnter}
-                  className="absolute top-12 left-0 w-64 bg-[#111111] border border-neutral-800 p-1 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
-                >
-                  {/* Invisible bridge to prevent mouse-out gaps */}
-                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
-                  
-                  {getToolsByCategory(cat).length > 0 ? (
-                    <div className="flex flex-col">
-                      <div className="px-3 py-2 text-[10px] uppercase tracking-[0.2em] text-neutral-600 font-bold border-b border-neutral-800 mb-1">
-                        Available Tools
+          {CATEGORIES.map((cat) => {
+            const isSpecial = cat === 'Curated Resources';
+            return (
+              <div 
+                key={cat}
+                className="relative h-full flex items-center"
+                onMouseEnter={() => handleMouseEnter(cat)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <button className={`px-3 h-full text-[13px] font-medium transition-all ${
+                  openCategory === cat 
+                    ? 'bg-neutral-900 text-white' 
+                    : isSpecial ? 'text-indigo-400 hover:text-indigo-300' : 'text-neutral-400 hover:text-white'
+                }`}>
+                  {cat}
+                </button>
+                
+                {openCategory === cat && (
+                  <div 
+                    onMouseEnter={handleMenuEnter}
+                    className={`absolute top-12 left-0 w-64 bg-[#111111] border border-neutral-800 p-1 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150 ${isSpecial ? 'border-indigo-500/30' : ''}`}
+                  >
+                    {/* Invisible bridge to prevent mouse-out gaps */}
+                    <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
+                    
+                    {getToolsByCategory(cat).length > 0 ? (
+                      <div className="flex flex-col">
+                        <div className={`px-3 py-2 text-[10px] uppercase tracking-[0.2em] font-bold border-b border-neutral-800 mb-1 ${isSpecial ? 'text-indigo-400' : 'text-neutral-600'}`}>
+                          {isSpecial ? 'Premium Assets' : 'Available Tools'}
+                        </div>
+                        {getToolsByCategory(cat).map(tool => (
+                          <button
+                            key={tool.id}
+                            onClick={() => {
+                              onToolSelect(tool.id);
+                              setOpenCategory(null);
+                            }}
+                            className={`w-full text-left px-3 py-2.5 text-[13px] flex items-center gap-3 hover:bg-neutral-800 transition-colors ${activeToolId === tool.id ? 'bg-neutral-800 text-white' : 'text-neutral-400 hover:text-white'}`}
+                          >
+                            <span className={`opacity-70 ${activeToolId === tool.id ? 'text-white' : ''}`}>{tool.icon}</span>
+                            <span className="flex-1 truncate">{tool.name}</span>
+                            {activeToolId === tool.id && (
+                              <div className="w-1 h-1 bg-white rounded-none"></div>
+                            )}
+                          </button>
+                        ))}
                       </div>
-                      {getToolsByCategory(cat).map(tool => (
-                        <button
-                          key={tool.id}
-                          onClick={() => {
-                            onToolSelect(tool.id);
-                            setOpenCategory(null);
-                          }}
-                          className={`w-full text-left px-3 py-2.5 text-[13px] flex items-center gap-3 hover:bg-neutral-800 transition-colors ${activeToolId === tool.id ? 'bg-neutral-800 text-white' : 'text-neutral-400 hover:text-white'}`}
-                        >
-                          <span className={`opacity-70 ${activeToolId === tool.id ? 'text-white' : ''}`}>{tool.icon}</span>
-                          <span className="flex-1 truncate">{tool.name}</span>
-                          {activeToolId === tool.id && (
-                            <div className="w-1 h-1 bg-white rounded-none"></div>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="px-4 py-3 text-[10px] uppercase tracking-widest text-neutral-600 italic">No tools developed yet</div>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
+                    ) : (
+                      <div className="px-4 py-3 text-[10px] uppercase tracking-widest text-neutral-600 italic">No tools developed yet</div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <div className="flex-1"></div>

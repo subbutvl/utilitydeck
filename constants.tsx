@@ -51,6 +51,7 @@ import { UuidGenerator } from './modules/utils/UuidGenerator';
 import { WorldClock } from './modules/worldclock/WorldClock';
 import { CurrencyConverter } from './modules/worldclock/CurrencyConverter';
 import { WeatherForecaster } from './modules/worldclock/WeatherForecaster';
+import { QuotesGenerator } from './modules/worldclock/QuotesGenerator';
 
 // Calendar Module
 import { Calendar } from './modules/calendar/Calendar';
@@ -95,7 +96,7 @@ import { BulkVideoConverter } from './modules/images/BulkVideoConverter';
 
 // Photography Tools
 import { TimelapseCalculator } from './modules/photography/TimelapseCalculator';
-import { Rule500Calculator } from './modules/photography/Rule500Calculator';
+import { Rule500Calculator as Astro500 } from './modules/photography/Rule500Calculator';
 import { DoFCalculator } from './modules/photography/DoFCalculator';
 import { AdvancedDoFCalculator } from './modules/photography/AdvancedDoFCalculator';
 import { MacroDoFCalculator } from './modules/photography/MacroDoFCalculator';
@@ -105,6 +106,10 @@ import { CoCCalculator } from './modules/photography/CoCCalculator';
 import { DiffractionCalculator } from './modules/photography/DiffractionCalculator';
 import { MacroDiffractionCalculator } from './modules/photography/MacroDiffractionCalculator';
 import { PhotographyTips } from './modules/photography/PhotographyTips';
+
+// Curated Resources
+import { CuratedResources } from './modules/resources/CuratedResources';
+import { RssReader } from './modules/resources/RssReader';
 
 // Icons
 const IconCalendar = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>;
@@ -121,9 +126,30 @@ const IconSparkles = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" he
 const IconCamera = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>;
 const IconTimer = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg>;
 const IconTarget = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>;
+const IconBookmark = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>;
+const IconQuote = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1 0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1 0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/></svg>;
+const IconRss = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>;
 
 export const TOOLS: Tool[] = [
-  // Photography (New Section)
+  // Curated Resources (Highlighted diff color in Layout)
+  {
+    id: 'curated-resources',
+    name: 'Curated Assets',
+    description: 'Expert-picked tools, design resources, and development kits powered by the system database.',
+    category: 'Curated Resources',
+    icon: <IconBookmark />,
+    component: CuratedResources,
+  },
+  {
+    id: 'rss-reader',
+    name: 'RSS Intelligence',
+    description: 'Real-time global news aggregator for tech, design, and entertainment professionals.',
+    category: 'Curated Resources',
+    icon: <IconRss />,
+    component: RssReader,
+  },
+
+  // Photography
   {
     id: 'photo-dof',
     name: 'DoF Calculator',
@@ -162,7 +188,7 @@ export const TOOLS: Tool[] = [
     description: 'Determine maximum shutter speed to prevent star trailing.',
     category: 'Photography',
     icon: <IconSparkles />,
-    component: Rule500Calculator,
+    component: Astro500,
   },
   {
     id: 'photo-dof-table',
@@ -245,6 +271,14 @@ export const TOOLS: Tool[] = [
     category: 'Time & Date',
     icon: <IconCalendar />,
     component: Calendar,
+  },
+  {
+    id: 'quotes-gen',
+    name: 'Quotes Generator (AI Opt)',
+    description: 'Discover wisdom through random curated quotes or generate fresh perspectives using AI.',
+    category: 'Time & Date',
+    icon: <IconQuote />,
+    component: QuotesGenerator,
   },
   {
     id: 'currency-conv',
@@ -841,6 +875,7 @@ export const TOOLS: Tool[] = [
 ];
 
 export const CATEGORIES: Category[] = [
+  'Curated Resources',
   'Image Tools',
   'Design Tools',
   'Photography',

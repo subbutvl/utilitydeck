@@ -9,7 +9,7 @@ type EditorMode = 'plain' | 'rich';
 export const HandwritingConverter: React.FC = () => {
   const [editorMode, setEditorMode] = useState<EditorMode>('rich');
   const [plainText, setPlainText] = useState('My dearest friend,\n\nDigital screens often feel cold and impersonal. Sometimes, a handwritten note is the only way to truly convey emotion and sincerity.\n\nBest regards,\nSwissKnife Kit');
-  const [richText, setRichText] = useState('<div>My dearest friend,</div><div><br></div><div>Digital screens often feel <b>cold and impersonal</b>. Sometimes, a <i>handwritten note</i> is the only way to truly <u>convey emotion</u> and sincerity.</div><div><br></div><div>Best regards,</div><div>SwissKnife Kit</div>');
+  const [richText, setRichText] = useState('<div>My dearest friend,</div><div><br></div><div>Digital screens often feel <b>cold and impersonal</b>. Sometimes, a <i>handwritten note</i> is the only way to truly convey emotion and sincerity.</div><div><br></div><div>Best regards,</div><div>SwissKnife Kit</div>');
   
   const [paper, setPaper] = useState<PaperType>('lined');
   const [ink, setInk] = useState<InkColor>('blue');
@@ -31,7 +31,6 @@ export const HandwritingConverter: React.FC = () => {
     indie: "'Indie Flower', cursive"
   };
 
-  // Sync content when switching modes (basic conversion)
   const toggleMode = (mode: EditorMode) => {
     if (mode === 'plain' && editorMode === 'rich') {
       const temp = document.createElement('div');
@@ -60,6 +59,10 @@ export const HandwritingConverter: React.FC = () => {
   const resetAll = () => {
     setPlainText('');
     setRichText('');
+    setPaper('lined');
+    setInk('blue');
+    setFont('homemade');
+    setFontSize(18);
     if (richEditorRef.current) {
       richEditorRef.current.innerHTML = '';
     }
