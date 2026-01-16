@@ -2,34 +2,33 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleGenAI, Type } from "@google/genai";
 
-interface Show {
-  title: string;
-  years: string;
-  genre: string;
+interface Animal {
+  name: string;
+  species: string;
+  status: string;
   description: string;
 }
 
-const STATIC_SHOWS: Show[] = [
-  { title: "Breaking Bad", years: "2008–2013", genre: "Drama", description: "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future." },
-  { title: "Succession", years: "2018–2023", genre: "Drama", description: "The Roy family is known for controlling the biggest media and entertainment company in the world. However, their world changes when their father steps down from the company." },
-  { title: "The Bear", years: "2022–", genre: "Comedy", description: "A young chef from the fine dining world comes home to Chicago to run his family sandwich shop after a heartbreaking death in his family." },
-  { title: "Severance", years: "2022–", genre: "Sci-Fi", description: "Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives." }
+const STATIC_ANIMALS: Animal[] = [
+  { name: "Snow Leopard", species: "Panthera uncia", status: "Vulnerable", description: "Ghost of the mountains, highly elusive big cat adapted to cold, rugged environments." },
+  { name: "Giant Panda", species: "Ailuropoda melanoleuca", status: "Vulnerable", description: "Iconic bamboo-eating bear from China, known for its distinctive black and white markings." },
+  { name: "Blue Whale", species: "Balaenoptera musculus", status: "Endangered", description: "The largest animal ever known to have lived on Earth, reaching lengths of up to 100 feet." },
+  { name: "Red Panda", species: "Ailurus fulgens", status: "Endangered", description: "Small arboreal mammal native to the eastern Himalayas, unrelated to giant pandas." }
 ];
 
-export const TvShowRecommendation: React.FC = () => {
-  const [primary, setPrimary] = useState<Show | null>(null);
-  const [secondary, setSecondary] = useState<Show[]>([]);
+export const AnimalHub: React.FC = () => {
+  const [primary, setPrimary] = useState<Animal | null>(null);
+  const [secondary, setSecondary] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<'static' | 'ai'>('static');
-  const [category, setCategory] = useState('Drama');
+  const [category, setCategory] = useState('Mammals');
 
-  const categories = ['Drama', 'Sitcom', 'Thriller', 'Animation', 'Reality', 'Mystery'];
+  const categories = ['Mammals', 'Marine', 'Reptiles', 'Savanna', 'Arctic', 'Endangered'];
 
   const fetchStatic = () => {
     setLoading(true);
     setTimeout(() => {
-      const pool = STATIC_SHOWS.filter(s => s.genre === category || category === 'All').length > 0 ? STATIC_SHOWS.filter(s => s.genre === category) : STATIC_SHOWS;
-      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      const shuffled = [...STATIC_ANIMALS].sort(() => 0.5 - Math.random());
       setPrimary(shuffled[0]);
       setSecondary(shuffled.slice(1, 4));
       setLoading(false);
@@ -42,7 +41,7 @@ export const TvShowRecommendation: React.FC = () => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
-        contents: `Recommend 4 TV shows in the "${category}" genre. One primary and three additional. Return as JSON array of objects with 'title', 'years', 'genre', 'description'.`,
+        contents: `Recommend 4 animals in the "${category}" category. One primary and three additional. Return as JSON array of objects with 'name', 'species', 'status', 'description'.`,
         config: {
           responseMimeType: "application/json",
           responseSchema: {
@@ -50,12 +49,12 @@ export const TvShowRecommendation: React.FC = () => {
             items: {
               type: Type.OBJECT,
               properties: {
-                title: { type: Type.STRING },
-                years: { type: Type.STRING },
-                genre: { type: Type.STRING },
+                name: { type: Type.STRING },
+                species: { type: Type.STRING },
+                status: { type: Type.STRING },
                 description: { type: Type.STRING }
               },
-              required: ['title', 'years', 'genre', 'description']
+              required: ['name', 'species', 'status', 'description']
             }
           }
         }
@@ -75,7 +74,7 @@ export const TvShowRecommendation: React.FC = () => {
   }, [category, mode]);
 
   const resetAll = () => {
-    setCategory('Drama');
+    setCategory('Mammals');
     setMode('static');
   };
 
@@ -108,33 +107,33 @@ export const TvShowRecommendation: React.FC = () => {
       <div className="flex-1 overflow-auto space-y-8 pb-20">
         {loading ? (
           <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Connecting Feed...</span>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Scanning Biomes...</span>
           </div>
         ) : primary ? (
           <section className="bg-[#0d0d0d] border border-neutral-800 p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><path d="M11 17a1 1 0 1 0 2 0 1 1 0 1 0-2 0Z"/><path d="M15 13a1 1 0 1 0 2 0 1 1 0 1 0-2 0Z"/><path d="M7 13a1 1 0 1 0 2 0 1 1 0 1 0-2 0Z"/><path d="M9.1 21a1 1 0 0 1-.8-.4l-1.9-2.3c-.6-.7-.9-1.5-.9-2.4v-4.1a2 2 0 0 1 .6-1.4l2.5-2.5c.4-.4 1-.6 1.5-.6h3.8c.5 0 1.1.2 1.5.6l2.5 2.5a2 2 0 0 1 .6 1.4v4.1c0 .9-.3 1.7-.9 2.4l-1.9 2.3a1 1 0 0 1-.8.4H9.1Z"/></svg>
             </div>
             <div className="max-w-3xl space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 border border-indigo-500/20 font-bold uppercase tracking-widest">{primary.genre}</span>
-                <span className="text-[10px] text-neutral-600 font-mono">{primary.years}</span>
+                <span className="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 border border-amber-500/20 font-bold uppercase tracking-widest">{primary.status}</span>
+                <span className="text-[10px] text-neutral-600 font-mono italic">{primary.species}</span>
               </div>
-              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.title}</h2>
+              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.name}</h2>
               <p className="text-lg text-neutral-400 leading-relaxed italic">{primary.description}</p>
             </div>
           </section>
         ) : null}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {secondary.map((s, i) => (
+          {secondary.map((a, i) => (
             <div key={i} className="bg-[#111] border border-neutral-800 p-6 space-y-3 hover:border-neutral-600 transition-colors">
               <div className="flex justify-between items-start">
-                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">{s.genre}</span>
-                <span className="text-[9px] text-neutral-700 font-mono">{s.years}</span>
+                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">{a.status}</span>
+                <span className="text-[9px] text-neutral-700 font-mono">/ species</span>
               </div>
-              <h3 className="text-base font-bold text-neutral-200">{s.title}</h3>
-              <p className="text-xs text-neutral-500 line-clamp-2">{s.description}</p>
+              <h3 className="text-base font-bold text-neutral-200">{a.name}</h3>
+              <p className="text-xs text-neutral-500 line-clamp-2">{a.description}</p>
             </div>
           ))}
         </div>

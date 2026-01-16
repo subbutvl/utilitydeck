@@ -74,8 +74,19 @@ export const BookRecommendation: React.FC = () => {
     if (mode === 'ai') fetchAI(); else fetchStatic();
   }, [category, mode]);
 
+  const resetAll = () => {
+    setCategory('Business');
+    setMode('static');
+  };
+
   return (
     <div className="h-full flex flex-col gap-6">
+      {mode === 'static' && (
+        <div className="bg-indigo-900/20 border border-indigo-500/20 px-4 py-2 text-[10px] text-indigo-300 uppercase font-bold tracking-widest text-center animate-in fade-in slide-in-from-top-1">
+          Currently viewing curated static content. Real-time dynamic API integration is coming soon.
+        </div>
+      )}
+
       <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
           {categories.map(cat => (
@@ -89,12 +100,17 @@ export const BookRecommendation: React.FC = () => {
             <button onClick={() => setMode('static')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'static' ? 'bg-neutral-800 text-white' : 'text-neutral-600'}`}>Curated</button>
             <button onClick={() => setMode('ai')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'ai' ? 'bg-neutral-800 text-white' : 'text-neutral-600'}`}>AI Lab</button>
           </div>
-          <button onClick={() => mode === 'ai' ? fetchAI() : fetchStatic()} className="text-[10px] uppercase font-bold text-neutral-400 hover:text-white">Refresh</button>
+          <button onClick={resetAll} className="text-[10px] uppercase font-bold text-neutral-700 hover:text-red-500">Reset</button>
+          <button onClick={() => mode === 'ai' ? fetchAI() : fetchStatic()} className="text-[10px] uppercase font-bold text-neutral-400 hover:text-white underline underline-offset-4">Refresh</button>
         </div>
       </div>
 
       <div className="flex-1 overflow-auto space-y-8 pb-20">
-        {primary ? (
+        {loading ? (
+          <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Scanning Archives...</span>
+          </div>
+        ) : primary ? (
           <section className="bg-[#0d0d0d] border border-neutral-800 p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -108,7 +124,7 @@ export const BookRecommendation: React.FC = () => {
               <p className="text-lg text-neutral-400 leading-relaxed italic">{primary.description}</p>
             </div>
           </section>
-        ) : <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800" />}
+        ) : null}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {secondary.map((b, i) => (

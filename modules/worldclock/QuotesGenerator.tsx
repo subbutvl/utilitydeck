@@ -25,7 +25,6 @@ export const QuotesGenerator: React.FC = () => {
 
   const fetchStaticQuotes = () => {
     setLoading(true);
-    // Simulate network delay
     setTimeout(() => {
       const shuffled = [...STATIC_QUOTES].sort(() => 0.5 - Math.random());
       setPrimaryQuote(shuffled[0]);
@@ -61,7 +60,7 @@ export const QuotesGenerator: React.FC = () => {
       setSecondaryQuotes(data.slice(1));
     } catch (err) {
       console.error(err);
-      fetchStaticQuotes(); // Fallback
+      fetchStaticQuotes();
     } finally {
       setLoading(false);
     }
@@ -77,6 +76,7 @@ export const QuotesGenerator: React.FC = () => {
     setSecondaryQuotes([]);
     setTheme('Wisdom & Growth');
     setMode('static');
+    fetchStaticQuotes();
   };
 
   useEffect(() => {
@@ -85,7 +85,12 @@ export const QuotesGenerator: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col gap-8">
-      {/* Header / Config */}
+      {mode === 'static' && (
+        <div className="bg-indigo-900/20 border border-indigo-500/20 px-4 py-2 text-[10px] text-indigo-300 uppercase font-bold tracking-widest text-center animate-in fade-in slide-in-from-top-1">
+          Currently viewing curated static content. Real-time dynamic API integration is coming soon.
+        </div>
+      )}
+
       <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-6">
           <div className="flex border border-neutral-800 p-1 bg-black">
@@ -126,12 +131,11 @@ export const QuotesGenerator: React.FC = () => {
             onClick={resetAll}
             className="text-[10px] uppercase font-bold text-neutral-600 hover:text-red-500 transition-colors"
           >
-            Reset Tool
+            Reset
           </button>
         </div>
       </div>
 
-      {/* Primary Quote Area */}
       <div className="flex-1 overflow-auto pr-1">
         <div className="max-w-4xl mx-auto space-y-12 pb-20">
           {primaryQuote ? (
@@ -147,13 +151,8 @@ export const QuotesGenerator: React.FC = () => {
               </blockquote>
               <div className="absolute bottom-8 right-12 text-8xl font-serif text-neutral-800 leading-none rotate-180 pointer-events-none">“</div>
             </section>
-          ) : (
-            <div className="h-64 flex items-center justify-center border border-dashed border-neutral-800 opacity-20 italic">
-               Waiting for inspiration...
-            </div>
-          )}
+          ) : null}
 
-          {/* Secondary Quotes Grid */}
           <section className="space-y-6">
             <div className="flex items-center gap-4">
                <h2 className="text-[10px] uppercase font-bold text-neutral-600 tracking-[0.3em] whitespace-nowrap">Further Reflections</h2>
@@ -176,10 +175,6 @@ export const QuotesGenerator: React.FC = () => {
             </div>
           </section>
         </div>
-      </div>
-
-      <div className="bg-neutral-900/30 p-3 border border-neutral-800 text-[9px] text-neutral-700 uppercase tracking-widest font-bold text-center">
-        {mode === 'ai' ? 'AI Perspectives: Real-time synthesis via Gemini 3.0' : 'Curated Wisdom: Expert selections from historical archives'}
       </div>
     </div>
   );

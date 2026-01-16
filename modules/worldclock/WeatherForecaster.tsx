@@ -28,7 +28,6 @@ export const WeatherForecaster: React.FC = () => {
 
   const fetchWeather = async (city: string) => {
     setLoading(true);
-    // Simulation of data fetching (Non-AI version using local logic)
     setTimeout(() => {
       const mockData: WeatherData = {
         city: city.charAt(0).toUpperCase() + city.slice(1),
@@ -73,15 +72,18 @@ export const WeatherForecaster: React.FC = () => {
   };
 
   const resetAll = () => {
-    setCityInput('');
+    setCityInput('Tirunelveli');
     setAiAdvice(null);
+    fetchWeather('Tirunelveli');
   };
 
   return (
     <div className="h-full flex flex-col gap-6">
+      <div className="bg-indigo-900/20 border border-indigo-500/20 px-4 py-2 text-[10px] text-indigo-300 uppercase font-bold tracking-widest text-center">
+        Currently using mock weather data. Real-time dynamic API integration is coming soon.
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
-        
-        {/* Left: Input & Search */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-[#111] border border-neutral-800 p-8 space-y-6">
             <div className="flex justify-between items-center mb-2">
@@ -107,7 +109,7 @@ export const WeatherForecaster: React.FC = () => {
 
             <div className="pt-4 border-t border-neutral-900">
                <label className="text-[10px] uppercase text-neutral-600 mb-4 block tracking-widest flex items-center gap-2">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
                  AI Weather Advisor
                </label>
                {aiAdvice ? (
@@ -119,30 +121,22 @@ export const WeatherForecaster: React.FC = () => {
                  <button 
                   onClick={generateAiAdvice}
                   disabled={isAiLoading || !weather}
-                  className="w-full py-3 bg-neutral-900 border border-neutral-800 text-[10px] font-bold uppercase tracking-widest text-neutral-500 hover:text-white transition-all disabled:opacity-30"
+                  className="w-full py-3 bg-neutral-800 border border-neutral-700 text-[10px] font-bold uppercase tracking-widest text-neutral-400 hover:text-white hover:border-neutral-500 transition-all flex items-center justify-center gap-2"
                  >
                    {isAiLoading ? 'Analyzing Climate...' : 'Get Travel Advice'}
                  </button>
                )}
             </div>
           </div>
-          
-          <div className="bg-[#111] border border-neutral-800 p-6">
-             <div className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest border-b border-neutral-900 pb-2 mb-4">Condition Reference</div>
-             <div className="space-y-4">
-                {Object.entries(CONDITION_MAP).map(([name, desc]) => (
-                  <div key={name}>
-                    <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-tight">{name}</p>
-                    <p className="text-[11px] text-neutral-600 italic">{desc}</p>
-                  </div>
-                ))}
-             </div>
-          </div>
         </div>
 
-        {/* Right: Results Dashboard */}
         <div className="lg:col-span-8 flex flex-col gap-6">
-          {weather ? (
+          {loading ? (
+            <div className="flex-1 flex flex-col items-center justify-center">
+               <div className="w-12 h-12 border-2 border-indigo-500/20 border-t-indigo-500 animate-spin mb-4" />
+               <span className="text-[10px] uppercase font-bold tracking-[0.4em] text-neutral-600">Syncing Atmosphere...</span>
+            </div>
+          ) : weather ? (
             <div className="flex-1 flex flex-col gap-6">
               <div className="bg-[#0d0d0d] border border-neutral-800 p-12 flex flex-col items-center justify-center relative overflow-hidden group">
                  <div className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-700 italic">Global Station Monitor</div>
@@ -179,16 +173,7 @@ export const WeatherForecaster: React.FC = () => {
                  </div>
               </div>
             </div>
-          ) : (
-            <div className="flex-1 flex flex-col items-center justify-center opacity-10 uppercase tracking-[0.5em] text-center p-20 border border-dashed border-neutral-800">
-               <div className="text-3xl font-light">Meteorological Hub</div>
-               <p className="text-[10px] mt-4 font-bold">Scanning for Atmospheric Data...</p>
-            </div>
-          )}
-          
-          <div className="bg-neutral-900/30 p-4 border border-neutral-800 text-[10px] text-neutral-700 uppercase tracking-widest font-bold text-center">
-            Integrated Data Feed active • Station Latency: 42ms
-          </div>
+          ) : null}
         </div>
       </div>
     </div>

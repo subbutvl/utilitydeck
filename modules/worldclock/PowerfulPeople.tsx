@@ -74,8 +74,19 @@ export const PowerfulPeople: React.FC = () => {
     if (mode === 'ai') fetchAI(); else fetchStatic();
   }, [category, mode]);
 
+  const resetAll = () => {
+    setCategory('Leaders');
+    setMode('static');
+  };
+
   return (
     <div className="h-full flex flex-col gap-6">
+      {mode === 'static' && (
+        <div className="bg-indigo-900/20 border border-indigo-500/20 px-4 py-2 text-[10px] text-indigo-300 uppercase font-bold tracking-widest text-center animate-in fade-in slide-in-from-top-1">
+          Currently viewing curated static content. Real-time dynamic API integration is coming soon.
+        </div>
+      )}
+
       <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
           {categories.map(cat => (
@@ -89,12 +100,17 @@ export const PowerfulPeople: React.FC = () => {
             <button onClick={() => setMode('static')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'static' ? 'bg-neutral-800 text-white' : 'text-neutral-600'}`}>Curated</button>
             <button onClick={() => setMode('ai')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'ai' ? 'bg-neutral-800 text-white' : 'text-neutral-600'}`}>AI Lab</button>
           </div>
-          <button onClick={() => mode === 'ai' ? fetchAI() : fetchStatic()} className="text-[10px] uppercase font-bold text-neutral-400 hover:text-white">Refresh</button>
+          <button onClick={resetAll} className="text-[10px] uppercase font-bold text-neutral-700 hover:text-red-500">Reset</button>
+          <button onClick={() => mode === 'ai' ? fetchAI() : fetchStatic()} className="text-[10px] uppercase font-bold text-neutral-400 hover:text-white underline underline-offset-4">Refresh</button>
         </div>
       </div>
 
       <div className="flex-1 overflow-auto space-y-8 pb-20">
-        {primary ? (
+        {loading ? (
+          <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Researching History...</span>
+          </div>
+        ) : primary ? (
           <section className="bg-[#0d0d0d] border border-neutral-800 p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -108,7 +124,7 @@ export const PowerfulPeople: React.FC = () => {
               <p className="text-lg text-neutral-400 leading-relaxed italic">{primary.achievement}</p>
             </div>
           </section>
-        ) : <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800" />}
+        ) : null}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {secondary.map((p, i) => (

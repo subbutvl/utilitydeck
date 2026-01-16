@@ -47,7 +47,7 @@ import { UrlTool } from './modules/utils/UrlTool';
 import { HashTool } from './modules/utils/HashTool';
 import { UuidGenerator } from './modules/utils/UuidGenerator';
 
-// World Clock / Time & Date
+// Daily Pulse Modules
 import { WorldClock } from './modules/worldclock/WorldClock';
 import { CurrencyConverter } from './modules/worldclock/CurrencyConverter';
 import { WeatherForecaster } from './modules/worldclock/WeatherForecaster';
@@ -59,6 +59,12 @@ import { SongRecommendation } from './modules/worldclock/SongRecommendation';
 import { PlaceRecommendation } from './modules/worldclock/PlaceRecommendation';
 import { PowerfulPeople } from './modules/worldclock/PowerfulPeople';
 import { RandomFacts } from './modules/worldclock/RandomFacts';
+import { PlantHub } from './modules/worldclock/PlantHub';
+import { BirdHub } from './modules/worldclock/BirdHub';
+import { AnimalHub } from './modules/worldclock/AnimalHub';
+import { SpaceHub } from './modules/worldclock/SpaceHub';
+import { WordHub } from './modules/worldclock/WordHub';
+import { TirukuralHub } from './modules/worldclock/TirukuralHub';
 
 // Calendar Module
 import { Calendar } from './modules/calendar/Calendar';
@@ -143,6 +149,12 @@ const IconMusic = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" heigh
 const IconMapPin = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
 const IconUsers = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
 const IconInfo = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="16" y2="12"/><line x1="12" x2="12.01" y1="8" y2="8"/></svg>;
+const IconLeaf = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8-.5 2.2-2 4.2-4.5 5.5L11 20z"/><path d="M11 20c.5-5.5 2-8 5-10"/></svg>;
+const IconBird = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 7c-1.5 0-3-1-4.5-2a4.66 4.66 0 0 0-6.06 1.15c-.45.54-.51 1.25-.13 1.84.44.66.71 1.43.78 2.22l.14 1.5c.12 1.25.53 2.45 1.2 3.53l.36.57c.56.88 1.55 1.41 2.61 1.4h3.6c.92 0 1.8-.4 2.4-1.1l2.4-2.8a4.13 4.13 0 0 0 1.05-3.04c-.11-1.3-.87-2.45-1.99-3.11l-1.05-.62A3.26 3.26 0 0 0 16 7z"/><path d="m11 13 4-2"/></svg>;
+const IconAnimal = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 17a1 1 0 1 0 2 0 1 1 0 1 0-2 0Z"/><path d="M15 13a1 1 0 1 0 2 0 1 1 0 1 0-2 0Z"/><path d="M7 13a1 1 0 1 0 2 0 1 1 0 1 0-2 0Z"/><path d="M9.1 21a1 1 0 0 1-.8-.4l-1.9-2.3c-.6-.7-.9-1.5-.9-2.4v-4.1a2 2 0 0 1 .6-1.4l2.5-2.5c.4-.4 1-.6 1.5-.6h3.8c.5 0 1.1.2 1.5.6l2.5 2.5a2 2 0 0 1 .6 1.4v4.1c0 .9-.3 1.7-.9 2.4l-1.9 2.3a1 1 0 0 1-.8.4H9.1Z"/></svg>;
+const IconMoon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>;
+const IconType = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg>;
+const IconWisdom = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z"/><path d="M12 7v5l3 3"/></svg>;
 
 export const TOOLS: Tool[] = [
   // Curated Resources (Highlighted diff color in Layout)
@@ -269,12 +281,12 @@ export const TOOLS: Tool[] = [
     component: () => <PhotographyTips type="general" />,
   },
 
-  // Time & Date (Grouped)
+  // Daily Pulse (Grouped)
   {
     id: 'world-clock',
     name: 'Global Monitor',
     description: 'Real-time global clock dashboard with analog/digital views and day-night logic.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconClock />,
     component: WorldClock,
   },
@@ -282,7 +294,7 @@ export const TOOLS: Tool[] = [
     id: 'global-calendar',
     name: 'Unified Calendar',
     description: 'Yearly view with integrated India/US federal holiday tracking and regional toggles.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconCalendar />,
     component: Calendar,
   },
@@ -290,7 +302,7 @@ export const TOOLS: Tool[] = [
     id: 'quotes-gen',
     name: 'Quotes Generator (AI Opt)',
     description: 'Discover wisdom through random curated quotes or generate fresh perspectives using AI.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconQuote />,
     component: QuotesGenerator,
   },
@@ -298,7 +310,7 @@ export const TOOLS: Tool[] = [
     id: 'movie-rec',
     name: 'Movie Hub (AI Opt)',
     description: 'Get curated cinema recommendations or let AI find your next favorite film.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconFilm />,
     component: MovieRecommendation,
   },
@@ -306,7 +318,7 @@ export const TOOLS: Tool[] = [
     id: 'tv-rec',
     name: 'TV Show Hub (AI Opt)',
     description: 'Discover trending series across all streaming platforms with AI insights.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconTv />,
     component: TvShowRecommendation,
   },
@@ -314,7 +326,7 @@ export const TOOLS: Tool[] = [
     id: 'book-rec',
     name: 'Book Hub (AI Opt)',
     description: 'Explore timeless classics and modern bestsellers curated for your reading lists.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconBook />,
     component: BookRecommendation,
   },
@@ -322,7 +334,7 @@ export const TOOLS: Tool[] = [
     id: 'song-rec',
     name: 'Song Hub (AI Opt)',
     description: 'Find your next anthem through expertly picked tracks or AI mood matching.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconMusic />,
     component: SongRecommendation,
   },
@@ -330,7 +342,7 @@ export const TOOLS: Tool[] = [
     id: 'place-rec',
     name: 'Travel Hub (AI Opt)',
     description: 'Discover breathtaking locations and hidden gems around the globe.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconMapPin />,
     component: PlaceRecommendation,
   },
@@ -338,7 +350,7 @@ export const TOOLS: Tool[] = [
     id: 'people-hub',
     name: 'Impactful Minds (AI Opt)',
     description: 'Biographies and wisdom from the world\'s most powerful and influential people.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconUsers />,
     component: PowerfulPeople,
   },
@@ -346,15 +358,63 @@ export const TOOLS: Tool[] = [
     id: 'fact-hub',
     name: 'Fact Vault (AI Opt)',
     description: 'Expand your knowledge with mind-bending facts and trivia.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconInfo />,
     component: RandomFacts,
+  },
+  {
+    id: 'plant-hub',
+    name: 'Botanical Lab (AI Opt)',
+    description: 'Explore diverse flora and plant species from around the world.',
+    category: 'Daily Pulse',
+    icon: <IconLeaf />,
+    component: PlantHub,
+  },
+  {
+    id: 'bird-hub',
+    name: 'Avian Explorer (AI Opt)',
+    description: 'Discover unique bird species and their natural habitats.',
+    category: 'Daily Pulse',
+    icon: <IconBird />,
+    component: BirdHub,
+  },
+  {
+    id: 'animal-hub',
+    name: 'Wildlife Tracker (AI Opt)',
+    description: 'In-depth look at creatures across the globe, from savanna to sea.',
+    category: 'Daily Pulse',
+    icon: <IconAnimal />,
+    component: AnimalHub,
+  },
+  {
+    id: 'space-hub',
+    name: 'Cosmic Voyager (AI Opt)',
+    description: 'Explore planets, stars, and the latest in space exploration.',
+    category: 'Daily Pulse',
+    icon: <IconMoon />,
+    component: SpaceHub,
+  },
+  {
+    id: 'word-hub',
+    name: 'Lexical Forge (AI Opt)',
+    description: 'Discover obscure words, definitions, and their linguistic origins.',
+    category: 'Daily Pulse',
+    icon: <IconType />,
+    component: WordHub,
+  },
+  {
+    id: 'kural-hub',
+    name: 'Kural Wisdom (AI Opt)',
+    description: 'Ancient ethical teachings from the Tirukural with modern translations.',
+    category: 'Daily Pulse',
+    icon: <IconWisdom />,
+    component: TirukuralHub,
   },
   {
     id: 'currency-conv',
     name: 'Currency Converter (AI Opt)',
     description: 'Convert between world currencies with live rates and AI-powered market sentiment analysis.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconTool />,
     component: CurrencyConverter,
   },
@@ -362,7 +422,7 @@ export const TOOLS: Tool[] = [
     id: 'weather-forecaster',
     name: 'Weather Forecaster (AI Opt)',
     description: 'Current weather and 7-day forecast for any city with AI-powered travel and outfit advice.',
-    category: 'Time & Date',
+    category: 'Daily Pulse',
     icon: <IconTimer />,
     component: WeatherForecaster,
   },
@@ -953,7 +1013,7 @@ export const CATEGORIES: Category[] = [
   'Text Tools',
   'Unit Converters',
   'Theme Generator',
-  'Time & Date',
+  'Daily Pulse',
   'Social Tools',
   'Utilities'
 ];

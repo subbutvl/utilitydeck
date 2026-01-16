@@ -2,34 +2,33 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleGenAI, Type } from "@google/genai";
 
-interface Show {
-  title: string;
-  years: string;
-  genre: string;
+interface SpaceObject {
+  name: string;
+  type: string;
+  distance: string;
   description: string;
 }
 
-const STATIC_SHOWS: Show[] = [
-  { title: "Breaking Bad", years: "2008–2013", genre: "Drama", description: "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future." },
-  { title: "Succession", years: "2018–2023", genre: "Drama", description: "The Roy family is known for controlling the biggest media and entertainment company in the world. However, their world changes when their father steps down from the company." },
-  { title: "The Bear", years: "2022–", genre: "Comedy", description: "A young chef from the fine dining world comes home to Chicago to run his family sandwich shop after a heartbreaking death in his family." },
-  { title: "Severance", years: "2022–", genre: "Sci-Fi", description: "Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives." }
+const STATIC_SPACE: SpaceObject[] = [
+  { name: "Andromeda Galaxy", type: "Spiral Galaxy", distance: "2.537 Million Light Years", description: "The nearest large galaxy to our Milky Way, expected to collide with us in about 4.5 billion years." },
+  { name: "Pillars of Creation", type: "Nebula", distance: "6,500 Light Years", description: "A famous region of the Eagle Nebula where stars are actively forming inside giant clouds of gas and dust." },
+  { name: "Sagittarius A*", type: "Supermassive Black Hole", distance: "26,670 Light Years", description: "The massive black hole at the center of the Milky Way, recently imaged by the Event Horizon Telescope." },
+  { name: "Europa", type: "Moon of Jupiter", distance: "628 Million km", description: "An icy moon believed to have a subsurface liquid water ocean that could potentially harbor life." }
 ];
 
-export const TvShowRecommendation: React.FC = () => {
-  const [primary, setPrimary] = useState<Show | null>(null);
-  const [secondary, setSecondary] = useState<Show[]>([]);
+export const SpaceHub: React.FC = () => {
+  const [primary, setPrimary] = useState<SpaceObject | null>(null);
+  const [secondary, setSecondary] = useState<SpaceObject[]>([]);
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<'static' | 'ai'>('static');
-  const [category, setCategory] = useState('Drama');
+  const [category, setCategory] = useState('Planets');
 
-  const categories = ['Drama', 'Sitcom', 'Thriller', 'Animation', 'Reality', 'Mystery'];
+  const categories = ['Planets', 'Nebulae', 'Stars', 'Missions', 'Galaxies', 'Exoplanets'];
 
   const fetchStatic = () => {
     setLoading(true);
     setTimeout(() => {
-      const pool = STATIC_SHOWS.filter(s => s.genre === category || category === 'All').length > 0 ? STATIC_SHOWS.filter(s => s.genre === category) : STATIC_SHOWS;
-      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      const shuffled = [...STATIC_SPACE].sort(() => 0.5 - Math.random());
       setPrimary(shuffled[0]);
       setSecondary(shuffled.slice(1, 4));
       setLoading(false);
@@ -42,7 +41,7 @@ export const TvShowRecommendation: React.FC = () => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
-        contents: `Recommend 4 TV shows in the "${category}" genre. One primary and three additional. Return as JSON array of objects with 'title', 'years', 'genre', 'description'.`,
+        contents: `Recommend 4 celestial objects or missions in the "${category}" category. One primary and three additional. Return as JSON array of objects with 'name', 'type', 'distance', 'description'.`,
         config: {
           responseMimeType: "application/json",
           responseSchema: {
@@ -50,12 +49,12 @@ export const TvShowRecommendation: React.FC = () => {
             items: {
               type: Type.OBJECT,
               properties: {
-                title: { type: Type.STRING },
-                years: { type: Type.STRING },
-                genre: { type: Type.STRING },
+                name: { type: Type.STRING },
+                type: { type: Type.STRING },
+                distance: { type: Type.STRING },
                 description: { type: Type.STRING }
               },
-              required: ['title', 'years', 'genre', 'description']
+              required: ['name', 'type', 'distance', 'description']
             }
           }
         }
@@ -75,7 +74,7 @@ export const TvShowRecommendation: React.FC = () => {
   }, [category, mode]);
 
   const resetAll = () => {
-    setCategory('Drama');
+    setCategory('Planets');
     setMode('static');
   };
 
@@ -108,19 +107,19 @@ export const TvShowRecommendation: React.FC = () => {
       <div className="flex-1 overflow-auto space-y-8 pb-20">
         {loading ? (
           <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Connecting Feed...</span>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Warping Through Space...</span>
           </div>
         ) : primary ? (
           <section className="bg-[#0d0d0d] border border-neutral-800 p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             </div>
             <div className="max-w-3xl space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 border border-indigo-500/20 font-bold uppercase tracking-widest">{primary.genre}</span>
-                <span className="text-[10px] text-neutral-600 font-mono">{primary.years}</span>
+                <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 border border-purple-500/20 font-bold uppercase tracking-widest">{primary.type}</span>
+                <span className="text-[10px] text-neutral-600 font-mono">{primary.distance}</span>
               </div>
-              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.title}</h2>
+              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.name}</h2>
               <p className="text-lg text-neutral-400 leading-relaxed italic">{primary.description}</p>
             </div>
           </section>
@@ -130,10 +129,10 @@ export const TvShowRecommendation: React.FC = () => {
           {secondary.map((s, i) => (
             <div key={i} className="bg-[#111] border border-neutral-800 p-6 space-y-3 hover:border-neutral-600 transition-colors">
               <div className="flex justify-between items-start">
-                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">{s.genre}</span>
-                <span className="text-[9px] text-neutral-700 font-mono">{s.years}</span>
+                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest truncate max-w-[120px]">{s.type}</span>
+                <span className="text-[9px] text-neutral-700 font-mono">/ target</span>
               </div>
-              <h3 className="text-base font-bold text-neutral-200">{s.title}</h3>
+              <h3 className="text-base font-bold text-neutral-200">{s.name}</h3>
               <p className="text-xs text-neutral-500 line-clamp-2">{s.description}</p>
             </div>
           ))}

@@ -2,34 +2,33 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleGenAI, Type } from "@google/genai";
 
-interface Show {
-  title: string;
-  years: string;
-  genre: string;
+interface Bird {
+  name: string;
+  species: string;
+  habitat: string;
   description: string;
 }
 
-const STATIC_SHOWS: Show[] = [
-  { title: "Breaking Bad", years: "2008–2013", genre: "Drama", description: "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future." },
-  { title: "Succession", years: "2018–2023", genre: "Drama", description: "The Roy family is known for controlling the biggest media and entertainment company in the world. However, their world changes when their father steps down from the company." },
-  { title: "The Bear", years: "2022–", genre: "Comedy", description: "A young chef from the fine dining world comes home to Chicago to run his family sandwich shop after a heartbreaking death in his family." },
-  { title: "Severance", years: "2022–", genre: "Sci-Fi", description: "Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives." }
+const STATIC_BIRDS: Bird[] = [
+  { name: "Peregrine Falcon", species: "Falco peregrinus", habitat: "Mountains & Cliffs", description: "The fastest animal on the planet, reaching speeds of over 200 mph during its characteristic hunting dive." },
+  { name: "Kingfisher", species: "Alcedinidae", habitat: "Rivers & Lakes", description: "Small brightly colored birds known for their ability to dive into water to catch fish with great precision." },
+  { name: "Great Horned Owl", species: "Bubo virginianus", habitat: "Woodlands", description: "Powerful predator with distinctive ear tufts and large yellow eyes, capable of hunting prey much larger than itself." },
+  { name: "Flamingo", species: "Phoenicopterus", habitat: "Saline Lagoons", description: "Tall pink birds known for standing on one leg and filter-feeding in shallow alkaline waters." }
 ];
 
-export const TvShowRecommendation: React.FC = () => {
-  const [primary, setPrimary] = useState<Show | null>(null);
-  const [secondary, setSecondary] = useState<Show[]>([]);
+export const BirdHub: React.FC = () => {
+  const [primary, setPrimary] = useState<Bird | null>(null);
+  const [secondary, setSecondary] = useState<Bird[]>([]);
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<'static' | 'ai'>('static');
-  const [category, setCategory] = useState('Drama');
+  const [category, setCategory] = useState('Songbirds');
 
-  const categories = ['Drama', 'Sitcom', 'Thriller', 'Animation', 'Reality', 'Mystery'];
+  const categories = ['Songbirds', 'Raptors', 'Tropical', 'Urban', 'Waterfowl', 'Flightless'];
 
   const fetchStatic = () => {
     setLoading(true);
     setTimeout(() => {
-      const pool = STATIC_SHOWS.filter(s => s.genre === category || category === 'All').length > 0 ? STATIC_SHOWS.filter(s => s.genre === category) : STATIC_SHOWS;
-      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      const shuffled = [...STATIC_BIRDS].sort(() => 0.5 - Math.random());
       setPrimary(shuffled[0]);
       setSecondary(shuffled.slice(1, 4));
       setLoading(false);
@@ -42,7 +41,7 @@ export const TvShowRecommendation: React.FC = () => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
-        contents: `Recommend 4 TV shows in the "${category}" genre. One primary and three additional. Return as JSON array of objects with 'title', 'years', 'genre', 'description'.`,
+        contents: `Recommend 4 birds in the "${category}" category. One primary and three additional. Return as JSON array of objects with 'name', 'species', 'habitat', 'description'.`,
         config: {
           responseMimeType: "application/json",
           responseSchema: {
@@ -50,12 +49,12 @@ export const TvShowRecommendation: React.FC = () => {
             items: {
               type: Type.OBJECT,
               properties: {
-                title: { type: Type.STRING },
-                years: { type: Type.STRING },
-                genre: { type: Type.STRING },
+                name: { type: Type.STRING },
+                species: { type: Type.STRING },
+                habitat: { type: Type.STRING },
                 description: { type: Type.STRING }
               },
-              required: ['title', 'years', 'genre', 'description']
+              required: ['name', 'species', 'habitat', 'description']
             }
           }
         }
@@ -75,7 +74,7 @@ export const TvShowRecommendation: React.FC = () => {
   }, [category, mode]);
 
   const resetAll = () => {
-    setCategory('Drama');
+    setCategory('Songbirds');
     setMode('static');
   };
 
@@ -108,33 +107,33 @@ export const TvShowRecommendation: React.FC = () => {
       <div className="flex-1 overflow-auto space-y-8 pb-20">
         {loading ? (
           <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Connecting Feed...</span>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Tracking Migration...</span>
           </div>
         ) : primary ? (
           <section className="bg-[#0d0d0d] border border-neutral-800 p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><path d="M16 7c-1.5 0-3-1-4.5-2a4.66 4.66 0 0 0-6.06 1.15c-.45.54-.51 1.25-.13 1.84.44.66.71 1.43.78 2.22l.14 1.5c.12 1.25.53 2.45 1.2 3.53l.36.57c.56.88 1.55 1.41 2.61 1.4h3.6c.92 0 1.8-.4 2.4-1.1l2.4-2.8a4.13 4.13 0 0 0 1.05-3.04c-.11-1.3-.87-2.45-1.99-3.11l-1.05-.62A3.26 3.26 0 0 0 16 7z"/><path d="m11 13 4-2"/></svg>
             </div>
             <div className="max-w-3xl space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 border border-indigo-500/20 font-bold uppercase tracking-widest">{primary.genre}</span>
-                <span className="text-[10px] text-neutral-600 font-mono">{primary.years}</span>
+                <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-0.5 border border-blue-500/20 font-bold uppercase tracking-widest">{primary.habitat}</span>
+                <span className="text-[10px] text-neutral-600 font-mono italic">{primary.species}</span>
               </div>
-              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.title}</h2>
+              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.name}</h2>
               <p className="text-lg text-neutral-400 leading-relaxed italic">{primary.description}</p>
             </div>
           </section>
         ) : null}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {secondary.map((s, i) => (
+          {secondary.map((b, i) => (
             <div key={i} className="bg-[#111] border border-neutral-800 p-6 space-y-3 hover:border-neutral-600 transition-colors">
               <div className="flex justify-between items-start">
-                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">{s.genre}</span>
-                <span className="text-[9px] text-neutral-700 font-mono">{s.years}</span>
+                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest truncate max-w-[120px]">{b.habitat}</span>
+                <span className="text-[9px] text-neutral-700 font-mono">/ species</span>
               </div>
-              <h3 className="text-base font-bold text-neutral-200">{s.title}</h3>
-              <p className="text-xs text-neutral-500 line-clamp-2">{s.description}</p>
+              <h3 className="text-base font-bold text-neutral-200">{b.name}</h3>
+              <p className="text-xs text-neutral-500 line-clamp-2">{b.description}</p>
             </div>
           ))}
         </div>

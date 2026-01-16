@@ -2,34 +2,33 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleGenAI, Type } from "@google/genai";
 
-interface Show {
-  title: string;
-  years: string;
-  genre: string;
+interface Plant {
+  name: string;
+  scientificName: string;
+  careLevel: string;
   description: string;
 }
 
-const STATIC_SHOWS: Show[] = [
-  { title: "Breaking Bad", years: "2008–2013", genre: "Drama", description: "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future." },
-  { title: "Succession", years: "2018–2023", genre: "Drama", description: "The Roy family is known for controlling the biggest media and entertainment company in the world. However, their world changes when their father steps down from the company." },
-  { title: "The Bear", years: "2022–", genre: "Comedy", description: "A young chef from the fine dining world comes home to Chicago to run his family sandwich shop after a heartbreaking death in his family." },
-  { title: "Severance", years: "2022–", genre: "Sci-Fi", description: "Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives." }
+const STATIC_PLANTS: Plant[] = [
+  { name: "Monstera Deliciosa", scientificName: "Monstera deliciosa", careLevel: "Moderate", description: "Known as the Swiss Cheese Plant, iconic for its large, heart-shaped leaves with natural holes." },
+  { name: "Snake Plant", scientificName: "Dracaena trifasciata", careLevel: "Easy", description: "Hardy succulent with upright sword-like leaves, perfect for beginners and low-light areas." },
+  { name: "Fiddle Leaf Fig", scientificName: "Ficus lyrata", careLevel: "Difficult", description: "Trendy tree featuring large, glossy leaves shaped like fiddles; requires consistent bright light." },
+  { name: "Spider Plant", scientificName: "Chlorophytum comosum", careLevel: "Easy", description: "A resilient houseplant that produces 'babies' or offsets that trail beautifully from the parent." }
 ];
 
-export const TvShowRecommendation: React.FC = () => {
-  const [primary, setPrimary] = useState<Show | null>(null);
-  const [secondary, setSecondary] = useState<Show[]>([]);
+export const PlantHub: React.FC = () => {
+  const [primary, setPrimary] = useState<Plant | null>(null);
+  const [secondary, setSecondary] = useState<Plant[]>([]);
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<'static' | 'ai'>('static');
-  const [category, setCategory] = useState('Drama');
+  const [category, setCategory] = useState('Indoor');
 
-  const categories = ['Drama', 'Sitcom', 'Thriller', 'Animation', 'Reality', 'Mystery'];
+  const categories = ['Indoor', 'Outdoor', 'Medicinal', 'Rare', 'Succulents', 'Herbs'];
 
   const fetchStatic = () => {
     setLoading(true);
     setTimeout(() => {
-      const pool = STATIC_SHOWS.filter(s => s.genre === category || category === 'All').length > 0 ? STATIC_SHOWS.filter(s => s.genre === category) : STATIC_SHOWS;
-      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      const shuffled = [...STATIC_PLANTS].sort(() => 0.5 - Math.random());
       setPrimary(shuffled[0]);
       setSecondary(shuffled.slice(1, 4));
       setLoading(false);
@@ -42,7 +41,7 @@ export const TvShowRecommendation: React.FC = () => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
-        contents: `Recommend 4 TV shows in the "${category}" genre. One primary and three additional. Return as JSON array of objects with 'title', 'years', 'genre', 'description'.`,
+        contents: `Recommend 4 plants in the "${category}" category. One primary and three additional. Return as JSON array of objects with 'name', 'scientificName', 'careLevel', 'description'.`,
         config: {
           responseMimeType: "application/json",
           responseSchema: {
@@ -50,12 +49,12 @@ export const TvShowRecommendation: React.FC = () => {
             items: {
               type: Type.OBJECT,
               properties: {
-                title: { type: Type.STRING },
-                years: { type: Type.STRING },
-                genre: { type: Type.STRING },
+                name: { type: Type.STRING },
+                scientificName: { type: Type.STRING },
+                careLevel: { type: Type.STRING },
                 description: { type: Type.STRING }
               },
-              required: ['title', 'years', 'genre', 'description']
+              required: ['name', 'scientificName', 'careLevel', 'description']
             }
           }
         }
@@ -75,7 +74,7 @@ export const TvShowRecommendation: React.FC = () => {
   }, [category, mode]);
 
   const resetAll = () => {
-    setCategory('Drama');
+    setCategory('Indoor');
     setMode('static');
   };
 
@@ -108,33 +107,33 @@ export const TvShowRecommendation: React.FC = () => {
       <div className="flex-1 overflow-auto space-y-8 pb-20">
         {loading ? (
           <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Connecting Feed...</span>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Growing Database...</span>
           </div>
         ) : primary ? (
           <section className="bg-[#0d0d0d] border border-neutral-800 p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8-.5 2.2-2 4.2-4.5 5.5L11 20z"/><path d="M11 20c.5-5.5 2-8 5-10"/></svg>
             </div>
             <div className="max-w-3xl space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 border border-indigo-500/20 font-bold uppercase tracking-widest">{primary.genre}</span>
-                <span className="text-[10px] text-neutral-600 font-mono">{primary.years}</span>
+                <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 border border-emerald-500/20 font-bold uppercase tracking-widest">{primary.careLevel} Care</span>
+                <span className="text-[10px] text-neutral-600 font-mono italic">{primary.scientificName}</span>
               </div>
-              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.title}</h2>
+              <h2 className="text-5xl font-bold text-white tracking-tighter">{primary.name}</h2>
               <p className="text-lg text-neutral-400 leading-relaxed italic">{primary.description}</p>
             </div>
           </section>
         ) : null}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {secondary.map((s, i) => (
+          {secondary.map((p, i) => (
             <div key={i} className="bg-[#111] border border-neutral-800 p-6 space-y-3 hover:border-neutral-600 transition-colors">
               <div className="flex justify-between items-start">
-                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">{s.genre}</span>
-                <span className="text-[9px] text-neutral-700 font-mono">{s.years}</span>
+                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">{p.careLevel}</span>
+                <span className="text-[9px] text-neutral-700 font-mono">/ species</span>
               </div>
-              <h3 className="text-base font-bold text-neutral-200">{s.title}</h3>
-              <p className="text-xs text-neutral-500 line-clamp-2">{s.description}</p>
+              <h3 className="text-base font-bold text-neutral-200">{p.name}</h3>
+              <p className="text-xs text-neutral-500 line-clamp-2">{p.description}</p>
             </div>
           ))}
         </div>

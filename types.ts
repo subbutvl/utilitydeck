@@ -9,7 +9,7 @@ export type Category =
   | 'Text Tools' 
   | 'Social Tools' 
   | 'Utilities' 
-  | 'Time & Date'
+  | 'Daily Pulse'
   | 'Unit Converters'
   | 'Theme Generator'
   | 'Photography'

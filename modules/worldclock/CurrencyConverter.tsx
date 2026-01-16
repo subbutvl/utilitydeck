@@ -15,7 +15,6 @@ const CURRENCIES = [
   { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$' },
 ];
 
-// Mock rates for a standard conversion (Non-AI Version)
 const MOCK_RATES: Record<string, number> = {
   'USD': 1, 'EUR': 0.92, 'GBP': 0.79, 'JPY': 150.12, 'INR': 82.95,
   'AUD': 1.53, 'CAD': 1.35, 'CHF': 0.88, 'CNY': 7.19, 'SGD': 1.34
@@ -65,13 +64,16 @@ export const CurrencyConverter: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col gap-6">
+      <div className="bg-indigo-900/20 border border-indigo-500/20 px-4 py-2 text-[10px] text-indigo-300 uppercase font-bold tracking-widest text-center">
+        Currently using mock exchange rates. Real-time dynamic API integration is coming soon.
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
-        {/* Left: Standard Calculator */}
         <div className="lg:col-span-5 flex flex-col gap-6 overflow-y-auto pr-2 pb-10">
           <div className="bg-[#111] border border-neutral-800 p-8 space-y-8">
             <div className="flex justify-between items-center border-b border-neutral-800 pb-2">
               <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest">Exchange Calculator</span>
-              <button onClick={resetAll} className="text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold">Reset All</button>
+              <button onClick={resetAll} className="text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold">Reset</button>
             </div>
             
             <div className="space-y-6">
@@ -150,7 +152,6 @@ export const CurrencyConverter: React.FC = () => {
           </div>
         </div>
 
-        {/* Right: Cross-Rate Table */}
         <div className="lg:col-span-7 flex flex-col gap-4 overflow-y-auto pb-10 pr-1">
           <div className="bg-[#111] border border-neutral-800 overflow-hidden">
             <table className="w-full text-left">
@@ -182,9 +183,6 @@ export const CurrencyConverter: React.FC = () => {
                 })}
               </tbody>
             </table>
-          </div>
-          <div className="p-4 bg-neutral-900/30 border border-neutral-800 text-[9px] text-neutral-700 uppercase tracking-widest font-bold italic text-center">
-            * Rates are for demonstration and may not reflect real-time high-precision market data.
           </div>
         </div>
       </div>
