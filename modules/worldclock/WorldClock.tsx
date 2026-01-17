@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 
 interface ClockProps {
@@ -7,106 +8,31 @@ interface ClockProps {
   sharedLocations?: string[];
 }
 
-// Utility to map IANA regions to ISO 3166-1 alpha-2 country codes
 const getCountryCode = (tz: string): string | null => {
   const map: Record<string, string> = {
-    // North America
     'America/Chicago': 'us', 'America/New_York': 'us', 'America/Los_Angeles': 'us', 
-    'America/Denver': 'us', 'America/Phoenix': 'us', 'America/Anchorage': 'us',
-    'America/Detroit': 'us', 'America/Indianapolis': 'us', 'America/Boise': 'us',
-    'America/Toronto': 'ca', 'America/Vancouver': 'ca', 'America/Winnipeg': 'ca',
-    'America/Mexico_City': 'mx', 'America/Monterrey': 'mx',
-    // Europe
-    'Europe/London': 'gb', 'Europe/Paris': 'fr', 'Europe/Berlin': 'de', 
-    'Europe/Rome': 'it', 'Europe/Madrid': 'es', 'Europe/Amsterdam': 'nl',
-    'Europe/Brussels': 'be', 'Europe/Zurich': 'ch', 'Europe/Vienna': 'at',
-    'Europe/Stockholm': 'se', 'Europe/Oslo': 'no', 'Europe/Helsinki': 'fi',
-    'Europe/Copenhagen': 'dk', 'Europe/Dublin': 'ie', 'Europe/Lisbon': 'pt',
-    'Europe/Athens': 'gr', 'Europe/Istanbul': 'tr', 'Europe/Moscow': 'ru',
-    'Europe/Kyiv': 'ua', 'Europe/Warsaw': 'pl', 'Europe/Prague': 'cz',
-    // Removed duplicate 'Europe/Vienna': 'at' from here
-    'Europe/Budapest': 'hu', 'Europe/Bucharest': 'ro',
-    // Asia
-    'Asia/Tokyo': 'jp', 'Asia/Seoul': 'kr', 'Asia/Shanghai': 'cn', 
-    'Asia/Hong_Kong': 'hk', 'Asia/Singapore': 'sg', 'Asia/Bangkok': 'th',
-    'Asia/Jakarta': 'id', 'Asia/Manila': 'ph', 'Asia/Kolkata': 'in',
-    'Asia/Mumbai': 'in', 'Asia/Dubai': 'ae', 'Asia/Riyadh': 'sa', 
-    'Asia/Jerusalem': 'il', 'Asia/Taipei': 'tw', 'Asia/Ho_Chi_Minh': 'vn',
-    'Asia/Kuala_Lumpur': 'my', 'Asia/Tashkent': 'uz',
-    // Oceania
-    'Australia/Sydney': 'au', 'Australia/Melbourne': 'au', 'Australia/Perth': 'au',
-    'Australia/Brisbane': 'au', 'Australia/Adelaide': 'au', 'Australia/Darwin': 'au',
-    'Pacific/Auckland': 'nz', 'Pacific/Fiji': 'fj', 'Pacific/Honolulu': 'us',
-    // Africa
-    'Africa/Cairo': 'eg', 'Africa/Johannesburg': 'za', 'Africa/Lagos': 'ng',
-    'Africa/Nairobi': 'ke', 'Africa/Casablanca': 'ma', 'Africa/Accra': 'gh',
-    // South America
-    'America/Sao_Paulo': 'br', 'America/Buenos_Aires': 'ar', 'America/Santiago': 'cl',
-    'America/Bogota': 'co', 'America/Lima': 'pe', 'America/Caracas': 've',
-    // Special
-    'UTC': 'un', 'GMT': 'un'
+    'Europe/London': 'gb', 'Europe/Paris': 'fr', 'Asia/Tokyo': 'jp', 'Asia/Kolkata': 'in',
+    'UTC': 'un'
   };
-
   if (map[tz]) return map[tz];
-  
-  const parts = tz.split('/');
-  const region = parts[0];
-  const city = parts.length > 1 ? parts[parts.length - 1] : '';
-
-  // Heuristic for missing cities
-  if (region === 'Europe') return 'eu';
-  if (region === 'Asia') return 'un';
-  if (region === 'America') return 'us';
-
-  return null;
+  return 'un';
 };
 
-const FlagImage: React.FC<{ code: string | null; className?: string }> = ({ code, className = "w-4 h-3" }) => {
-  if (!code || code === 'un') {
-    return (
-      <div className={`${className} bg-neutral-800 flex items-center justify-center text-[8px] border border-neutral-700 shrink-0`}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      </div>
-    );
-  }
-  
-  // Generic EU flag for Europe prefix fallback
-  const finalCode = code === 'eu' ? 'eu' : code.toLowerCase();
-
-  return (
-    <img 
-      src={`https://flagcdn.com/w40/${finalCode}.png`} 
-      srcSet={`https://flagcdn.com/w80/${finalCode}.png 2x`}
-      className={`${className} object-cover border border-white/10 shrink-0 shadow-sm`} 
-      alt={code}
-      onError={(e) => {
-        (e.target as HTMLImageElement).style.display = 'none';
-      }}
-    />
-  );
-};
+const FlagImage: React.FC<{ code: string | null; className?: string }> = ({ code, className = "w-5 h-3.5" }) => (
+  <div className={`${className} bg-neutral-800 flex items-center justify-center text-[8px] border border-neutral-700 shrink-0`}>
+    <img src={`https://flagcdn.com/w40/${(code || 'un').toLowerCase()}.png`} className="object-cover w-full h-full" alt="" onError={(e) => (e.target as any).style.display='none'} />
+  </div>
+);
 
 const TimezoneClock: React.FC<ClockProps> = ({ timezone, onRemove, isMain = false, sharedLocations = [] }) => {
   const [time, setTime] = useState(new Date());
-
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
   const formatter = useMemo(() => new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  }), [timezone]);
-
-  const dateFormatter = useMemo(() => new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    timeZone: timezone, hour: 'numeric', minute: '2-digit', hour12: true,
   }), [timezone]);
 
   const parts = formatter.formatToParts(time);
@@ -117,230 +43,91 @@ const TimezoneClock: React.FC<ClockProps> = ({ timezone, onRemove, isMain = fals
   const hr24 = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: timezone, hour: '2-digit', hour12: false }).format(time));
   const isNight = hr24 >= 18 || hr24 < 6;
 
-  const cleanedLocations = useMemo(() => 
-    sharedLocations
-      .filter(loc => loc !== timezone)
-      .map(loc => ({
-        name: loc.split('/').pop()?.replace('_', ' '),
-        code: getCountryCode(loc)
-      }))
-      .slice(0, 15),
-    [sharedLocations, timezone]
-  );
-
   return (
-    <div className={`border border-neutral-800 bg-[#111] group relative flex flex-col transition-all duration-300 ${isMain ? 'flex-1' : 'w-full md:w-80'}`}>
-      <div className="p-6 pb-4">
-        <div className="flex justify-between items-start mb-4">
-          <div className="flex items-center gap-3">
-             <FlagImage code={getCountryCode(timezone)} className="w-6 h-4.5" />
+    <div className={`border border-neutral-800 bg-[#111] group relative flex flex-col transition-all ${isMain ? 'flex-1' : 'w-full md:w-96'}`}>
+      <div className="p-8 pb-6">
+        <div className="flex justify-between items-start mb-6">
+          <div className="flex items-center gap-4">
+             <FlagImage code={getCountryCode(timezone)} className="w-8 h-5" />
              <div>
-                <h3 className="text-[10px] uppercase font-bold tracking-[0.2em] text-neutral-500">{timezone.split('/').pop()?.replace('_', ' ')}</h3>
-                <p className="text-[9px] text-neutral-600 font-mono">{timezone}</p>
+                <h3 className="text-sm uppercase font-black tracking-[0.2em] text-neutral-400">{timezone.split('/').pop()?.replace('_', ' ')}</h3>
+                <p className="text-xs text-neutral-600 font-mono">{timezone}</p>
              </div>
           </div>
-          <div className="flex gap-2">
-            {onRemove && (
-              <button onClick={onRemove} className="text-neutral-700 hover:text-red-500 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-              </button>
-            )}
-          </div>
+          {onRemove && (
+            <button onClick={onRemove} className="text-neutral-700 hover:text-red-500 p-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+          )}
         </div>
 
-        <div className="flex items-end gap-3">
-          <div className="flex items-baseline gap-1">
-            <span className={`font-mono leading-none tracking-tighter text-white ${isMain ? 'text-7xl' : 'text-5xl'}`}>
+        <div className="flex items-end gap-4">
+          <div className="flex items-baseline gap-2">
+            <span className={`font-mono leading-none tracking-tighter text-white ${isMain ? 'text-9xl' : 'text-7xl'}`}>
               {hourValue}:{minuteValue}
             </span>
-            <span className={`font-bold uppercase tracking-widest text-neutral-500 ml-1 ${isMain ? 'text-xl' : 'text-sm'}`}>
+            <span className={`font-black uppercase tracking-widest text-neutral-500 ${isMain ? 'text-2xl' : 'text-base'}`}>
               {amPmValue}
             </span>
           </div>
-
-          <div className="flex flex-col gap-1 pb-1">
-            <div className="flex items-center gap-2">
-              {isNight ? (
-                <span className="text-blue-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                </span>
-              ) : (
-                <span className="text-yellow-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-                </span>
-              )}
-              <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-600">{isNight ? 'Night' : 'Day'}</span>
-            </div>
-          </div>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-neutral-900 flex justify-between items-center">
-          <span className="text-[10px] text-neutral-500 font-medium uppercase tracking-tight">{dateFormatter.format(time)}</span>
+        <div className="mt-8 pt-6 border-t border-neutral-900 flex justify-between items-center">
+          <span className="text-xs text-neutral-500 font-bold uppercase tracking-widest">
+            {new Intl.DateTimeFormat('en-US', { timeZone: timezone, weekday: 'long', month: 'long', day: 'numeric' }).format(time)}
+          </span>
+          <div className="flex items-center gap-2">
+             {isNight ? <span className="text-blue-500 font-bold text-xs uppercase tracking-widest flex items-center gap-2">Night</span> : <span className="text-yellow-500 font-bold text-xs uppercase tracking-widest flex items-center gap-2">Day</span>}
+          </div>
         </div>
       </div>
-
-      {/* Shared Regions Footer */}
-      {!isMain && cleanedLocations.length > 0 && (
-        <div className="bg-[#090909] border-t border-neutral-800 p-4">
-          <div className="text-[8px] uppercase font-bold text-neutral-700 tracking-widest mb-3 flex items-center gap-2">
-             <div className="w-1 h-1 bg-neutral-800"></div>
-             Regional Neighbors
-          </div>
-          <div className="flex flex-wrap gap-x-4 gap-y-3">
-            {cleanedLocations.map((loc, idx) => (
-              <div key={idx} className="flex items-center gap-2 group/loc transition-all cursor-default">
-                <FlagImage code={loc.code} className="w-4 h-3 shadow-sm grayscale group-hover/loc:grayscale-0 transition-all" />
-                <span className="text-[12px] text-neutral-500 group-hover/loc:text-neutral-200 transition-colors whitespace-nowrap">{loc.name}</span>
-              </div>
-            ))}
-            {sharedLocations.length > 15 && (
-              <span className="text-[10px] text-neutral-700 italic self-center">+{sharedLocations.length - 15} more</span>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
 export const WorldClock: React.FC = () => {
-  const defaultTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const [pinned, setPinned] = useState<string[]>(['UTC', 'America/New_York', 'Asia/Tokyo', 'Europe/London', 'America/Chicago']);
+  const [pinned, setPinned] = useState<string[]>(['UTC', 'America/New_York', 'Asia/Tokyo', 'Europe/London']);
   const [search, setSearch] = useState('');
-
-  const allTimezones = useMemo(() => (Intl as any).supportedValuesOf('timeZone'), []);
-  
-  const filtered = useMemo(() => 
-    allTimezones.filter((tz: string) => 
-      tz.toLowerCase().includes(search.toLowerCase()) && !pinned.includes(tz)
-    ).slice(0, 10),
-  [search, pinned, allTimezones]);
-
-  // Group all timezones by their current time string to find shared zones
-  const sharedZoneMap = useMemo(() => {
-    const map: Record<string, string[]> = {};
-    const now = new Date();
-    allTimezones.forEach((tz: string) => {
-      try {
-        const timeStr = new Intl.DateTimeFormat('en-US', {
-          timeZone: tz,
-          hour: 'numeric',
-          minute: 'numeric',
-        }).format(now);
-        if (!map[timeStr]) map[timeStr] = [];
-        map[timeStr].push(tz);
-      } catch (e) {}
-    });
-    return map;
-  }, [allTimezones]);
-
-  const getSharedZones = (tz: string) => {
-    const now = new Date();
-    try {
-      const timeStr = new Intl.DateTimeFormat('en-US', {
-        timeZone: tz,
-        hour: 'numeric',
-        minute: 'numeric',
-      }).format(now);
-      return sharedZoneMap[timeStr] || [];
-    } catch (e) {
-      return [];
-    }
-  };
-
-  const addTz = (tz: string) => {
-    setPinned([...pinned, tz]);
-    setSearch('');
-  };
-
-  const removeTz = (tz: string) => {
-    setPinned(pinned.filter(t => t !== tz));
-  };
+  const allTimezones = (Intl as any).supportedValuesOf('timeZone');
 
   return (
-    <div className="h-full flex flex-col gap-6">
-      {/* Search Header */}
-      <div className="bg-[#111] border border-neutral-800 p-4 flex flex-col md:flex-row items-center gap-4">
+    <div className="h-full flex flex-col gap-8">
+      <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col md:flex-row items-center gap-6">
         <div className="relative flex-1 w-full">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-600">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </div>
           <input 
             type="text" 
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search Global Regions (e.g. Chicago, London, Tokyo)..."
-            className="w-full bg-black border border-neutral-800 p-3 pl-11 text-sm focus:border-neutral-500 outline-none transition-colors"
+            placeholder="Search Global Stations (e.g. London, Tokyo)..."
+            className="w-full bg-black border border-neutral-800 p-4 pl-12 text-base focus:border-neutral-500 outline-none"
           />
-          {search && (
-            <div className="absolute top-full left-0 w-full bg-[#111] border border-neutral-800 mt-1 z-50 shadow-2xl">
-              <div className="p-2 border-b border-neutral-800 bg-neutral-900 text-[9px] uppercase font-bold text-neutral-500 tracking-widest">Select IANA Location</div>
-              {filtered.map((tz: string) => (
-                <button 
-                  key={tz}
-                  onClick={() => addTz(tz)}
-                  className="w-full text-left p-3 text-xs hover:bg-neutral-800 border-b border-neutral-900 last:border-0 transition-colors flex justify-between items-center"
-                >
-                  <span className="flex items-center gap-3">
-                    <FlagImage code={getCountryCode(tz)} />
-                    {tz}
-                  </span>
-                  <span className="text-[10px] text-neutral-600 opacity-0 hover:opacity-100">+ Add</span>
-                </button>
-              ))}
-              {filtered.length === 0 && (
-                <div className="p-6 text-center space-y-2">
-                  <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">No match found</p>
-                  <p className="text-[11px] text-neutral-600 italic">Try a major hub like <span className="text-white">"Chicago"</span> for Oklahoma time.</p>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-700">
+             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
         </div>
-        <div className="text-[10px] uppercase font-bold text-neutral-600 tracking-widest px-4 border-l border-neutral-800 h-8 flex items-center shrink-0">
-          System: {defaultTz}
+        <div className="text-xs uppercase font-black text-neutral-600 tracking-[0.3em] px-6 border-l border-neutral-800 h-10 flex items-center shrink-0">
+          Sync Status: Active
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto space-y-12 pr-1 pb-20 no-scrollbar">
+      <div className="flex-1 overflow-auto space-y-12 pr-2 pb-20 no-scrollbar">
         <section>
-          <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-600 whitespace-nowrap">Local Station</h2>
-            <div className="h-[1px] w-full bg-neutral-900"></div>
+          <div className="flex items-center gap-6 mb-6">
+            <h2 className="text-xs uppercase tracking-[0.4em] font-black text-neutral-500 whitespace-nowrap">Local Link</h2>
+            <div className="h-px w-full bg-neutral-900"></div>
           </div>
-          <div className="flex">
-            <TimezoneClock timezone={defaultTz} isMain />
-          </div>
+          <TimezoneClock timezone={Intl.DateTimeFormat().resolvedOptions().timeZone} isMain />
         </section>
 
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4 flex-1">
-              <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-600 whitespace-nowrap">Monitored Zones</h2>
-              <div className="h-[1px] w-full bg-neutral-900"></div>
-            </div>
-            <span className="text-[10px] text-neutral-700 italic font-mono ml-4">{pinned.length} active</span>
+          <div className="flex items-center gap-6 mb-6">
+            <h2 className="text-xs uppercase tracking-[0.4em] font-black text-neutral-500 whitespace-nowrap">Monitored Matrix</h2>
+            <div className="h-px w-full bg-neutral-900"></div>
           </div>
-          <div className="flex flex-wrap gap-4">
-            {pinned.map(tz => (
-              <TimezoneClock 
-                key={tz} 
-                timezone={tz} 
-                onRemove={() => removeTz(tz)} 
-                sharedLocations={getSharedZones(tz)}
-              />
-            ))}
-            {pinned.length === 0 && (
-              <div className="w-full h-32 border border-dashed border-neutral-800 flex items-center justify-center opacity-30 italic text-xs uppercase tracking-widest">
-                No active monitors.
-              </div>
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pinned.map(tz => <TimezoneClock key={tz} timezone={tz} onRemove={() => setPinned(pinned.filter(t => t !== tz))} />)}
           </div>
         </section>
-      </div>
-
-      <div className="bg-neutral-900/30 p-3 border border-neutral-800 text-[10px] text-neutral-700 uppercase tracking-[0.2em] font-bold text-center">
-        * "Regional Neighbors" lists other major cities sharing the exact current time.
       </div>
     </div>
   );
