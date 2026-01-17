@@ -1,89 +1,105 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SwissKnife Utility Kit</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        @font-face {
-            font-family: 'Google Sans';
-            src: local('Google Sans'), local('GoogleSans-Regular');
-            font-weight: 400;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Google Sans';
-            src: local('Google Sans Medium'), local('GoogleSans-Medium');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Google Sans';
-            src: local('Google Sans Bold'), local('GoogleSans-Bold');
-            font-weight: 700;
-            font-style: normal;
-        }
+      @font-face {
+        font-family: "Google Sans";
+        src: local("Google Sans"), local("GoogleSans-Regular");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Google Sans";
+        src: local("Google Sans Medium"), local("GoogleSans-Medium");
+        font-weight: 500;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Google Sans";
+        src: local("Google Sans Bold"), local("GoogleSans-Bold");
+        font-weight: 700;
+        font-style: normal;
+      }
 
-        body {
-            /* Prioritize Google Sans, fallback to Inter */
-            font-family: 'Google Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 14px;
-            background-color: #0a0a0a;
-            color: #e5e5e5;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        /* Prioritize Google Sans, fallback to Inter */
+        font-family:
+          "Google Sans",
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 14px;
+        background-color: #0a0a0a;
+        color: #e5e5e5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin: 0;
+        padding: 0;
+      }
 
-        /* Enforce 14px globally for common elements */
-        button, input, textarea, select {
-            font-family: inherit;
-            font-size: 14px;
-        }
+      /* Enforce 14px globally for common elements */
+      button,
+      input,
+      textarea,
+      select {
+        font-family: inherit;
+        font-size: 14px;
+      }
 
-        /* Minimal border radius enforcement */
-        .rounded-none { border-radius: 0px !important; }
-        .rounded-sm { border-radius: 1px !important; }
-        .rounded { border-radius: 2px !important; }
+      /* Minimal border radius enforcement */
+      .rounded-none {
+        border-radius: 0px !important;
+      }
+      .rounded-sm {
+        border-radius: 1px !important;
+      }
+      .rounded {
+        border-radius: 2px !important;
+      }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #262626;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #404040;
-        }
-        .dots-grid {
-            background-image: radial-gradient(#7c7c7c2a 1px, #0a0a0a 1px);
-            background-size: 24px 24px;
-        }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #262626;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #404040;
+      }
+      .dots-grid {
+        background-image: radial-gradient(#7c7c7c2a 1px, #0a0a0a 1px);
+        background-size: 24px 24px;
+      }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
-  }
-}
-</script>
-</head>
-<body class="overflow-hidden">
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@^19.2.3",
+          "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+          "react/": "https://esm.sh/react@^19.2.3/",
+          "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
+        }
+      }
+    </script>
+  </head>
+  <body class="overflow-hidden">
     <div id="root"></div>
     <!-- Entry point script to boot the application -->
     <script type="module" src="./index.tsx"></script>
-</body>
+  </body>
 </html>
