@@ -1,89 +1,200 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      UtilityDeck - The All-In-One Digital Toolkit | Transform Anything,
+      Instantly
+    </title>
+    <meta
+      name="title"
+      content="UtilityDeck - The All-In-One Digital Toolkit | Transform Anything, Instantly"
+    />
+    <meta
+      name="description"
+      content="UtilityDeck is your free online command center. Access a complete suite of tools for image manipulation, video conversion, text formatting, and developer utilities. No installs, just results."
+    />
+    <meta
+      name="keywords"
+      content="utilitydeck, online tools, image converter, video converter, case converter, text counter, developer tools, free web utilities, productivity dashboard, file manipulation, digital toolkit"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="English" />
+    <meta name="author" content="Subramanian" />
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwissKnife Utility Kit</title>
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://subramanian.xyz/_projects/all-in-one/"
+    />
+    <meta
+      property="og:title"
+      content="UtilityDeck - The All-In-One Digital Toolkit | Transform Anything, Instantly"
+    />
+    <meta
+      property="og:description"
+      content="Stop searching for scattered tools. UtilityDeck gives you image, video, and text utilities in one clean dashboard. Free, fast, and private."
+    />
+    <meta
+      property="og:image"
+      content="https://subramanian.xyz/_projects/all-in-one/assets/utilitydeck-preview.png"
+    />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://subramanian.xyz/_projects/all-in-one/"
+    />
+    <meta
+      property="twitter:title"
+      content="UtilityDeck - The Only Toolkit You Need"
+    />
+    <meta
+      property="twitter:description"
+      content="Convert files, format text, and edit images instantly. Your new favorite productivity dashboard."
+    />
+    <meta
+      property="twitter:image"
+      content="https://subramanian.xyz/_projects/all-in-one/assets/utilitydeck-preview.png"
+    />
+
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gppgle+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gppgle+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        @font-face {
-            font-family: 'Google Sans';
-            src: local('Google Sans'), local('GoogleSans-Regular');
-            font-weight: 400;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Google Sans';
-            src: local('Google Sans Medium'), local('GoogleSans-Medium');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Google Sans';
-            src: local('Google Sans Bold'), local('GoogleSans-Bold');
-            font-weight: 700;
-            font-style: normal;
-        }
+      /* Theme: light (default when data-theme="light") */
+      :root {
+        --bg-page: #fafafa;
+        --bg-card: #f5f5f5;
+        --bg-input: #ffffff;
+        --bg-hover: #e5e5e5;
+        --text-primary: #171717;
+        --text-muted: #737373;
+        --border: #d4d4d4;
+        --border-hover: #a3a3a3;
+        --accent: #6366f1;
+        --accent-hover: #818cf8;
+        --dots-dot: #a3a3a32a;
+        --dots-bg: #fafafa;
+        --scrollbar-track: #fafafa;
+        --scrollbar-thumb: #d4d4d4;
+        --scrollbar-thumb-hover: #a3a3a3;
+      }
 
-        body {
-            /* Prioritize Google Sans, fallback to Inter */
-            font-family: 'Google Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 14px;
-            background-color: #0a0a0a;
-            color: #e5e5e5;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            margin: 0;
-            padding: 0;
-        }
+      /* Theme: dark (current look) */
+      [data-theme="dark"] {
+        --bg-page: #0a0a0a;
+        --bg-card: #111111;
+        --bg-input: #0a0a0a;
+        --bg-hover: #262626;
+        --text-primary: #e5e5e5;
+        --text-muted: #737373;
+        --border: #262626;
+        --border-hover: #525252;
+        --accent: #818cf8;
+        --accent-hover: #a5b4fc;
+        --dots-dot: #7c7c7c2a;
+        --dots-bg: #0a0a0a;
+        --scrollbar-track: #0a0a0a;
+        --scrollbar-thumb: #262626;
+        --scrollbar-thumb-hover: #404040;
+      }
 
-        /* Enforce 14px globally for common elements */
-        button, input, textarea, select {
-            font-family: inherit;
-            font-size: 14px;
-        }
+      @font-face {
+        font-family: "Google Sans";
+        src: local("Google Sans"), local("GoogleSans-Regular");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Google Sans";
+        src: local("Google Sans Medium"), local("GoogleSans-Medium");
+        font-weight: 500;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Google Sans";
+        src: local("Google Sans Bold"), local("GoogleSans-Bold");
+        font-weight: 700;
+        font-style: normal;
+      }
 
-        /* Minimal border radius enforcement */
-        .rounded-none { border-radius: 0px !important; }
-        .rounded-sm { border-radius: 1px !important; }
-        .rounded { border-radius: 2px !important; }
+      body {
+        font-family:
+          "Google Sans",
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 14px;
+        background-color: var(--bg-page);
+        color: var(--text-primary);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin: 0;
+        padding: 0;
+      }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #262626;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #404040;
-        }
-        .dots-grid {
-            background-image: radial-gradient(#7c7c7c2a 1px, #0a0a0a 1px);
-            background-size: 24px 24px;
-        }
+      button,
+      input,
+      textarea,
+      select {
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      .rounded-none {
+        border-radius: 0px !important;
+      }
+      .rounded-sm {
+        border-radius: 1px !important;
+      }
+      .rounded {
+        border-radius: 2px !important;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-thumb-hover);
+      }
+      .dots-grid {
+        background-image: radial-gradient(
+          var(--dots-dot) 1px,
+          var(--dots-bg) 1px
+        );
+        background-size: 24px 24px;
+      }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
-  }
-}
-</script>
-</head>
-<body class="overflow-hidden">
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@^19.2.3",
+          "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+          "react/": "https://esm.sh/react@^19.2.3/",
+          "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
+        }
+      }
+    </script>
+  </head>
+  <body class="overflow-hidden">
     <div id="root"></div>
     <!-- Entry point script to boot the application -->
     <script type="module" src="./index.tsx"></script>
-</body>
+  </body>
 </html>

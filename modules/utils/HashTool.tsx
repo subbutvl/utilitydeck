@@ -116,27 +116,27 @@ export const HashTool: React.FC<HashToolProps> = ({ algorithm }) => {
   return (
     <div className="h-full flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <label className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Input String</label>
+        <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Input String</label>
         <textarea 
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="h-32 bg-neutral-900 border border-neutral-800 p-4 font-mono text-xs text-neutral-300 focus:outline-none focus:border-neutral-600 resize-none rounded-none"
+          className="h-32 bg-[var(--bg-card)] border border-[var(--border)] p-4 font-mono text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)] resize-none rounded-none"
           placeholder="Paste text here to generate hash..."
         />
       </div>
       <div className="flex flex-col gap-2 flex-1 min-h-0">
-        <label className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">{algorithm} Result</label>
+        <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">{algorithm} Result</label>
         <div className="flex-1 relative">
           <textarea 
             readOnly
             value={hash}
-            className="w-full h-full bg-neutral-900 border border-neutral-800 p-4 font-mono text-xs text-neutral-400 focus:outline-none resize-none rounded-none"
+            className="w-full h-full bg-[var(--bg-card)] border border-[var(--border)] p-4 font-mono text-xs text-[var(--text-muted)] focus:outline-none resize-none rounded-none"
             placeholder="Result will appear here..."
           />
           {hash && (
             <button 
               onClick={() => navigator.clipboard.writeText(hash)}
-              className="absolute top-3 right-3 px-4 py-1.5 bg-neutral-800 border border-neutral-700 text-[9px] uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+              className="absolute top-3 right-3 px-4 py-1.5 bg-[var(--bg-hover)] border border-[var(--border)] text-[9px] uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
             >
               Copy
             </button>

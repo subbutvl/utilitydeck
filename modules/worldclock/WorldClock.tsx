@@ -64,7 +64,7 @@ const getCountryCode = (tz: string): string | null => {
 const FlagImage: React.FC<{ code: string | null; className?: string }> = ({ code, className = "w-4 h-3" }) => {
   if (!code || code === 'un') {
     return (
-      <div className={`${className} bg-neutral-800 flex items-center justify-center text-[8px] border border-neutral-700 shrink-0`}>
+      <div className={`${className} bg-[var(--bg-hover)] flex items-center justify-center text-[8px] border border-[var(--border)] shrink-0`}>
         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       </div>
     );
@@ -129,19 +129,19 @@ const TimezoneClock: React.FC<ClockProps> = ({ timezone, onRemove, isMain = fals
   );
 
   return (
-    <div className={`border border-neutral-800 bg-[#111] group relative flex flex-col transition-all duration-300 ${isMain ? 'flex-1' : 'w-full md:w-80'}`}>
+    <div className={`border border-[var(--border)] bg-[var(--bg-card)] group relative flex flex-col transition-all duration-300 ${isMain ? 'flex-1' : 'w-full md:w-80'}`}>
       <div className="p-6 pb-4">
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-3">
              <FlagImage code={getCountryCode(timezone)} className="w-6 h-4.5" />
              <div>
-                <h3 className="text-[10px] uppercase font-bold tracking-[0.2em] text-neutral-500">{timezone.split('/').pop()?.replace('_', ' ')}</h3>
-                <p className="text-[9px] text-neutral-600 font-mono">{timezone}</p>
+                <h3 className="text-[10px] uppercase font-bold tracking-[0.2em] text-[var(--text-muted)]">{timezone.split('/').pop()?.replace('_', ' ')}</h3>
+                <p className="text-[9px] text-[var(--text-muted)] font-mono">{timezone}</p>
              </div>
           </div>
           <div className="flex gap-2">
             {onRemove && (
-              <button onClick={onRemove} className="text-neutral-700 hover:text-red-500 transition-colors">
+              <button onClick={onRemove} className="text-[var(--text-muted)] hover:text-red-500 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
               </button>
             )}
@@ -150,10 +150,10 @@ const TimezoneClock: React.FC<ClockProps> = ({ timezone, onRemove, isMain = fals
 
         <div className="flex items-end gap-3">
           <div className="flex items-baseline gap-1">
-            <span className={`font-mono leading-none tracking-tighter text-white ${isMain ? 'text-7xl' : 'text-5xl'}`}>
+            <span className={`font-mono leading-none tracking-tighter text-[var(--text-primary)] ${isMain ? 'text-7xl' : 'text-5xl'}`}>
               {hourValue}:{minuteValue}
             </span>
-            <span className={`font-bold uppercase tracking-widest text-neutral-500 ml-1 ${isMain ? 'text-xl' : 'text-sm'}`}>
+            <span className={`font-bold uppercase tracking-widest text-[var(--text-muted)] ml-1 ${isMain ? 'text-xl' : 'text-sm'}`}>
               {amPmValue}
             </span>
           </div>
@@ -169,32 +169,32 @@ const TimezoneClock: React.FC<ClockProps> = ({ timezone, onRemove, isMain = fals
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
                 </span>
               )}
-              <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-600">{isNight ? 'Night' : 'Day'}</span>
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[var(--text-muted)]">{isNight ? 'Night' : 'Day'}</span>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-neutral-900 flex justify-between items-center">
-          <span className="text-[10px] text-neutral-500 font-medium uppercase tracking-tight">{dateFormatter.format(time)}</span>
+        <div className="mt-6 pt-4 border-t border-[var(--border)] flex justify-between items-center">
+          <span className="text-[10px] text-[var(--text-muted)] font-medium uppercase tracking-tight">{dateFormatter.format(time)}</span>
         </div>
       </div>
 
       {/* Shared Regions Footer */}
       {!isMain && cleanedLocations.length > 0 && (
-        <div className="bg-[#090909] border-t border-neutral-800 p-4">
-          <div className="text-[8px] uppercase font-bold text-neutral-700 tracking-widest mb-3 flex items-center gap-2">
-             <div className="w-1 h-1 bg-neutral-800"></div>
+        <div className="bg-[#090909] border-t border-[var(--border)] p-4">
+          <div className="text-[8px] uppercase font-bold text-[var(--text-muted)] tracking-widest mb-3 flex items-center gap-2">
+             <div className="w-1 h-1 bg-[var(--bg-hover)]"></div>
              Regional Neighbors
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-3">
             {cleanedLocations.map((loc, idx) => (
               <div key={idx} className="flex items-center gap-2 group/loc transition-all cursor-default">
                 <FlagImage code={loc.code} className="w-4 h-3 shadow-sm grayscale group-hover/loc:grayscale-0 transition-all" />
-                <span className="text-[12px] text-neutral-500 group-hover/loc:text-neutral-200 transition-colors whitespace-nowrap">{loc.name}</span>
+                <span className="text-[12px] text-[var(--text-muted)] group-hover/loc:text-[var(--text-primary)] transition-colors whitespace-nowrap">{loc.name}</span>
               </div>
             ))}
             {sharedLocations.length > 15 && (
-              <span className="text-[10px] text-neutral-700 italic self-center">+{sharedLocations.length - 15} more</span>
+              <span className="text-[10px] text-[var(--text-muted)] italic self-center">+{sharedLocations.length - 15} more</span>
             )}
           </div>
         </div>
@@ -260,9 +260,9 @@ export const WorldClock: React.FC = () => {
   return (
     <div className="h-full flex flex-col gap-6">
       {/* Search Header */}
-      <div className="bg-[#111] border border-neutral-800 p-4 flex flex-col md:flex-row items-center gap-4">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-4 flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 w-full">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-600">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
           <input 
@@ -270,34 +270,34 @@ export const WorldClock: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search Global Regions (e.g. Chicago, London, Tokyo)..."
-            className="w-full bg-black border border-neutral-800 p-3 pl-11 text-sm focus:border-neutral-500 outline-none transition-colors"
+            className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-3 pl-11 text-sm focus:border-[var(--border-hover)] outline-none transition-colors"
           />
           {search && (
-            <div className="absolute top-full left-0 w-full bg-[#111] border border-neutral-800 mt-1 z-50 shadow-2xl">
-              <div className="p-2 border-b border-neutral-800 bg-neutral-900 text-[9px] uppercase font-bold text-neutral-500 tracking-widest">Select IANA Location</div>
+            <div className="absolute top-full left-0 w-full bg-[var(--bg-card)] border border-[var(--border)] mt-1 z-50 shadow-2xl">
+              <div className="p-2 border-b border-[var(--border)] bg-[var(--bg-card)] text-[9px] uppercase font-bold text-[var(--text-muted)] tracking-widest">Select IANA Location</div>
               {filtered.map((tz: string) => (
                 <button 
                   key={tz}
                   onClick={() => addTz(tz)}
-                  className="w-full text-left p-3 text-xs hover:bg-neutral-800 border-b border-neutral-900 last:border-0 transition-colors flex justify-between items-center"
+                  className="w-full text-left p-3 text-xs hover:bg-[var(--bg-hover)] border-b border-[var(--border)] last:border-0 transition-colors flex justify-between items-center"
                 >
                   <span className="flex items-center gap-3">
                     <FlagImage code={getCountryCode(tz)} />
                     {tz}
                   </span>
-                  <span className="text-[10px] text-neutral-600 opacity-0 hover:opacity-100">+ Add</span>
+                  <span className="text-[10px] text-[var(--text-muted)] opacity-0 hover:opacity-100">+ Add</span>
                 </button>
               ))}
               {filtered.length === 0 && (
                 <div className="p-6 text-center space-y-2">
-                  <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">No match found</p>
-                  <p className="text-[11px] text-neutral-600 italic">Try a major hub like <span className="text-white">"Chicago"</span> for Oklahoma time.</p>
+                  <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-bold">No match found</p>
+                  <p className="text-[11px] text-[var(--text-muted)] italic">Try a major hub like <span className="text-[var(--text-primary)]">"Chicago"</span> for Oklahoma time.</p>
                 </div>
               )}
             </div>
           )}
         </div>
-        <div className="text-[10px] uppercase font-bold text-neutral-600 tracking-widest px-4 border-l border-neutral-800 h-8 flex items-center shrink-0">
+        <div className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-widest px-4 border-l border-[var(--border)] h-8 flex items-center shrink-0">
           System: {defaultTz}
         </div>
       </div>
@@ -305,8 +305,8 @@ export const WorldClock: React.FC = () => {
       <div className="flex-1 overflow-auto space-y-12 pr-1 pb-20 no-scrollbar">
         <section>
           <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-600 whitespace-nowrap">Local Station</h2>
-            <div className="h-[1px] w-full bg-neutral-900"></div>
+            <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-muted)] whitespace-nowrap">Local Station</h2>
+            <div className="h-[1px] w-full bg-[var(--bg-card)]"></div>
           </div>
           <div className="flex">
             <TimezoneClock timezone={defaultTz} isMain />
@@ -316,10 +316,10 @@ export const WorldClock: React.FC = () => {
         <section>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4 flex-1">
-              <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-600 whitespace-nowrap">Monitored Zones</h2>
-              <div className="h-[1px] w-full bg-neutral-900"></div>
+              <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-muted)] whitespace-nowrap">Monitored Zones</h2>
+              <div className="h-[1px] w-full bg-[var(--bg-card)]"></div>
             </div>
-            <span className="text-[10px] text-neutral-700 italic font-mono ml-4">{pinned.length} active</span>
+            <span className="text-[10px] text-[var(--text-muted)] italic font-mono ml-4">{pinned.length} active</span>
           </div>
           <div className="flex flex-wrap gap-4">
             {pinned.map(tz => (
@@ -331,7 +331,7 @@ export const WorldClock: React.FC = () => {
               />
             ))}
             {pinned.length === 0 && (
-              <div className="w-full h-32 border border-dashed border-neutral-800 flex items-center justify-center opacity-30 italic text-xs uppercase tracking-widest">
+              <div className="w-full h-32 border border-dashed border-[var(--border)] flex items-center justify-center opacity-30 italic text-xs uppercase tracking-widest">
                 No active monitors.
               </div>
             )}
@@ -339,7 +339,7 @@ export const WorldClock: React.FC = () => {
         </section>
       </div>
 
-      <div className="bg-neutral-900/30 p-3 border border-neutral-800 text-[10px] text-neutral-700 uppercase tracking-[0.2em] font-bold text-center">
+      <div className="bg-[var(--bg-card)]/30 p-3 border border-[var(--border)] text-[10px] text-[var(--text-muted)] uppercase tracking-[0.2em] font-bold text-center">
         * "Regional Neighbors" lists other major cities sharing the exact current time.
       </div>
     </div>

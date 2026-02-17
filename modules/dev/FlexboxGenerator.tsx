@@ -37,15 +37,15 @@ export const FlexboxGenerator: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
         <div className="lg:col-span-4 space-y-4 overflow-y-auto pr-2">
           {/* Advanced Generator Note */}
-          <div className="bg-neutral-900/50 border border-dashed border-neutral-800 p-4 mb-2">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block mb-1">Notice</span>
-            <p className="text-[11px] text-neutral-600 leading-relaxed italic">
+          <div className="bg-[var(--bg-card)]/50 border border-dashed border-[var(--border)] p-4 mb-2">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block mb-1">Notice</span>
+            <p className="text-[11px] text-[var(--text-muted)] leading-relaxed italic">
               An Advanced Flexbox Generator is coming soon. It will be a separate tool to support deep customization levels.
             </p>
           </div>
 
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
-            <h3 className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest border-b border-neutral-800 pb-2">Flex Container</h3>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
+            <h3 className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest border-b border-[var(--border)] pb-2">Flex Container</h3>
             
             <SelectControl label="Direction" value={direction} options={['row', 'row-reverse', 'column', 'column-reverse']} onChange={setDirection} />
             <SelectControl label="Justify Content" value={justify} options={['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly']} onChange={setJustify} />
@@ -53,34 +53,34 @@ export const FlexboxGenerator: React.FC = () => {
             <SelectControl label="Flex Wrap" value={wrap} options={['nowrap', 'wrap', 'wrap-reverse']} onChange={setWrap} />
             
             <div>
-              <label className="text-[9px] uppercase text-neutral-600 mb-1 flex justify-between">Gap <span>{gap}px</span></label>
-              <input type="range" min="0" max="64" value={gap} onChange={(e) => setGap(parseInt(e.target.value))} className="w-full h-1 bg-neutral-800 appearance-none accent-white" />
+              <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 flex justify-between">Gap <span>{gap}px</span></label>
+              <input type="range" min="0" max="64" value={gap} onChange={(e) => setGap(parseInt(e.target.value))} className="w-full h-1 bg-[var(--bg-hover)] appearance-none accent-white" />
             </div>
 
-            <div className="pt-4 border-t border-neutral-800">
-               <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Mock Items</label>
-               <input type="number" value={itemsCount} onChange={(e) => setItemsCount(Math.max(1, parseInt(e.target.value) || 1))} className="w-full bg-black border border-neutral-800 p-2 text-xs text-white" />
+            <div className="pt-4 border-t border-[var(--border)]">
+               <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Mock Items</label>
+               <input type="number" value={itemsCount} onChange={(e) => setItemsCount(Math.max(1, parseInt(e.target.value) || 1))} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-2 text-xs text-[var(--text-primary)]" />
             </div>
 
             <div className="flex gap-2">
                <button onClick={copyCSS} className="flex-1 py-3 bg-white text-black text-[10px] font-bold uppercase tracking-widest">Copy CSS</button>
-               <button onClick={resetAll} className="px-4 py-3 border border-neutral-800 text-[10px] uppercase text-neutral-600 hover:text-red-500 transition-colors">Reset</button>
+               <button onClick={resetAll} className="px-4 py-3 border border-[var(--border)] text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 transition-colors">Reset</button>
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-8 bg-neutral-900 border border-neutral-800 p-8 flex flex-col">
-          <div className="flex-1 bg-black border border-neutral-800 overflow-auto relative p-4" style={containerStyle}>
+        <div className="lg:col-span-8 bg-[var(--bg-card)] border border-[var(--border)] p-8 flex flex-col">
+          <div className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] overflow-auto relative p-4" style={containerStyle}>
              {Array.from({ length: itemsCount }).map((_, idx) => (
-               <div key={idx} className="min-w-[60px] min-h-[60px] p-4 bg-neutral-900 border border-neutral-700 flex items-center justify-center text-[10px] font-mono text-neutral-500">
+               <div key={idx} className="min-w-[60px] min-h-[60px] p-4 bg-[var(--bg-card)] border border-[var(--border)] flex items-center justify-center text-[10px] font-mono text-[var(--text-muted)]">
                  Item {idx + 1}
                </div>
              ))}
-             <div className="absolute top-2 left-2 text-[8px] uppercase tracking-widest text-neutral-800 font-bold pointer-events-none">Visual Preview</div>
+             <div className="absolute top-2 left-2 text-[8px] uppercase tracking-widest text-[var(--text-muted)] font-bold pointer-events-none">Visual Preview</div>
           </div>
           
-          <div className="mt-4 bg-[#111] border border-neutral-800 p-4">
-             <code className="text-[11px] font-mono text-neutral-500">
+          <div className="mt-4 bg-[var(--bg-card)] border border-[var(--border)] p-4">
+             <code className="text-[11px] font-mono text-[var(--text-muted)]">
                display: flex;<br/>
                flex-direction: {direction};<br/>
                justify-content: {justify};<br/>
@@ -97,8 +97,8 @@ export const FlexboxGenerator: React.FC = () => {
 
 const SelectControl = ({ label, value, options, onChange }: { label: string; value: string; options: string[]; onChange: (v: any) => void }) => (
   <div>
-    <label className="text-[9px] uppercase text-neutral-600 mb-1 block">{label}</label>
-    <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full bg-black border border-neutral-800 p-2 text-xs text-neutral-400 outline-none">
+    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 block">{label}</label>
+    <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-2 text-xs text-[var(--text-muted)] outline-none">
       {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
     </select>
   </div>

@@ -106,44 +106,44 @@ export const TirukuralHub: React.FC = () => {
         </div>
       )}
 
-      <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
           {categories.map(cat => (
-            <button key={cat} onClick={() => setCategory(cat)} className={`px-4 py-1.5 border shrink-0 text-[10px] uppercase font-bold tracking-widest transition-all ${category === cat ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-neutral-900 text-neutral-500 border-neutral-800'}`}>
+            <button key={cat} onClick={() => setCategory(cat)} className={`px-4 py-1.5 border shrink-0 text-[10px] uppercase font-bold tracking-widest transition-all ${category === cat ? 'bg-indigo-600 text-[var(--text-primary)] border-indigo-600' : 'bg-[var(--bg-card)] text-[var(--text-muted)] border-[var(--border)]'}`}>
               {cat}
             </button>
           ))}
         </div>
         <div className="flex gap-4">
-          <div className="flex border border-neutral-800 p-1 bg-black">
-            <button onClick={() => setMode('static')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'static' ? 'bg-neutral-800 text-white' : 'text-neutral-600'}`}>Curated</button>
-            <button onClick={() => setMode('ai')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'ai' ? 'bg-neutral-800 text-white' : 'text-neutral-600'}`}>AI Lab</button>
+          <div className="flex border border-[var(--border)] p-1 bg-[var(--bg-input)]">
+            <button onClick={() => setMode('static')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'static' ? 'bg-[var(--bg-hover)] text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>Curated</button>
+            <button onClick={() => setMode('ai')} className={`px-4 py-1 text-[10px] uppercase font-bold transition-all ${mode === 'ai' ? 'bg-[var(--bg-hover)] text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>AI Lab</button>
           </div>
-          <button onClick={resetAll} className="text-[10px] uppercase font-bold text-neutral-700 hover:text-red-500">Reset</button>
-          <button onClick={() => mode === 'ai' ? fetchAI() : fetchStatic()} className="text-[10px] uppercase font-bold text-neutral-400 hover:text-white underline underline-offset-4">Refresh</button>
+          <button onClick={resetAll} className="text-[10px] uppercase font-bold text-[var(--text-muted)] hover:text-red-500">Reset</button>
+          <button onClick={() => mode === 'ai' ? fetchAI() : fetchStatic()} className="text-[10px] uppercase font-bold text-[var(--text-muted)] hover:text-[var(--text-primary)] underline underline-offset-4">Refresh</button>
         </div>
       </div>
 
       <div className="flex-1 overflow-auto space-y-8 pb-20">
         {loading ? (
-          <div className="h-64 animate-pulse bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">Translating Ancient Wisdom...</span>
+          <div className="h-64 animate-pulse bg-[var(--bg-card)] border border-[var(--border)] flex items-center justify-center">
+             <span className="text-[10px] uppercase tracking-[0.4em] text-[var(--text-muted)] font-bold">Translating Ancient Wisdom...</span>
           </div>
         ) : primary ? (
-          <section className="bg-[#0d0d0d] border border-neutral-800 p-10 relative overflow-hidden group">
+          <section className="bg-[#0d0d0d] border border-[var(--border)] p-10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white"><path d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z"/><path d="M12 7v5l3 3"/></svg>
+               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-[var(--text-primary)]"><path d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z"/><path d="M12 7v5l3 3"/></svg>
             </div>
             <div className="max-w-3xl space-y-8">
               <div className="flex items-center gap-3">
                 <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 border border-indigo-500/20 font-bold uppercase tracking-widest">Kural {primary.number}</span>
-                <span className="text-[10px] text-neutral-600 font-mono tracking-widest">{category}</span>
+                <span className="text-[10px] text-[var(--text-muted)] font-mono tracking-widest">{category}</span>
               </div>
               <div className="space-y-4">
-                 <p className="text-3xl font-bold text-white tracking-tight whitespace-pre-wrap leading-snug">{primary.tamil}</p>
-                 <div className="h-px w-12 bg-neutral-800" />
-                 <p className="text-lg text-neutral-400 leading-relaxed font-light italic">"{primary.translation}"</p>
-                 <p className="text-sm text-neutral-500 leading-relaxed pt-4 border-t border-neutral-900">{primary.explanation}</p>
+                 <p className="text-3xl font-bold text-[var(--text-primary)] tracking-tight whitespace-pre-wrap leading-snug">{primary.tamil}</p>
+                 <div className="h-px w-12 bg-[var(--bg-hover)]" />
+                 <p className="text-lg text-[var(--text-muted)] leading-relaxed font-light italic">"{primary.translation}"</p>
+                 <p className="text-sm text-[var(--text-muted)] leading-relaxed pt-4 border-t border-[var(--border)]">{primary.explanation}</p>
               </div>
             </div>
           </section>
@@ -151,12 +151,12 @@ export const TirukuralHub: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {secondary.map((k, i) => (
-            <div key={i} className="bg-[#111] border border-neutral-800 p-6 space-y-3 hover:border-neutral-600 transition-colors">
+            <div key={i} className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-3 hover:border-[var(--border-hover)] transition-colors">
               <div className="flex justify-between items-start">
-                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">Kural {k.number}</span>
+                <span className="text-[9px] text-[var(--text-muted)] font-bold uppercase tracking-widest">Kural {k.number}</span>
               </div>
-              <h3 className="text-sm font-bold text-neutral-200 line-clamp-2">{k.tamil}</h3>
-              <p className="text-[10px] text-neutral-500 italic line-clamp-2 leading-relaxed">"{k.translation}"</p>
+              <h3 className="text-sm font-bold text-[var(--text-primary)] line-clamp-2">{k.tamil}</h3>
+              <p className="text-[10px] text-[var(--text-muted)] italic line-clamp-2 leading-relaxed">"{k.translation}"</p>
             </div>
           ))}
         </div>

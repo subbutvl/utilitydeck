@@ -97,12 +97,12 @@ export const ButtonGenerator: React.FC = () => {
         <div className="lg:col-span-5 space-y-4 overflow-y-auto pr-2 pb-10">
            
            {/* Mode Toggles */}
-           <div className="flex border border-neutral-800 p-1 bg-[#111]">
+           <div className="flex border border-[var(--border)] p-1 bg-[var(--bg-card)]">
               {(['solid', 'gradient', 'outline', 'ghost'] as ButtonMode[]).map(m => (
                 <button 
                   key={m}
                   onClick={() => setMode(m)}
-                  className={`flex-1 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-all ${mode === m ? 'bg-white text-black' : 'text-neutral-500 hover:text-white'}`}
+                  className={`flex-1 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-all ${mode === m ? 'bg-white text-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                 >
                   {m}
                 </button>
@@ -111,16 +111,16 @@ export const ButtonGenerator: React.FC = () => {
 
            {/* Presets Row */}
            <div className="grid grid-cols-4 gap-2">
-              <button onClick={() => applyPreset('brutal')} className="py-2 border border-neutral-800 text-[9px] uppercase font-bold hover:bg-neutral-800 transition-colors">Brutal</button>
-              <button onClick={() => applyPreset('minimal')} className="py-2 border border-neutral-800 text-[9px] uppercase font-bold hover:bg-neutral-800 transition-colors">Minimal</button>
-              <button onClick={() => applyPreset('neon')} className="py-2 border border-neutral-800 text-[9px] uppercase font-bold hover:bg-neutral-800 transition-colors">Neon</button>
-              <button onClick={() => applyPreset('glass')} className="py-2 border border-neutral-800 text-[9px] uppercase font-bold hover:bg-neutral-800 transition-colors">Glass</button>
+              <button onClick={() => applyPreset('brutal')} className="py-2 border border-[var(--border)] text-[9px] uppercase font-bold hover:bg-[var(--bg-hover)] transition-colors">Brutal</button>
+              <button onClick={() => applyPreset('minimal')} className="py-2 border border-[var(--border)] text-[9px] uppercase font-bold hover:bg-[var(--bg-hover)] transition-colors">Minimal</button>
+              <button onClick={() => applyPreset('neon')} className="py-2 border border-[var(--border)] text-[9px] uppercase font-bold hover:bg-[var(--bg-hover)] transition-colors">Neon</button>
+              <button onClick={() => applyPreset('glass')} className="py-2 border border-[var(--border)] text-[9px] uppercase font-bold hover:bg-[var(--bg-hover)] transition-colors">Glass</button>
            </div>
 
-           <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
+           <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
               <div>
-                <label className="text-[10px] uppercase text-neutral-500 font-bold mb-2 block tracking-widest">Label</label>
-                <input value={text} onChange={(e) => setText(e.target.value)} className="w-full bg-black border border-neutral-800 p-3 text-sm text-white focus:border-neutral-600 outline-none" />
+                <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-2 block tracking-widest">Label</label>
+                <input value={text} onChange={(e) => setText(e.target.value)} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-3 text-sm text-[var(--text-primary)] focus:border-[var(--border-hover)] outline-none" />
               </div>
 
               {mode === 'gradient' ? (
@@ -164,7 +164,7 @@ export const ButtonGenerator: React.FC = () => {
                 onClick={() => {
                   setMode('solid'); setText('ACTION BUTTON'); setBg('#ffffff'); setColor('#000000'); setPx(24); setPy(12); setBorderWidth(1); setBorderColor('#ffffff'); setFontSize(12); setTracking(0.2); setBorderRadius(0);
                 }} 
-                className="w-full py-2 text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold transition-colors"
+                className="w-full py-2 text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold transition-colors"
               >
                 Reset Designer
               </button>
@@ -172,40 +172,40 @@ export const ButtonGenerator: React.FC = () => {
         </div>
 
         <div className="lg:col-span-7 flex flex-col gap-6">
-          <div className={`flex-1 border border-neutral-800 flex items-center justify-center p-20 relative transition-colors duration-300 ${previewBg === 'dark' ? 'bg-[#0a0a0a]' : 'bg-[#f5f5f5]'}`}>
+          <div className={`flex-1 border border-[var(--border)] flex items-center justify-center p-20 relative transition-colors duration-300 ${previewBg === 'dark' ? 'bg-[var(--bg-page)]' : 'bg-[#f5f5f5]'}`}>
              {/* Background Toggle Switch */}
-             <div className="absolute top-4 right-4 flex items-center gap-2 bg-[#111] border border-neutral-800 p-1">
+             <div className="absolute top-4 right-4 flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--border)] p-1">
                 <button 
                   onClick={() => setPreviewBg('dark')} 
-                  className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'dark' ? 'bg-white text-black' : 'text-neutral-500 hover:text-white'}`}
+                  className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'dark' ? 'bg-white text-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                 >
                   Dark
                 </button>
                 <button 
                   onClick={() => setPreviewBg('light')} 
-                  className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'light' ? 'bg-black text-white' : 'text-neutral-500 hover:text-black'}`}
+                  className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'light' ? 'bg-[var(--bg-input)] text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-black'}`}
                 >
                   Light
                 </button>
              </div>
              
-             <div className="absolute top-4 left-4 text-[10px] text-neutral-500 uppercase tracking-widest font-bold italic">Preview Canvas</div>
+             <div className="absolute top-4 left-4 text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-bold italic">Preview Canvas</div>
 
              <button style={getButtonStyle()}>{text}</button>
           </div>
 
-          <div className="bg-[#111] border border-neutral-800 p-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
              <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Button CSS</span>
+                <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Button CSS</span>
                 <button 
                   onClick={() => navigator.clipboard.writeText(getCssString())} 
-                  className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold transition-colors flex items-center gap-2"
+                  className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors flex items-center gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                   Copy Code
                 </button>
              </div>
-             <code className="block text-[11px] text-neutral-400 font-mono whitespace-pre bg-black/50 p-4 border border-neutral-900 overflow-x-auto">
+             <code className="block text-[11px] text-[var(--text-muted)] font-mono whitespace-pre bg-[var(--bg-input)]/50 p-4 border border-[var(--border)] overflow-x-auto">
                {getCssString()}
              </code>
           </div>
@@ -217,17 +217,17 @@ export const ButtonGenerator: React.FC = () => {
 
 const ColorControl = ({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) => (
   <div>
-    <label className="text-[9px] uppercase text-neutral-600 mb-1 block">{label}</label>
+    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 block">{label}</label>
     <div className="flex gap-2">
-      <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-8 h-8 bg-black border border-neutral-800 p-1 cursor-pointer" />
-      <input type="text" value={value.toUpperCase()} onChange={(e) => onChange(e.target.value)} className="flex-1 bg-black border border-neutral-800 px-2 text-[10px] text-neutral-500 font-mono outline-none uppercase" />
+      <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-8 h-8 bg-[var(--bg-input)] border border-[var(--border)] p-1 cursor-pointer" />
+      <input type="text" value={value.toUpperCase()} onChange={(e) => onChange(e.target.value)} className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] px-2 text-[10px] text-[var(--text-muted)] font-mono outline-none uppercase" />
     </div>
   </div>
 );
 
 const RangeControl = ({ label, value, min, max, step = 1, onChange, unit = 'px' }: { label: string; value: number; min: number; max: number; step?: number; onChange: (v: number) => void; unit?: string }) => (
   <div>
-    <label className="text-[9px] uppercase text-neutral-600 mb-1 flex justify-between">{label} <span>{value}{unit}</span></label>
-    <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(parseFloat(e.target.value))} className="w-full h-1 bg-neutral-800 appearance-none accent-white cursor-pointer" />
+    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 flex justify-between">{label} <span>{value}{unit}</span></label>
+    <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(parseFloat(e.target.value))} className="w-full h-1 bg-[var(--bg-hover)] appearance-none accent-white cursor-pointer" />
   </div>
 );

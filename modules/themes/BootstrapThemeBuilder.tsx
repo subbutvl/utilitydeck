@@ -97,34 +97,34 @@ export const BootstrapThemeBuilder: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col gap-6">
-      <div className="flex border-b border-neutral-800">
-        <button onClick={() => setActiveTab('manual')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'manual' ? 'border-b-2 border-white text-white' : 'text-neutral-500'}`}>Manual Designer</button>
-        <button onClick={() => setActiveTab('ai')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'ai' ? 'border-b-2 border-white text-white' : 'text-neutral-500'}`}>AI Theme Assistant</button>
+      <div className="flex border-b border-[var(--border)]">
+        <button onClick={() => setActiveTab('manual')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'manual' ? 'border-b-2 border-white text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>Manual Designer</button>
+        <button onClick={() => setActiveTab('ai')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'ai' ? 'border-b-2 border-white text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>AI Theme Assistant</button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
         <div className="lg:col-span-4 overflow-y-auto pr-2 pb-10">
           {activeTab === 'manual' ? (
-            <div className="bg-[#111] border border-neutral-800 p-6 space-y-4">
-              <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block border-b border-neutral-800 pb-2">Core Variables</span>
+            <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-4">
+              <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block border-b border-[var(--border)] pb-2">Core Variables</span>
               {(Object.keys(theme) as Array<keyof BootstrapTheme>).map(key => (
                 <div key={key} className="flex items-center gap-4">
-                  <div className="w-24 text-[10px] uppercase text-neutral-400 font-bold">{key}</div>
+                  <div className="w-24 text-[10px] uppercase text-[var(--text-muted)] font-bold">{key}</div>
                   <input type="color" value={theme[key]} onChange={(e) => updateColor(key, e.target.value)} className="w-10 h-10 bg-transparent cursor-pointer" />
-                  <input type="text" value={theme[key].toUpperCase()} onChange={(e) => updateColor(key, e.target.value)} className="flex-1 bg-black border border-neutral-800 p-2 text-xs font-mono uppercase text-neutral-500 outline-none" />
+                  <input type="text" value={theme[key].toUpperCase()} onChange={(e) => updateColor(key, e.target.value)} className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] p-2 text-xs font-mono uppercase text-[var(--text-muted)] outline-none" />
                 </div>
               ))}
-              <button onClick={resetAll} className="w-full py-2 text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold transition-colors">Reset Defaults</button>
+              <button onClick={resetAll} className="w-full py-2 text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold transition-colors">Reset Defaults</button>
             </div>
           ) : (
-            <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
+            <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
               <div>
-                <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Describe Your Brand Vibe</label>
+                <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Describe Your Brand Vibe</label>
                 <textarea 
                   value={aiPrompt} 
                   onChange={(e) => setAiPrompt(e.target.value)}
                   placeholder="e.g. A luxurious midnight blue financial portal with gold accents..."
-                  className="w-full h-32 bg-black border border-neutral-800 p-4 text-sm text-white focus:border-neutral-600 outline-none resize-none"
+                  className="w-full h-32 bg-[var(--bg-input)] border border-[var(--border)] p-4 text-sm text-[var(--text-primary)] focus:border-[var(--border-hover)] outline-none resize-none"
                 />
               </div>
               <button 
@@ -139,8 +139,8 @@ export const BootstrapThemeBuilder: React.FC = () => {
         </div>
 
         <div className="lg:col-span-8 flex flex-col gap-6">
-          <div className="flex-1 border border-neutral-800 bg-[#0d0d0d] p-8 overflow-auto">
-             <h3 className="text-[10px] uppercase tracking-widest text-neutral-600 font-bold mb-8">Component Preview (Bootstrap 5.3 Simulated)</h3>
+          <div className="flex-1 border border-[var(--border)] bg-[#0d0d0d] p-8 overflow-auto">
+             <h3 className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-bold mb-8">Component Preview (Bootstrap 5.3 Simulated)</h3>
              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
                 {(Object.keys(theme) as Array<keyof BootstrapTheme>).map(key => (
                   <button key={key} style={{ backgroundColor: theme[key], color: key === 'light' ? '#000' : '#fff' }} className="py-3 px-4 text-[10px] font-bold uppercase tracking-widest shadow-lg">
@@ -150,9 +150,9 @@ export const BootstrapThemeBuilder: React.FC = () => {
              </div>
 
              <div className="space-y-6">
-                <div className="p-6 border border-neutral-800" style={{ borderLeft: `4px solid ${theme.primary}` }}>
+                <div className="p-6 border border-[var(--border)]" style={{ borderLeft: `4px solid ${theme.primary}` }}>
                   <h4 className="text-sm font-bold mb-2 uppercase tracking-wide" style={{ color: theme.primary }}>Alert Banner / Important Note</h4>
-                  <p className="text-xs text-neutral-500 leading-relaxed">This is a preview of how your theme colors interact with typical Bootstrap layouts. The primary color ({theme.primary}) is used for main calls to action and structural accents.</p>
+                  <p className="text-xs text-[var(--text-muted)] leading-relaxed">This is a preview of how your theme colors interact with typical Bootstrap layouts. The primary color ({theme.primary}) is used for main calls to action and structural accents.</p>
                 </div>
                 
                 <div className="flex items-center gap-4">
@@ -163,12 +163,12 @@ export const BootstrapThemeBuilder: React.FC = () => {
              </div>
           </div>
 
-          <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col gap-4">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col gap-4">
              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest">SCSS Export</span>
-                <button onClick={() => navigator.clipboard.writeText(scssOutput)} className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold transition-colors">Copy Variables</button>
+                <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">SCSS Export</span>
+                <button onClick={() => navigator.clipboard.writeText(scssOutput)} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors">Copy Variables</button>
              </div>
-             <code className="block p-4 bg-black border border-neutral-900 text-xs text-neutral-400 font-mono whitespace-pre h-32 overflow-y-auto">
+             <code className="block p-4 bg-[var(--bg-input)] border border-[var(--border)] text-xs text-[var(--text-muted)] font-mono whitespace-pre h-32 overflow-y-auto">
                {scssOutput}
              </code>
           </div>

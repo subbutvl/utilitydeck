@@ -37,18 +37,18 @@ export const InstagramGen: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col gap-6">
-      <div className="flex border-b border-neutral-800">
-        <button onClick={() => setMode('ai')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${mode === 'ai' ? 'border-b-2 border-white text-white' : 'text-neutral-500'}`}>AI Copywriter</button>
-        <button onClick={() => setMode('template')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${mode === 'template' ? 'border-b-2 border-white text-white' : 'text-neutral-500'}`}>Framework Templates</button>
+      <div className="flex border-b border-[var(--border)]">
+        <button onClick={() => setMode('ai')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${mode === 'ai' ? 'border-b-2 border-white text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>AI Copywriter</button>
+        <button onClick={() => setMode('template')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${mode === 'template' ? 'border-b-2 border-white text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>Framework Templates</button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 flex-1 min-h-0">
-        <div className="bg-[#111] border border-neutral-800 p-8 flex flex-col gap-6">
-          <textarea value={input} onChange={(e) => setInput(e.target.value)} className="w-full bg-black border border-neutral-800 p-4 text-sm focus:border-neutral-600 outline-none h-40 resize-none" placeholder="What is your post about?" />
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] p-8 flex flex-col gap-6">
+          <textarea value={input} onChange={(e) => setInput(e.target.value)} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-4 text-sm focus:border-[var(--border-hover)] outline-none h-40 resize-none" placeholder="What is your post about?" />
           
           {mode === 'ai' ? (
             <>
-              <select value={vibe} onChange={(e) => setVibe(e.target.value)} className="w-full bg-black border border-neutral-800 p-4 text-xs uppercase tracking-widest">
+              <select value={vibe} onChange={(e) => setVibe(e.target.value)} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-4 text-xs uppercase tracking-widest">
                 <option>Minimalist</option>
                 <option>Hype / Energetic</option>
                 <option>Funny / Sarcastic</option>
@@ -58,23 +58,23 @@ export const InstagramGen: React.FC = () => {
             </>
           ) : (
             <div className="grid grid-cols-1 gap-2">
-              <button onClick={() => useTemplate('curiosity')} className="p-3 border border-neutral-800 hover:bg-neutral-900 text-xs text-left uppercase tracking-widest">Curiosity Gap Framework</button>
-              <button onClick={() => useTemplate('educational')} className="p-3 border border-neutral-800 hover:bg-neutral-900 text-xs text-left uppercase tracking-widest">Educational Value Block</button>
-              <button onClick={() => useTemplate('minimal')} className="p-3 border border-neutral-800 hover:bg-neutral-900 text-xs text-left uppercase tracking-widest">Ultra Minimal Aesthetic</button>
+              <button onClick={() => useTemplate('curiosity')} className="p-3 border border-[var(--border)] hover:bg-[var(--bg-card)] text-xs text-left uppercase tracking-widest">Curiosity Gap Framework</button>
+              <button onClick={() => useTemplate('educational')} className="p-3 border border-[var(--border)] hover:bg-[var(--bg-card)] text-xs text-left uppercase tracking-widest">Educational Value Block</button>
+              <button onClick={() => useTemplate('minimal')} className="p-3 border border-[var(--border)] hover:bg-[var(--bg-card)] text-xs text-left uppercase tracking-widest">Ultra Minimal Aesthetic</button>
             </div>
           )}
-          <button onClick={() => {setInput(''); setResult('')}} className="mt-auto text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold transition-colors">Clear All</button>
+          <button onClick={() => {setInput(''); setResult('')}} className="mt-auto text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold transition-colors">Clear All</button>
         </div>
 
         <div className="flex flex-col gap-4">
-          <div className="flex-1 bg-black border border-neutral-800 p-8 overflow-y-auto relative">
+          <div className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] p-8 overflow-y-auto relative">
             {result ? (
-              <div className="whitespace-pre-wrap text-sm text-neutral-300 leading-relaxed">{result}</div>
+              <div className="whitespace-pre-wrap text-sm text-[var(--text-primary)] leading-relaxed">{result}</div>
             ) : (
               <div className="h-full flex items-center justify-center opacity-20 italic text-xs uppercase tracking-[0.2em]">Ready for your content</div>
             )}
             {result && (
-              <button onClick={() => navigator.clipboard.writeText(result)} className="absolute top-4 right-4 text-[10px] uppercase text-neutral-500 hover:text-white font-bold">Copy Content</button>
+              <button onClick={() => navigator.clipboard.writeText(result)} className="absolute top-4 right-4 text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold">Copy Content</button>
             )}
           </div>
         </div>

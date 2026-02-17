@@ -54,42 +54,42 @@ export const PhotographyTips: React.FC<Props> = ({ type }) => {
         
         {/* Manual Tips */}
         <div className="lg:col-span-5 flex flex-col gap-6">
-          <div className="bg-[#111] border border-neutral-800 p-8 space-y-8">
-             <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
-                <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest">Field Manual Essentials</span>
-                <span className="text-[9px] bg-neutral-800 px-1.5 py-0.5 text-neutral-500 font-mono border border-neutral-800 uppercase tracking-tighter">Static</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-8 space-y-8">
+             <div className="flex items-center justify-between border-b border-[var(--border)] pb-2">
+                <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Field Manual Essentials</span>
+                <span className="text-[9px] bg-[var(--bg-hover)] px-1.5 py-0.5 text-[var(--text-muted)] font-mono border border-[var(--border)] uppercase tracking-tighter">Static</span>
              </div>
              <div className="space-y-6">
                 {FALLBACK_TIPS[type].map((tip, i) => (
                   <div key={i} className="flex gap-4">
-                    <div className="text-[10px] font-mono text-neutral-700 font-bold">0{i+1}</div>
-                    <p className="text-xs text-neutral-400 leading-relaxed italic">{tip}</p>
+                    <div className="text-[10px] font-mono text-[var(--text-muted)] font-bold">0{i+1}</div>
+                    <p className="text-xs text-[var(--text-muted)] leading-relaxed italic">{tip}</p>
                   </div>
                 ))}
              </div>
           </div>
-          <div className="bg-neutral-900 border border-neutral-800 p-6 text-[10px] text-neutral-600 uppercase tracking-[0.2em] font-bold text-center italic">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 text-[10px] text-[var(--text-muted)] uppercase tracking-[0.2em] font-bold text-center italic">
             Fundamentals are the foundation of excellence.
           </div>
         </div>
 
         {/* AI Tips */}
         <div className="lg:col-span-7 flex flex-col gap-6">
-           <div className="bg-[#111] border border-neutral-800 p-8 flex-1 flex flex-col relative overflow-hidden group">
+           <div className="bg-[var(--bg-card)] border border-[var(--border)] p-8 flex-1 flex flex-col relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center justify-between mb-10 z-10">
                  <div className="flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                    <span className="text-[10px] uppercase text-white font-bold tracking-widest">Gemini Pro Coaching</span>
+                    <span className="text-[10px] uppercase text-[var(--text-primary)] font-bold tracking-widest">Gemini Pro Coaching</span>
                  </div>
-                 <button onClick={generateAiTip} disabled={loading} className="text-[10px] uppercase text-neutral-500 hover:text-white font-bold transition-colors">
+                 <button onClick={generateAiTip} disabled={loading} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors">
                    {loading ? 'Synthesizing...' : 'Request New Insight'}
                  </button>
               </div>
 
               <div className="flex-1 overflow-y-auto pr-2 z-10">
                  {aiTip ? (
-                   <div className="prose prose-invert max-w-none text-neutral-300 text-sm leading-loose animate-in fade-in slide-in-from-top-2 duration-700 whitespace-pre-wrap">
+                   <div className="prose prose-invert max-w-none text-[var(--text-primary)] text-sm leading-loose animate-in fade-in slide-in-from-top-2 duration-700 whitespace-pre-wrap">
                       {aiTip}
                    </div>
                  ) : (
@@ -100,7 +100,7 @@ export const PhotographyTips: React.FC<Props> = ({ type }) => {
                  )}
               </div>
               
-              <div className="mt-8 pt-4 border-t border-neutral-900 text-[9px] text-neutral-700 uppercase font-bold tracking-widest z-10">
+              <div className="mt-8 pt-4 border-t border-[var(--border)] text-[9px] text-[var(--text-muted)] uppercase font-bold tracking-widest z-10">
                 * AI insights provide high-level creative strategies tailored to current technical standards.
               </div>
            </div>

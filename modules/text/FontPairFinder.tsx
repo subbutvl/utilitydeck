@@ -87,31 +87,31 @@ export const FontPairFinder: React.FC = () => {
   };
 
   const renderPairCard = (pair: FontPair, idx: number) => (
-    <div key={idx} className="bg-[#111] border border-neutral-800 p-6 flex flex-col gap-6 hover:border-neutral-600 transition-colors group">
+    <div key={idx} className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col gap-6 hover:border-[var(--border-hover)] transition-colors group">
       <div className="space-y-4">
         <div>
-          <span className="text-[9px] text-neutral-600 uppercase font-bold tracking-widest block mb-2">Heading ({pair.heading})</span>
-          <div className="text-2xl text-white truncate group-hover:text-neutral-100 transition-colors" style={{ fontFamily: `'${pair.heading}', sans-serif` }}>
+          <span className="text-[9px] text-[var(--text-muted)] uppercase font-bold tracking-widest block mb-2">Heading ({pair.heading})</span>
+          <div className="text-2xl text-[var(--text-primary)] truncate group-hover:text-neutral-100 transition-colors" style={{ fontFamily: `'${pair.heading}', sans-serif` }}>
             The quick brown fox
           </div>
         </div>
-        <div className="h-[1px] bg-neutral-900 w-1/4"></div>
+        <div className="h-[1px] bg-[var(--bg-card)] w-1/4"></div>
         <div>
-          <span className="text-[9px] text-neutral-600 uppercase font-bold tracking-widest block mb-2">Body ({pair.body})</span>
-          <div className="text-sm text-neutral-400 line-clamp-3 leading-relaxed" style={{ fontFamily: `'${pair.body}', sans-serif` }}>
+          <span className="text-[9px] text-[var(--text-muted)] uppercase font-bold tracking-widest block mb-2">Body ({pair.body})</span>
+          <div className="text-sm text-[var(--text-muted)] line-clamp-3 leading-relaxed" style={{ fontFamily: `'${pair.body}', sans-serif` }}>
             Designers use this to test visual hierarchy and legibility. This combination creates a balanced and professional look.
           </div>
         </div>
       </div>
-      <div className="mt-auto pt-4 border-t border-neutral-900 flex justify-between items-center">
-        <p className="text-[10px] italic text-neutral-500 leading-snug flex-1 mr-4">{pair.description}</p>
+      <div className="mt-auto pt-4 border-t border-[var(--border)] flex justify-between items-center">
+        <p className="text-[10px] italic text-[var(--text-muted)] leading-snug flex-1 mr-4">{pair.description}</p>
         <button 
           onClick={() => {
             setSelectedHeading(pair.heading);
             setSelectedBody(pair.body);
             setActiveTab('explorer');
           }}
-          className="text-[10px] uppercase tracking-tighter text-neutral-600 hover:text-white"
+          className="text-[10px] uppercase tracking-tighter text-[var(--text-muted)] hover:text-[var(--text-primary)]"
         >
           Customize
         </button>
@@ -122,21 +122,21 @@ export const FontPairFinder: React.FC = () => {
   return (
     <div className="h-full flex flex-col gap-6">
       {/* Tab Navigation */}
-      <div className="flex border-b border-neutral-800">
+      <div className="flex border-b border-[var(--border)]">
         {(['curated', 'ai', 'explorer'] as Tab[]).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`px-6 py-3 text-[11px] uppercase tracking-[0.2em] font-bold transition-all border-b-2 ${
               activeTab === tab 
-              ? 'border-white text-white bg-neutral-900/30' 
-              : 'border-transparent text-neutral-500 hover:text-neutral-300'
+              ? 'border-white text-[var(--text-primary)] bg-[var(--bg-card)]/30' 
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             {tab === 'ai' ? (
               <span className="flex items-center gap-2">
                 AI LAB
-                <span className="bg-white/10 text-white/50 text-[8px] px-1 border border-white/10">BETA</span>
+                <span className="bg-white/10 text-[var(--text-primary)]/50 text-[8px] px-1 border border-white/10">BETA</span>
               </span>
             ) : tab}
           </button>
@@ -152,14 +152,14 @@ export const FontPairFinder: React.FC = () => {
 
         {activeTab === 'ai' && (
           <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between bg-neutral-900/50 p-6 border border-neutral-800">
+            <div className="flex items-center justify-between bg-[var(--bg-card)]/50 p-6 border border-[var(--border)]">
               <div className="max-w-md">
-                <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-1">Gemini AI Engine</h3>
-                <p className="text-xs text-neutral-500 leading-relaxed">Let artificial intelligence suggest creative combinations based on current design trends.</p>
+                <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-widest mb-1">Gemini AI Engine</h3>
+                <p className="text-xs text-[var(--text-muted)] leading-relaxed">Let artificial intelligence suggest creative combinations based on current design trends.</p>
               </div>
               <div className="flex gap-4">
                 {aiPairs.length > 0 && (
-                  <button onClick={resetAiList} className="px-6 py-3 text-[11px] uppercase tracking-widest font-bold text-neutral-600 hover:text-red-500 transition-colors">Clear</button>
+                  <button onClick={resetAiList} className="px-6 py-3 text-[11px] uppercase tracking-widest font-bold text-[var(--text-muted)] hover:text-red-500 transition-colors">Clear</button>
                 )}
                 <button 
                   onClick={generateNewPairs}
@@ -175,8 +175,8 @@ export const FontPairFinder: React.FC = () => {
               {aiPairs.length > 0 ? (
                 aiPairs.map((pair, idx) => renderPairCard(pair, idx))
               ) : (
-                <div className="col-span-full py-20 text-center border border-dashed border-neutral-800 opacity-20">
-                   <svg className="mx-auto mb-4 text-neutral-600" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+                <div className="col-span-full py-20 text-center border border-dashed border-[var(--border)] opacity-20">
+                   <svg className="mx-auto mb-4 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
                    <p className="text-xs uppercase tracking-widest font-bold">Awaiting AI Session Initialization</p>
                 </div>
               )}
@@ -188,37 +188,37 @@ export const FontPairFinder: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-10 h-full">
             {/* Live Preview Area */}
             <div className="lg:col-span-8 flex flex-col gap-4">
-              <div className="bg-[#111] border border-neutral-800 p-10 flex flex-col gap-10 min-h-[400px]">
+              <div className="bg-[var(--bg-card)] border border-[var(--border)] p-10 flex flex-col gap-10 min-h-[400px]">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-neutral-600 uppercase font-bold tracking-[0.3em]">Live Heading Preview</span>
-                    <span className="text-[10px] text-neutral-400 font-mono">Font: {selectedHeading}</span>
+                    <span className="text-[10px] text-[var(--text-muted)] uppercase font-bold tracking-[0.3em]">Live Heading Preview</span>
+                    <span className="text-[10px] text-[var(--text-muted)] font-mono">Font: {selectedHeading}</span>
                   </div>
-                  <h1 className="text-5xl text-white leading-tight" style={{ fontFamily: `'${selectedHeading}', sans-serif` }}>
+                  <h1 className="text-5xl text-[var(--text-primary)] leading-tight" style={{ fontFamily: `'${selectedHeading}', sans-serif` }}>
                     Sphinx of black quartz, judge my vow.
                   </h1>
                 </div>
 
-                <div className="h-[1px] bg-neutral-900 w-full"></div>
+                <div className="h-[1px] bg-[var(--bg-card)] w-full"></div>
 
                 <div className="space-y-4">
                    <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-neutral-600 uppercase font-bold tracking-[0.3em]">Live Body Preview</span>
-                    <span className="text-[10px] text-neutral-400 font-mono">Font: {selectedBody}</span>
+                    <span className="text-[10px] text-[var(--text-muted)] uppercase font-bold tracking-[0.3em]">Live Body Preview</span>
+                    <span className="text-[10px] text-[var(--text-muted)] font-mono">Font: {selectedBody}</span>
                   </div>
-                  <p className="text-lg text-neutral-400 leading-relaxed max-w-2xl" style={{ fontFamily: `'${selectedBody}', sans-serif` }}>
+                  <p className="text-lg text-[var(--text-muted)] leading-relaxed max-w-2xl" style={{ fontFamily: `'${selectedBody}', sans-serif` }}>
                     The quick brown fox jumps over the lazy dog. Designers often use this sentence to test how fonts look in various sizes and styles. Grumpy wizards make toxic brew for the evil Queen and Jack.
                   </p>
                 </div>
               </div>
               
-              <div className="bg-neutral-900/30 border border-neutral-800 p-4 flex justify-between items-center">
-                <div className="text-[10px] text-neutral-600 uppercase tracking-widest">CSS Output</div>
+              <div className="bg-[var(--bg-card)]/30 border border-[var(--border)] p-4 flex justify-between items-center">
+                <div className="text-[10px] text-[var(--text-muted)] uppercase tracking-widest">CSS Output</div>
                 <div className="flex items-center gap-4">
-                  <div className="text-[11px] font-mono text-neutral-400">
+                  <div className="text-[11px] font-mono text-[var(--text-muted)]">
                     h1 &#123; font-family: '{selectedHeading}'; &#125; p &#123; font-family: '{selectedBody}'; &#125;
                   </div>
-                  <button onClick={resetExplorer} className="text-[10px] uppercase text-neutral-600 hover:text-red-500 font-bold tracking-widest transition-colors">Reset Explorer</button>
+                  <button onClick={resetExplorer} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold tracking-widest transition-colors">Reset Explorer</button>
                 </div>
               </div>
             </div>
@@ -232,28 +232,28 @@ export const FontPairFinder: React.FC = () => {
                     placeholder="Search Google Fonts..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-transparent border border-neutral-800 p-3 text-xs focus:outline-none focus:border-neutral-500 rounded-none pl-10"
+                    className="w-full bg-transparent border border-[var(--border)] p-3 text-xs focus:outline-none focus:border-[var(--border-hover)] rounded-none pl-10"
                   />
-                  <div className="absolute left-3 top-3 text-neutral-600">
+                  <div className="absolute left-3 top-3 text-[var(--text-muted)]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                   </div>
                 </div>
 
-                <div className="flex-1 overflow-auto border border-neutral-800 bg-[#070707]">
-                   <div className="p-3 border-b border-neutral-900 sticky top-0 bg-[#070707] z-10 text-[9px] uppercase tracking-widest text-neutral-600 font-bold">
+                <div className="flex-1 overflow-auto border border-[var(--border)] bg-[var(--bg-page)]">
+                   <div className="p-3 border-b border-[var(--border)] sticky top-0 bg-[var(--bg-page)] z-10 text-[9px] uppercase tracking-widest text-[var(--text-muted)] font-bold">
                     Select Font
                   </div>
                   {filteredFonts.map(font => (
-                    <div key={font} className="flex border-b border-neutral-900 last:border-0">
+                    <div key={font} className="flex border-b border-[var(--border)] last:border-0">
                       <button 
                         onClick={() => setSelectedHeading(font)}
-                        className={`flex-1 text-left p-3 text-xs transition-colors hover:bg-neutral-900 border-r border-neutral-900 ${selectedHeading === font ? 'bg-neutral-900 text-white font-bold' : 'text-neutral-500'}`}
+                        className={`flex-1 text-left p-3 text-xs transition-colors hover:bg-[var(--bg-card)] border-r border-[var(--border)] ${selectedHeading === font ? 'bg-[var(--bg-card)] text-[var(--text-primary)] font-bold' : 'text-[var(--text-muted)]'}`}
                       >
                         <span className="opacity-50 mr-2 text-[8px]">H</span> {font}
                       </button>
                       <button 
                         onClick={() => setSelectedBody(font)}
-                        className={`flex-1 text-left p-3 text-xs transition-colors hover:bg-neutral-900 ${selectedBody === font ? 'bg-neutral-900 text-white font-bold' : 'text-neutral-500'}`}
+                        className={`flex-1 text-left p-3 text-xs transition-colors hover:bg-[var(--bg-card)] ${selectedBody === font ? 'bg-[var(--bg-card)] text-[var(--text-primary)] font-bold' : 'text-[var(--text-muted)]'}`}
                       >
                         <span className="opacity-50 mr-2 text-[8px]">B</span> {font}
                       </button>

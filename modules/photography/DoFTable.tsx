@@ -20,37 +20,37 @@ export const DoFTable: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col gap-6">
-      <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex gap-8">
            <div className="space-y-2">
-              <label className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest block">Focal Length: {focalLength}mm</label>
-              <input type="range" min="14" max="200" value={focalLength} onChange={(e) => setFocalLength(parseInt(e.target.value))} className="w-48 h-1 bg-neutral-900 appearance-none accent-white cursor-pointer" />
+              <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block">Focal Length: {focalLength}mm</label>
+              <input type="range" min="14" max="200" value={focalLength} onChange={(e) => setFocalLength(parseInt(e.target.value))} className="w-48 h-1 bg-[var(--bg-card)] appearance-none accent-white cursor-pointer" />
            </div>
            <div className="space-y-2">
-              <label className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest block">Circle of Confusion</label>
-              <select value={coc} onChange={(e) => setCoc(parseFloat(e.target.value))} className="bg-black border border-neutral-800 p-1 text-[10px] text-neutral-400 outline-none">
+              <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block">Circle of Confusion</label>
+              <select value={coc} onChange={(e) => setCoc(parseFloat(e.target.value))} className="bg-[var(--bg-input)] border border-[var(--border)] p-1 text-[10px] text-[var(--text-muted)] outline-none">
                  <option value="0.03">0.030mm (FF)</option>
                  <option value="0.02">0.020mm (APS-C)</option>
               </select>
            </div>
         </div>
-        <div className="text-[10px] uppercase font-bold text-neutral-700 tracking-[0.2em] italic">Reference Grid System</div>
+        <div className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-[0.2em] italic">Reference Grid System</div>
       </div>
 
-      <div className="flex-1 bg-[#0a0a0a] border border-neutral-800 overflow-auto">
+      <div className="flex-1 bg-[var(--bg-page)] border border-[var(--border)] overflow-auto">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-neutral-950">
-              <th className="p-4 border border-neutral-900 text-[10px] uppercase text-neutral-500 font-bold">Dist \ Apt</th>
-              {APERTURES.map(a => <th key={a} className="p-4 border border-neutral-900 text-[10px] text-white font-bold font-mono">f/{a}</th>)}
+            <tr className="bg-[var(--bg-card)]">
+              <th className="p-4 border border-[var(--border)] text-[10px] uppercase text-[var(--text-muted)] font-bold">Dist \ Apt</th>
+              {APERTURES.map(a => <th key={a} className="p-4 border border-[var(--border)] text-[10px] text-[var(--text-primary)] font-bold font-mono">f/{a}</th>)}
             </tr>
           </thead>
           <tbody>
             {DISTANCES.map(d => (
               <tr key={d} className="group">
-                <td className="p-4 border border-neutral-900 text-[10px] font-bold text-neutral-500 bg-neutral-950/50">{d}m</td>
+                <td className="p-4 border border-[var(--border)] text-[10px] font-bold text-[var(--text-muted)] bg-[var(--bg-card)]/50">{d}m</td>
                 {APERTURES.map(a => (
-                  <td key={a} className="p-4 border border-neutral-900 text-center text-[11px] font-mono text-neutral-500 group-hover:text-white transition-colors">
+                  <td key={a} className="p-4 border border-[var(--border)] text-center text-[11px] font-mono text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors">
                     {calcDoF(focalLength, a, d)}
                   </td>
                 ))}

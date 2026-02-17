@@ -91,18 +91,18 @@ export const QuotesGenerator: React.FC = () => {
         </div>
       )}
 
-      <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-6">
-          <div className="flex border border-neutral-800 p-1 bg-black">
+          <div className="flex border border-[var(--border)] p-1 bg-[var(--bg-input)]">
             <button 
               onClick={() => setMode('static')}
-              className={`px-4 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-all ${mode === 'static' ? 'bg-neutral-800 text-white' : 'text-neutral-600 hover:text-white'}`}
+              className={`px-4 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-all ${mode === 'static' ? 'bg-[var(--bg-hover)] text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
             >
               Curated
             </button>
             <button 
               onClick={() => setMode('ai')}
-              className={`px-4 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-all ${mode === 'ai' ? 'bg-neutral-800 text-white' : 'text-neutral-600 hover:text-white'}`}
+              className={`px-4 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-all ${mode === 'ai' ? 'bg-[var(--bg-hover)] text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
             >
               AI Lab
             </button>
@@ -114,7 +114,7 @@ export const QuotesGenerator: React.FC = () => {
               value={theme}
               onChange={(e) => setTheme(e.target.value)}
               placeholder="Quote theme (e.g. Courage)..."
-              className="bg-black border border-neutral-800 p-2 text-xs text-neutral-300 outline-none focus:border-neutral-600 w-48"
+              className="bg-[var(--bg-input)] border border-[var(--border)] p-2 text-xs text-[var(--text-primary)] outline-none focus:border-[var(--border-hover)] w-48"
             />
           )}
         </div>
@@ -129,7 +129,7 @@ export const QuotesGenerator: React.FC = () => {
           </button>
           <button 
             onClick={resetAll}
-            className="text-[10px] uppercase font-bold text-neutral-600 hover:text-red-500 transition-colors"
+            className="text-[10px] uppercase font-bold text-[var(--text-muted)] hover:text-red-500 transition-colors"
           >
             Reset
           </button>
@@ -139,38 +139,38 @@ export const QuotesGenerator: React.FC = () => {
       <div className="flex-1 overflow-auto pr-1">
         <div className="max-w-4xl mx-auto space-y-12 pb-20">
           {primaryQuote ? (
-            <section className="relative py-20 px-12 bg-[#0d0d0d] border border-neutral-800 text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <div className="absolute top-8 left-12 text-8xl font-serif text-neutral-800 leading-none pointer-events-none">“</div>
+            <section className="relative py-20 px-12 bg-[#0d0d0d] border border-[var(--border)] text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <div className="absolute top-8 left-12 text-8xl font-serif text-[var(--text-muted)] leading-none pointer-events-none">“</div>
               <blockquote className="relative z-10">
-                <p className="text-3xl md:text-5xl font-light text-white leading-tight tracking-tight mb-8">
+                <p className="text-3xl md:text-5xl font-light text-[var(--text-primary)] leading-tight tracking-tight mb-8">
                   {primaryQuote.text}
                 </p>
-                <cite className="text-[11px] uppercase tracking-[0.4em] font-bold text-neutral-600 not-italic">
+                <cite className="text-[11px] uppercase tracking-[0.4em] font-bold text-[var(--text-muted)] not-italic">
                   — {primaryQuote.author}
                 </cite>
               </blockquote>
-              <div className="absolute bottom-8 right-12 text-8xl font-serif text-neutral-800 leading-none rotate-180 pointer-events-none">“</div>
+              <div className="absolute bottom-8 right-12 text-8xl font-serif text-[var(--text-muted)] leading-none rotate-180 pointer-events-none">“</div>
             </section>
           ) : null}
 
           <section className="space-y-6">
             <div className="flex items-center gap-4">
-               <h2 className="text-[10px] uppercase font-bold text-neutral-600 tracking-[0.3em] whitespace-nowrap">Further Reflections</h2>
-               <div className="h-px w-full bg-neutral-900" />
+               <h2 className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-[0.3em] whitespace-nowrap">Further Reflections</h2>
+               <div className="h-px w-full bg-[var(--bg-card)]" />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {secondaryQuotes.length > 0 ? secondaryQuotes.map((q, i) => (
-                <div key={i} className="p-8 bg-[#111] border border-neutral-800 group hover:border-neutral-600 transition-all flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-2 duration-500" style={{ animationDelay: `${i * 150}ms` }}>
-                  <p className="text-sm text-neutral-400 leading-relaxed italic">
+                <div key={i} className="p-8 bg-[var(--bg-card)] border border-[var(--border)] group hover:border-[var(--border-hover)] transition-all flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-2 duration-500" style={{ animationDelay: `${i * 150}ms` }}>
+                  <p className="text-sm text-[var(--text-muted)] leading-relaxed italic">
                     "{q.text}"
                   </p>
-                  <p className="text-[9px] uppercase font-bold tracking-widest text-neutral-700 mt-auto border-t border-neutral-900 pt-4">
+                  <p className="text-[9px] uppercase font-bold tracking-widest text-[var(--text-muted)] mt-auto border-t border-[var(--border)] pt-4">
                     {q.author}
                   </p>
                 </div>
               )) : Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="h-40 border border-neutral-900 bg-neutral-950/50 animate-pulse" />
+                <div key={i} className="h-40 border border-[var(--border)] bg-[var(--bg-card)]/50 animate-pulse" />
               ))}
             </div>
           </section>

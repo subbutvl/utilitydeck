@@ -53,14 +53,14 @@ export const PaletteGenerator: React.FC = () => {
         {colors.map((c, i) => (
           <div 
             key={i} 
-            className="flex-1 flex flex-col transition-all duration-500 relative group overflow-hidden border border-neutral-800"
+            className="flex-1 flex flex-col transition-all duration-500 relative group overflow-hidden border border-[var(--border)]"
             style={{ backgroundColor: c.hex }}
           >
             <div className="flex-1"></div>
-            <div className="bg-black/40 backdrop-blur-md p-6 flex flex-col items-center gap-4 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="bg-[var(--bg-input)]/40 backdrop-blur-md p-6 flex flex-col items-center gap-4 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
               <button 
                 onClick={() => toggleLock(i)}
-                className={`p-2 rounded-full transition-colors ${c.locked ? 'text-white' : 'text-white/40 hover:text-white'}`}
+                className={`p-2 rounded-full transition-colors ${c.locked ? 'text-[var(--text-primary)]' : 'text-[var(--text-primary)]/40 hover:text-[var(--text-primary)]'}`}
               >
                 {c.locked ? (
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -74,25 +74,25 @@ export const PaletteGenerator: React.FC = () => {
                   type="text" 
                   value={c.hex} 
                   onChange={(e) => updateColor(i, e.target.value)}
-                  className="bg-transparent text-white font-mono text-center text-sm border-none focus:ring-0 w-24 uppercase"
+                  className="bg-transparent text-[var(--text-primary)] font-mono text-center text-sm border-none focus:ring-0 w-24 uppercase"
                 />
                 <button 
                   onClick={() => copyColor(c.hex)}
-                  className="text-[10px] uppercase text-white/60 hover:text-white tracking-widest font-bold"
+                  className="text-[10px] uppercase text-[var(--text-primary)]/60 hover:text-[var(--text-primary)] tracking-widest font-bold"
                 >
                   Copy
                 </button>
               </div>
             </div>
             {/* Visual hex indicator always visible at bottom when not hovered */}
-            <div className="absolute bottom-6 left-0 right-0 text-center font-mono font-bold text-white group-hover:opacity-0 transition-opacity drop-shadow-md">
+            <div className="absolute bottom-6 left-0 right-0 text-center font-mono font-bold text-[var(--text-primary)] group-hover:opacity-0 transition-opacity drop-shadow-md">
               {c.hex}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="flex items-center justify-between py-4 border-t border-neutral-800">
+      <div className="flex items-center justify-between py-4 border-t border-[var(--border)]">
         <div className="flex gap-4">
           <button 
             onClick={randomize}
@@ -102,12 +102,12 @@ export const PaletteGenerator: React.FC = () => {
           </button>
           <button 
             onClick={copyPalette}
-            className="px-6 py-3 border border-neutral-800 text-[11px] text-neutral-400 hover:text-white hover:border-neutral-600 font-bold uppercase tracking-widest transition-all"
+            className="px-6 py-3 border border-[var(--border)] text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] font-bold uppercase tracking-widest transition-all"
           >
             Copy Palette
           </button>
         </div>
-        <div className="text-[10px] text-neutral-600 uppercase tracking-widest font-bold">
+        <div className="text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-bold">
           Press Space to Randomize
         </div>
       </div>

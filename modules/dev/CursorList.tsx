@@ -32,9 +32,9 @@ export const CursorList: React.FC = () => {
           value={search} 
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search cursor types (e.g. pointer, wait)..."
-          className="w-full bg-[#111] border border-neutral-800 p-4 text-sm text-white focus:border-neutral-500 outline-none transition-colors"
+          className="w-full bg-[var(--bg-card)] border border-[var(--border)] p-4 text-sm text-[var(--text-primary)] focus:border-[var(--border-hover)] outline-none transition-colors"
         />
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-600">
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]">
            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </div>
       </div>
@@ -46,18 +46,18 @@ export const CursorList: React.FC = () => {
             <div 
               key={c}
               onClick={() => handleCopy(c)}
-              className="bg-[#111] border border-neutral-800 p-6 flex flex-col items-center justify-center gap-4 transition-all hover:border-neutral-500 group cursor-pointer relative overflow-hidden"
+              className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col items-center justify-center gap-4 transition-all hover:border-[var(--border-hover)] group cursor-pointer relative overflow-hidden"
               style={{ cursor: c }}
             >
               {/* Icon / Preview */}
-              <div className="w-10 h-10 flex items-center justify-center bg-neutral-900 border border-neutral-800 group-hover:scale-110 transition-transform duration-300">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-500"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="m13 13 6 6"/></svg>
+              <div className="w-10 h-10 flex items-center justify-center bg-[var(--bg-card)] border border-[var(--border)] group-hover:scale-110 transition-transform duration-300">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--text-muted)]"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="m13 13 6 6"/></svg>
               </div>
 
               {/* Info */}
               <div className="text-center">
-                <span className="text-[10px] uppercase font-bold text-neutral-400 group-hover:text-white transition-colors block mb-1 tracking-widest">{c}</span>
-                <code className="text-[9px] font-mono text-neutral-600 group-hover:text-neutral-500">cursor: {c};</code>
+                <span className="text-[10px] uppercase font-bold text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors block mb-1 tracking-widest">{c}</span>
+                <code className="text-[9px] font-mono text-[var(--text-muted)] group-hover:text-[var(--text-muted)]">cursor: {c};</code>
               </div>
               
               {/* Copied Feedback Overlay */}
@@ -70,13 +70,13 @@ export const CursorList: React.FC = () => {
               
               {/* Hover Indicator Icon */}
               <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-600"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--text-muted)]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
               </div>
             </div>
           ))}
 
           {filtered.length === 0 && (
-            <div className="col-span-full py-20 text-center border border-dashed border-neutral-800 opacity-30 italic text-xs uppercase tracking-widest">
+            <div className="col-span-full py-20 text-center border border-dashed border-[var(--border)] opacity-30 italic text-xs uppercase tracking-widest">
               No matching cursors found
             </div>
           )}
@@ -84,7 +84,7 @@ export const CursorList: React.FC = () => {
       </div>
 
       {/* Bottom Hint */}
-      <div className="bg-neutral-900/30 p-3 border border-neutral-800 text-[10px] text-neutral-600 uppercase tracking-widest text-center font-bold">
+      <div className="bg-[var(--bg-card)]/30 p-3 border border-[var(--border)] text-[10px] text-[var(--text-muted)] uppercase tracking-widest text-center font-bold">
         Click any card to copy its CSS property to your clipboard
       </div>
     </div>

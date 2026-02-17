@@ -79,14 +79,14 @@ export const ShadowGenerator: React.FC = () => {
         <div className="lg:col-span-5 flex flex-col gap-4 overflow-y-auto pr-2">
           {/* Top Controls / Presets */}
           <div className="flex gap-2 mb-2">
-            <button onClick={() => applyPreset('soft')} className="flex-1 py-1.5 border border-neutral-800 text-[10px] uppercase font-bold tracking-widest hover:bg-neutral-800 transition-colors">Soft</button>
-            <button onClick={() => applyPreset('sharp')} className="flex-1 py-1.5 border border-neutral-800 text-[10px] uppercase font-bold tracking-widest hover:bg-neutral-800 transition-colors">Sharp</button>
-            <button onClick={() => applyPreset('neumorphic')} className="flex-1 py-1.5 border border-neutral-800 text-[10px] uppercase font-bold tracking-widest hover:bg-neutral-800 transition-colors">Neumorphic</button>
+            <button onClick={() => applyPreset('soft')} className="flex-1 py-1.5 border border-[var(--border)] text-[10px] uppercase font-bold tracking-widest hover:bg-[var(--bg-hover)] transition-colors">Soft</button>
+            <button onClick={() => applyPreset('sharp')} className="flex-1 py-1.5 border border-[var(--border)] text-[10px] uppercase font-bold tracking-widest hover:bg-[var(--bg-hover)] transition-colors">Sharp</button>
+            <button onClick={() => applyPreset('neumorphic')} className="flex-1 py-1.5 border border-[var(--border)] text-[10px] uppercase font-bold tracking-widest hover:bg-[var(--bg-hover)] transition-colors">Neumorphic</button>
           </div>
 
           {/* Box Properties Section */}
-          <div className="bg-[#111] border border-neutral-800 p-4 space-y-4">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block mb-2 border-b border-neutral-800 pb-2">Box Properties</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-4 space-y-4">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block mb-2 border-b border-[var(--border)] pb-2">Box Properties</span>
             <div className="grid grid-cols-2 gap-4">
               <Control 
                 label="Border Radius" 
@@ -96,19 +96,19 @@ export const ShadowGenerator: React.FC = () => {
                 onChange={setBorderRadius} 
               />
               <div>
-                <label className="text-[9px] uppercase text-neutral-600 mb-1 block">Box Color</label>
+                <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 block">Box Color</label>
                 <div className="flex gap-2">
                   <input 
                     type="color" 
                     value={boxColor} 
                     onChange={(e) => setBoxColor(e.target.value)} 
-                    className="w-10 h-8 bg-black border border-neutral-800 p-1 cursor-pointer"
+                    className="w-10 h-8 bg-[var(--bg-input)] border border-[var(--border)] p-1 cursor-pointer"
                   />
                   <input 
                     type="text" 
                     value={boxColor.toUpperCase()} 
                     onChange={(e) => setBoxColor(e.target.value)}
-                    className="flex-1 bg-black border border-neutral-800 p-2 text-[10px] text-neutral-400 outline-none uppercase font-mono"
+                    className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] p-2 text-[10px] text-[var(--text-muted)] outline-none uppercase font-mono"
                   />
                 </div>
               </div>
@@ -117,10 +117,10 @@ export const ShadowGenerator: React.FC = () => {
 
           {/* Shadow Layers */}
           {shadows.map((s, idx) => (
-            <div key={idx} className="bg-[#111] border border-neutral-800 p-4 space-y-4 relative">
+            <div key={idx} className="bg-[var(--bg-card)] border border-[var(--border)] p-4 space-y-4 relative">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Shadow Layer #{idx + 1}</span>
-                <button onClick={() => removeShadow(idx)} className="text-neutral-700 hover:text-red-500 text-[10px]">Remove</button>
+                <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Shadow Layer #{idx + 1}</span>
+                <button onClick={() => removeShadow(idx)} className="text-[var(--text-muted)] hover:text-red-500 text-[10px]">Remove</button>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Control label="X Offset" value={s.x} min={-100} max={100} onChange={(v) => updateShadow(idx, 'x', v)} />
@@ -130,19 +130,19 @@ export const ShadowGenerator: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 gap-4 items-end">
                 <div>
-                  <label className="text-[9px] uppercase text-neutral-600 mb-1 block">Color (HEX)</label>
+                  <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 block">Color (HEX)</label>
                   <div className="flex gap-2">
                     <input 
                       type="color" 
                       value={s.color} 
                       onChange={(e) => updateShadow(idx, 'color', e.target.value)} 
-                      className="w-10 h-8 bg-black border border-neutral-800 p-1 cursor-pointer"
+                      className="w-10 h-8 bg-[var(--bg-input)] border border-[var(--border)] p-1 cursor-pointer"
                     />
                     <input 
                       type="text" 
                       value={s.color.toUpperCase()} 
                       onChange={(e) => updateShadow(idx, 'color', e.target.value)}
-                      className="flex-1 bg-black border border-neutral-800 p-2 text-[10px] text-neutral-400 outline-none uppercase font-mono"
+                      className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] p-2 text-[10px] text-[var(--text-muted)] outline-none uppercase font-mono"
                     />
                   </div>
                 </div>
@@ -160,29 +160,29 @@ export const ShadowGenerator: React.FC = () => {
               <div className="flex items-center gap-4">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={s.inset} onChange={(e) => updateShadow(idx, 'inset', e.target.checked)} className="accent-white" />
-                  <span className="text-[10px] uppercase text-neutral-600 font-bold">Inset Shadow</span>
+                  <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold">Inset Shadow</span>
                 </label>
               </div>
             </div>
           ))}
           
-          <button onClick={addShadow} className="w-full py-3 border border-dashed border-neutral-800 text-[10px] uppercase tracking-widest text-neutral-600 hover:text-white transition-colors">+ Add Shadow Layer</button>
+          <button onClick={addShadow} className="w-full py-3 border border-dashed border-[var(--border)] text-[10px] uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors">+ Add Shadow Layer</button>
         </div>
 
         {/* Preview and Output */}
         <div className="lg:col-span-7 flex flex-col gap-6">
-          <div className={`flex-1 border border-neutral-800 flex items-center justify-center p-20 relative overflow-hidden transition-colors duration-300 ${previewBg === 'dark' ? 'bg-[#0a0a0a]' : 'bg-[#f5f5f5]'}`}>
+          <div className={`flex-1 border border-[var(--border)] flex items-center justify-center p-20 relative overflow-hidden transition-colors duration-300 ${previewBg === 'dark' ? 'bg-[var(--bg-page)]' : 'bg-[#f5f5f5]'}`}>
             {/* Background Toggle */}
-            <div className="absolute top-4 right-4 flex items-center gap-2 bg-[#111] border border-neutral-800 p-1">
+            <div className="absolute top-4 right-4 flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--border)] p-1">
               <button 
                 onClick={() => setPreviewBg('dark')} 
-                className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'dark' ? 'bg-white text-black' : 'text-neutral-500 hover:text-white'}`}
+                className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'dark' ? 'bg-white text-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
               >
                 Dark
               </button>
               <button 
                 onClick={() => setPreviewBg('light')} 
-                className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'light' ? 'bg-black text-white' : 'text-neutral-500 hover:text-black'}`}
+                className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'light' ? 'bg-[var(--bg-input)] text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-black'}`}
               >
                 Light
               </button>
@@ -196,15 +196,15 @@ export const ShadowGenerator: React.FC = () => {
                 backgroundColor: boxColor 
               }}
             ></div>
-            <div className="absolute top-4 left-4 text-[10px] text-neutral-500 uppercase tracking-widest font-bold italic">Preview Canvas</div>
+            <div className="absolute top-4 left-4 text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-bold italic">Preview Canvas</div>
           </div>
           
-          <div className="bg-[#111] border border-neutral-800 p-6 relative">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 relative">
              <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Generated CSS</span>
-                <button onClick={copyToClipboard} className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold transition-colors">Copy All CSS</button>
+                <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Generated CSS</span>
+                <button onClick={copyToClipboard} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors">Copy All CSS</button>
              </div>
-             <code className="block text-xs text-neutral-400 font-mono whitespace-pre break-all leading-relaxed bg-black/50 p-4 border border-neutral-900">
+             <code className="block text-xs text-[var(--text-muted)] font-mono whitespace-pre break-all leading-relaxed bg-[var(--bg-input)]/50 p-4 border border-[var(--border)]">
                {cssString}
              </code>
           </div>
@@ -216,13 +216,13 @@ export const ShadowGenerator: React.FC = () => {
 
 const Control = ({ label, value, min, max, onChange, unit = 'px' }: { label: string; value: number; min: number; max: number; onChange: (v: number) => void; unit?: string }) => (
   <div className="w-full">
-    <label className="text-[9px] uppercase text-neutral-600 mb-1 flex justify-between">
+    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 flex justify-between">
       {label} <span>{value}{unit}</span>
     </label>
     <input 
       type="range" min={min} max={max} value={value} 
       onChange={(e) => onChange(parseInt(e.target.value))} 
-      className="w-full h-1 bg-neutral-800 appearance-none accent-white cursor-pointer"
+      className="w-full h-1 bg-[var(--bg-hover)] appearance-none accent-white cursor-pointer"
     />
   </div>
 );

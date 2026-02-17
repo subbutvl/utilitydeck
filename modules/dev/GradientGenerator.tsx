@@ -142,17 +142,17 @@ export const GradientGenerator: React.FC = () => {
     <div className="h-full flex flex-col gap-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
         <div className="lg:col-span-4 space-y-6 overflow-y-auto pr-2 pb-10">
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
             
             {/* Type Toggle */}
             <div>
-              <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Gradient Type</label>
-              <div className="flex border border-neutral-800 p-1 mb-4">
+              <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Gradient Type</label>
+              <div className="flex border border-[var(--border)] p-1 mb-4">
                 {(['linear', 'radial', 'conic'] as GradientType[]).map(t => (
                   <button 
                     key={t}
                     onClick={() => setType(t)} 
-                    className={`flex-1 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-colors ${type === t ? 'bg-white text-black' : 'text-neutral-600 hover:text-white'}`}
+                    className={`flex-1 py-1.5 text-[10px] uppercase font-bold tracking-widest transition-colors ${type === t ? 'bg-white text-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                   >
                     {t}
                   </button>
@@ -162,7 +162,7 @@ export const GradientGenerator: React.FC = () => {
 
             {/* Direction Presets Grid */}
             <div>
-              <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Direction / Position</label>
+              <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Direction / Position</label>
               <div className="grid grid-cols-3 gap-1 w-32 mx-auto">
                 {[
                   { pos: 'top left', deg: 315, icon: '↖' },
@@ -178,7 +178,7 @@ export const GradientGenerator: React.FC = () => {
                   <button 
                     key={i} 
                     onClick={() => handleDirClick(d.pos, d.deg)}
-                    className={`aspect-square border border-neutral-800 flex items-center justify-center text-lg hover:border-neutral-500 transition-colors ${position === d.pos ? 'bg-neutral-800 text-white' : 'text-neutral-700'}`}
+                    className={`aspect-square border border-[var(--border)] flex items-center justify-center text-lg hover:border-[var(--border-hover)] transition-colors ${position === d.pos ? 'bg-[var(--bg-hover)] text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}
                   >
                     {d.icon}
                   </button>
@@ -189,34 +189,34 @@ export const GradientGenerator: React.FC = () => {
             {/* Angle Slider */}
             {(type === 'linear' || type === 'conic') && (
               <div>
-                <label className="text-[9px] uppercase text-neutral-600 mb-1 flex justify-between">Rotation <span>{angle}°</span></label>
-                <input type="range" min="0" max="360" value={angle} onChange={(e) => setAngle(parseInt(e.target.value))} className="w-full h-1 bg-neutral-800 appearance-none accent-white cursor-pointer" />
+                <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 flex justify-between">Rotation <span>{angle}°</span></label>
+                <input type="range" min="0" max="360" value={angle} onChange={(e) => setAngle(parseInt(e.target.value))} className="w-full h-1 bg-[var(--bg-hover)] appearance-none accent-white cursor-pointer" />
               </div>
             )}
 
             {/* Stops Management */}
             <div>
               <div className="flex justify-between items-center mb-4">
-                <label className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest">Color Stops</label>
-                <button onClick={addStop} className="text-[10px] uppercase text-neutral-600 hover:text-white">+ Add</button>
+                <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Color Stops</label>
+                <button onClick={addStop} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)]">+ Add</button>
               </div>
               <div className="space-y-4">
                 {stops.map((s, idx) => (
-                  <div key={idx} className="bg-black/40 border border-neutral-900 p-3 rounded-none">
+                  <div key={idx} className="bg-[var(--bg-input)]/40 border border-[var(--border)] p-3 rounded-none">
                     <div className="flex items-center gap-3 mb-2">
                       <input type="color" value={s.color} onChange={(e) => updateStop(idx, 'color', e.target.value)} className="w-8 h-8 bg-transparent cursor-pointer rounded-none border-none p-0" />
                       <input 
                         type="text" 
                         value={s.color} 
                         onChange={(e) => updateStop(idx, 'color', e.target.value)} 
-                        className="flex-1 bg-neutral-900 border border-neutral-800 px-2 py-1 text-[10px] font-mono uppercase text-neutral-400 focus:outline-none focus:border-neutral-600"
+                        className="flex-1 bg-[var(--bg-card)] border border-[var(--border)] px-2 py-1 text-[10px] font-mono uppercase text-[var(--text-muted)] focus:outline-none focus:border-[var(--border-hover)]"
                         placeholder="#FFFFFF"
                       />
-                      <button onClick={() => removeStop(idx)} className="text-neutral-800 hover:text-red-500 text-lg leading-none">×</button>
+                      <button onClick={() => removeStop(idx)} className="text-[var(--text-muted)] hover:text-red-500 text-lg leading-none">×</button>
                     </div>
                     <div className="flex items-center gap-4">
-                      <input type="range" min="0" max="100" value={s.position} onChange={(e) => updateStop(idx, 'position', parseInt(e.target.value))} className="flex-1 h-0.5 bg-neutral-800 appearance-none accent-white" />
-                      <span className="text-[9px] font-mono text-neutral-600 w-8 text-right">{s.position}%</span>
+                      <input type="range" min="0" max="100" value={s.position} onChange={(e) => updateStop(idx, 'position', parseInt(e.target.value))} className="flex-1 h-0.5 bg-[var(--bg-hover)] appearance-none accent-white" />
+                      <span className="text-[9px] font-mono text-[var(--text-muted)] w-8 text-right">{s.position}%</span>
                     </div>
                   </div>
                 ))}
@@ -224,13 +224,13 @@ export const GradientGenerator: React.FC = () => {
             </div>
 
             {/* Presets */}
-            <div className="pt-6 border-t border-neutral-800">
-               <label className="text-[10px] uppercase text-neutral-500 font-bold mb-4 block tracking-widest">Presets</label>
+            <div className="pt-6 border-t border-[var(--border)]">
+               <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-4 block tracking-widest">Presets</label>
                <div className="grid grid-cols-2 gap-2">
-                 <button onClick={() => applyPreset([{color:'#4facfe', position:0}, {color:'#00f2fe', position:100}])} className="h-8 border border-neutral-800" style={{background: 'linear-gradient(90deg, #4facfe, #00f2fe)'}}></button>
-                 <button onClick={() => applyPreset([{color:'#fa709a', position:0}, {color:'#fee140', position:100}])} className="h-8 border border-neutral-800" style={{background: 'linear-gradient(90deg, #fa709a, #fee140)'}}></button>
-                 <button onClick={() => applyPreset([{color:'#09203f', position:0}, {color:'#537895', position:100}])} className="h-8 border border-neutral-800" style={{background: 'linear-gradient(90deg, #09203f, #537895)'}}></button>
-                 <button onClick={() => applyPreset([{color:'#111', position:0}, {color:'#444', position:100}])} className="h-8 border border-neutral-800 bg-neutral-900 flex items-center justify-center text-[9px] uppercase font-bold tracking-widest text-neutral-600">RESET</button>
+                 <button onClick={() => applyPreset([{color:'#4facfe', position:0}, {color:'#00f2fe', position:100}])} className="h-8 border border-[var(--border)]" style={{background: 'linear-gradient(90deg, #4facfe, #00f2fe)'}}></button>
+                 <button onClick={() => applyPreset([{color:'#fa709a', position:0}, {color:'#fee140', position:100}])} className="h-8 border border-[var(--border)]" style={{background: 'linear-gradient(90deg, #fa709a, #fee140)'}}></button>
+                 <button onClick={() => applyPreset([{color:'#09203f', position:0}, {color:'#537895', position:100}])} className="h-8 border border-[var(--border)]" style={{background: 'linear-gradient(90deg, #09203f, #537895)'}}></button>
+                 <button onClick={() => applyPreset([{color:'#111', position:0}, {color:'#444', position:100}])} className="h-8 border border-[var(--border)] bg-[var(--bg-card)] flex items-center justify-center text-[9px] uppercase font-bold tracking-widest text-[var(--text-muted)]">RESET</button>
                </div>
             </div>
           </div>
@@ -239,22 +239,22 @@ export const GradientGenerator: React.FC = () => {
         {/* Preview and Export */}
         <div className="lg:col-span-8 flex flex-col gap-6">
           <div 
-            className="flex-1 border border-neutral-800 relative group overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" 
+            className="flex-1 border border-[var(--border)] relative group overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" 
             style={{ background: previewCss }}
           >
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
-              <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-white">Gradient Canvas</span>
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-[var(--bg-input)]/40 transition-opacity">
+              <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-[var(--text-primary)]">Gradient Canvas</span>
             </div>
           </div>
           
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-4">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-4">
              <div className="flex items-center justify-between">
                 <div className="flex gap-4">
                   {(['hex', 'rgba', 'hsl', 'oklch'] as ColorFormat[]).map(f => (
                     <button 
                       key={f} 
                       onClick={() => setColorFormat(f)}
-                      className={`text-[10px] uppercase font-bold tracking-widest transition-colors ${colorFormat === f ? 'text-white underline underline-offset-4' : 'text-neutral-600 hover:text-neutral-400'}`}
+                      className={`text-[10px] uppercase font-bold tracking-widest transition-colors ${colorFormat === f ? 'text-[var(--text-primary)] underline underline-offset-4' : 'text-[var(--text-muted)] hover:text-[var(--text-muted)]'}`}
                     >
                       {f}
                     </button>
@@ -262,13 +262,13 @@ export const GradientGenerator: React.FC = () => {
                 </div>
                 <button 
                   onClick={() => navigator.clipboard.writeText(`background: ${cssOutput};`)} 
-                  className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold transition-colors flex items-center gap-2"
+                  className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors flex items-center gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                   Copy Code
                 </button>
              </div>
-             <code className="block text-xs text-neutral-400 font-mono break-all leading-relaxed bg-black/50 p-4 border border-neutral-900 max-h-32 overflow-y-auto">
+             <code className="block text-xs text-[var(--text-muted)] font-mono break-all leading-relaxed bg-[var(--bg-input)]/50 p-4 border border-[var(--border)] max-h-32 overflow-y-auto">
                background: {cssOutput};
              </code>
           </div>

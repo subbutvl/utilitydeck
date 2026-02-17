@@ -192,47 +192,47 @@ export const ImageStudio: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
         {/* Controls */}
         <div className="lg:col-span-4 space-y-4 overflow-y-auto pr-2 pb-10">
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
              <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] uppercase font-bold text-neutral-500 tracking-widest">Workspace Controls</span>
+                <span className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-widest">Workspace Controls</span>
                 <div className="flex gap-2">
-                   <button onClick={undo} disabled={historyIndex <= 0} className="p-1 hover:text-white disabled:opacity-20 transition-opacity">
+                   <button onClick={undo} disabled={historyIndex <= 0} className="p-1 hover:text-[var(--text-primary)] disabled:opacity-20 transition-opacity">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-15 9 9 0 0 0-6 2.3L3 13"/></svg>
                    </button>
-                   <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-1 hover:text-white disabled:opacity-20 transition-opacity">
+                   <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-1 hover:text-[var(--text-primary)] disabled:opacity-20 transition-opacity">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-15 9 9 0 0 1 6 2.3L21 13"/></svg>
                    </button>
                 </div>
              </div>
 
              {!state.image ? (
-               <button onClick={() => fileInputRef.current?.click()} className="w-full py-10 border-2 border-dashed border-neutral-800 text-[11px] uppercase tracking-widest font-bold text-neutral-600 hover:border-neutral-500 hover:text-white transition-all">Upload Main Image</button>
+               <button onClick={() => fileInputRef.current?.click()} className="w-full py-10 border-2 border-dashed border-[var(--border)] text-[11px] uppercase tracking-widest font-bold text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)] transition-all">Upload Main Image</button>
              ) : (
                <div className="space-y-6">
                   <div>
-                    <label className="text-[9px] uppercase text-neutral-600 mb-2 block tracking-widest">Aspect Ratio</label>
+                    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-2 block tracking-widest">Aspect Ratio</label>
                     <div className="grid grid-cols-3 gap-1">
                        {['original', '1:1', '16:9', '9:16', '4:3', '3:2'].map(r => (
-                         <button key={r} onClick={() => updateState({ aspectRatio: r })} className={`py-1.5 text-[9px] uppercase border transition-all ${state.aspectRatio === r ? 'bg-white text-black border-white' : 'bg-black text-neutral-500 border-neutral-800'}`}>{r}</button>
+                         <button key={r} onClick={() => updateState({ aspectRatio: r })} className={`py-1.5 text-[9px] uppercase border transition-all ${state.aspectRatio === r ? 'bg-white text-black border-white' : 'bg-[var(--bg-input)] text-[var(--text-muted)] border-[var(--border)]'}`}>{r}</button>
                        ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[9px] uppercase text-neutral-600 mb-2 block tracking-widest">Watermark Type</label>
-                    <div className="flex border border-neutral-800 p-1">
+                    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-2 block tracking-widest">Watermark Type</label>
+                    <div className="flex border border-[var(--border)] p-1">
                        {(['none', 'text', 'image'] as const).map(t => (
-                         <button key={t} onClick={() => updateState({ watermarkType: t })} className={`flex-1 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${state.watermarkType === t ? 'bg-neutral-800 text-white' : 'text-neutral-600'}`}>{t}</button>
+                         <button key={t} onClick={() => updateState({ watermarkType: t })} className={`flex-1 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${state.watermarkType === t ? 'bg-[var(--bg-hover)] text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>{t}</button>
                        ))}
                     </div>
                   </div>
 
                   {state.watermarkType === 'text' && (
-                    <input value={state.watermarkText} onChange={(e) => updateState({ watermarkText: e.target.value })} className="w-full bg-black border border-neutral-800 p-2 text-xs text-white outline-none focus:border-neutral-600" placeholder="Custom text..." />
+                    <input value={state.watermarkText} onChange={(e) => updateState({ watermarkText: e.target.value })} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-2 text-xs text-[var(--text-primary)] outline-none focus:border-[var(--border-hover)]" placeholder="Custom text..." />
                   )}
 
                   {state.watermarkType === 'image' && (
-                    <button onClick={() => watermarkInputRef.current?.click()} className="w-full py-2 bg-neutral-900 border border-neutral-800 text-[10px] uppercase font-bold text-neutral-400">Upload Logo</button>
+                    <button onClick={() => watermarkInputRef.current?.click()} className="w-full py-2 bg-[var(--bg-card)] border border-[var(--border)] text-[10px] uppercase font-bold text-[var(--text-muted)]">Upload Logo</button>
                   )}
 
                   {state.watermarkType !== 'none' && (
@@ -246,16 +246,16 @@ export const ImageStudio: React.FC = () => {
                     </div>
                   )}
 
-                  <div className="pt-4 border-t border-neutral-900">
-                    <label className="text-[10px] uppercase font-bold text-neutral-500 mb-2 block flex items-center gap-2"><IconSparkles /> AI Magic Edit</label>
+                  <div className="pt-4 border-t border-[var(--border)]">
+                    <label className="text-[10px] uppercase font-bold text-[var(--text-muted)] mb-2 block flex items-center gap-2"><IconSparkles /> AI Magic Edit</label>
                     <div className="flex gap-2">
-                       <input value={aiPrompt} onChange={(e) => setAiPrompt(e.target.value)} placeholder="e.g. Remove background" className="flex-1 bg-black border border-neutral-800 p-2 text-xs text-white outline-none" />
+                       <input value={aiPrompt} onChange={(e) => setAiPrompt(e.target.value)} placeholder="e.g. Remove background" className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] p-2 text-xs text-[var(--text-primary)] outline-none" />
                        <button onClick={handleAiEdit} disabled={isAiLoading || !aiPrompt} className="px-4 bg-white text-black font-bold uppercase text-[10px] tracking-widest disabled:opacity-20">{isAiLoading ? '...' : 'Go'}</button>
                     </div>
                   </div>
 
                   <button onClick={exportImage} className="w-full py-3 bg-white text-black font-bold uppercase tracking-[0.2em] text-xs hover:bg-neutral-200 transition-colors">Export Studio Result</button>
-                  <button onClick={() => updateState(INITIAL_STATE)} className="w-full py-2 text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold transition-colors">Reset Session</button>
+                  <button onClick={() => updateState(INITIAL_STATE)} className="w-full py-2 text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold transition-colors">Reset Session</button>
                </div>
              )}
           </div>
@@ -265,17 +265,17 @@ export const ImageStudio: React.FC = () => {
 
         {/* Preview */}
         <div className="lg:col-span-8 flex flex-col gap-4">
-          <div className="flex-1 bg-neutral-900 border border-neutral-800 relative overflow-hidden flex items-center justify-center p-8 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
-             <div className="absolute top-4 left-4 text-[10px] uppercase font-bold text-neutral-600 tracking-widest z-10 italic">Studio View</div>
+          <div className="flex-1 bg-[var(--bg-card)] border border-[var(--border)] relative overflow-hidden flex items-center justify-center p-8 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+             <div className="absolute top-4 left-4 text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-widest z-10 italic">Studio View</div>
              <div className="max-w-full max-h-full transition-transform duration-200" style={{ transform: `scale(${state.zoom})` }}>
                 <canvas ref={canvasRef} className="shadow-2xl max-w-full max-h-full" />
              </div>
              
              {state.image && (
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-[#111] border border-neutral-800 p-1">
-                   <button onClick={() => updateState({ zoom: Math.max(0.1, state.zoom - 0.1) }, true)} className="p-2 hover:bg-neutral-800 text-neutral-500 border border-neutral-800">-</button>
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--border)] p-1">
+                   <button onClick={() => updateState({ zoom: Math.max(0.1, state.zoom - 0.1) }, true)} className="p-2 hover:bg-[var(--bg-hover)] text-[var(--text-muted)] border border-[var(--border)]">-</button>
                    <span className="text-[10px] font-mono w-10 text-center">{Math.round(state.zoom * 100)}%</span>
-                   <button onClick={() => updateState({ zoom: Math.min(5, state.zoom + 0.1) }, true)} className="p-2 hover:bg-neutral-800 text-neutral-500 border border-neutral-800">+</button>
+                   <button onClick={() => updateState({ zoom: Math.min(5, state.zoom + 0.1) }, true)} className="p-2 hover:bg-[var(--bg-hover)] text-[var(--text-muted)] border border-[var(--border)]">+</button>
                 </div>
              )}
           </div>
@@ -287,10 +287,10 @@ export const ImageStudio: React.FC = () => {
 
 const Control = ({ label, value, min, max, unit = 'px', onChange }: { label: string; value: number; min: number; max: number; unit?: string; onChange: (v: number) => void }) => (
   <div className="space-y-1">
-    <div className="flex justify-between text-[8px] uppercase font-bold text-neutral-500 tracking-widest">
+    <div className="flex justify-between text-[8px] uppercase font-bold text-[var(--text-muted)] tracking-widest">
        <span>{label}</span>
        <span>{value}{unit}</span>
     </div>
-    <input type="range" min={min} max={max} value={value} onChange={(e) => onChange(parseInt(e.target.value))} className="w-full h-1 bg-neutral-900 appearance-none accent-white cursor-pointer" />
+    <input type="range" min={min} max={max} value={value} onChange={(e) => onChange(parseInt(e.target.value))} className="w-full h-1 bg-[var(--bg-card)] appearance-none accent-white cursor-pointer" />
   </div>
 );

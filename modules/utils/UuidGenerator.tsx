@@ -78,13 +78,13 @@ export const UuidGenerator: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto w-full flex flex-col gap-6 pt-4">
       <div className="flex flex-col gap-2">
-        <div className="max-h-[400px] overflow-y-auto bg-neutral-900 border border-neutral-800 p-6 space-y-2 font-mono text-sm shadow-inner">
+        <div className="max-h-[400px] overflow-y-auto bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-2 font-mono text-sm shadow-inner">
           {uuids.map((id, i) => (
-            <div key={i} className="flex items-center justify-between group hover:bg-neutral-800 p-2 border-b border-neutral-800/50 last:border-0 transition-colors">
-              <span className="text-white break-all">{id}</span>
+            <div key={i} className="flex items-center justify-between group hover:bg-[var(--bg-hover)] p-2 border-b border-[var(--border)]/50 last:border-0 transition-colors">
+              <span className="text-[var(--text-primary)] break-all">{id}</span>
               <button 
                 onClick={() => navigator.clipboard.writeText(id)}
-                className="opacity-0 group-hover:opacity-100 text-[10px] text-neutral-500 hover:text-white uppercase tracking-widest px-2 font-bold"
+                className="opacity-0 group-hover:opacity-100 text-[10px] text-[var(--text-muted)] hover:text-[var(--text-primary)] uppercase tracking-widest px-2 font-bold"
               >
                 Copy
               </button>
@@ -94,30 +94,30 @@ export const UuidGenerator: React.FC = () => {
         <div className="flex justify-between items-center px-2 mt-2">
           <button 
             onClick={copyAll}
-            className="text-[10px] text-neutral-500 hover:text-white uppercase tracking-widest font-bold flex items-center gap-2"
+            className="text-[10px] text-[var(--text-muted)] hover:text-[var(--text-primary)] uppercase tracking-widest font-bold flex items-center gap-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
             Copy All Results ({uuids.length})
           </button>
           <button 
             onClick={resetAll}
-            className="text-[10px] text-neutral-700 hover:text-red-500 uppercase tracking-widest font-bold"
+            className="text-[10px] text-[var(--text-muted)] hover:text-red-500 uppercase tracking-widest font-bold"
           >
             Reset Settings
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-neutral-900/30 p-8 border border-neutral-800">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[var(--bg-card)]/30 p-8 border border-[var(--border)]">
         <div className="space-y-6">
           <div>
-            <label className="text-[10px] uppercase text-neutral-500 font-bold mb-4 block tracking-widest">Version</label>
-            <div className="flex bg-black border border-neutral-800 p-1">
+            <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-4 block tracking-widest">Version</label>
+            <div className="flex bg-[var(--bg-input)] border border-[var(--border)] p-1">
               {(['v1', 'v4', 'numeric'] as UuidVersion[]).map(v => (
                 <button
                   key={v}
                   onClick={() => setVersion(v)}
-                  className={`flex-1 py-1.5 text-[10px] uppercase tracking-widest transition-all ${version === v ? 'bg-neutral-800 text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+                  className={`flex-1 py-1.5 text-[10px] uppercase tracking-widest transition-all ${version === v ? 'bg-[var(--bg-hover)] text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                 >
                   {v}
                 </button>
@@ -125,11 +125,11 @@ export const UuidGenerator: React.FC = () => {
             </div>
           </div>
           <div>
-            <label className="text-[10px] uppercase text-neutral-500 font-bold mb-4 block tracking-widest">Batch Size: {count}</label>
+            <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-4 block tracking-widest">Batch Size: {count}</label>
             <input 
               type="range" min="1" max="100" value={count}
               onChange={(e) => setCount(parseInt(e.target.value))}
-              className="w-full h-1 bg-neutral-800 appearance-none cursor-pointer accent-white"
+              className="w-full h-1 bg-[var(--bg-hover)] appearance-none cursor-pointer accent-white"
             />
           </div>
         </div>
@@ -141,18 +141,18 @@ export const UuidGenerator: React.FC = () => {
               checked={useHyphens} 
               disabled={version === 'numeric'}
               onChange={() => setUseHyphens(!useHyphens)} 
-              className="w-4 h-4 bg-black border-neutral-700 text-white rounded-none focus:ring-0 disabled:opacity-20" 
+              className="w-4 h-4 bg-[var(--bg-input)] border-[var(--border)] text-[var(--text-primary)] rounded-none focus:ring-0 disabled:opacity-20" 
             />
-            <span className={`text-xs ${version === 'numeric' ? 'text-neutral-700' : 'text-neutral-400 group-hover:text-neutral-200'} transition-colors`}>Include Hyphens</span>
+            <span className={`text-xs ${version === 'numeric' ? 'text-[var(--text-muted)]' : 'text-[var(--text-muted)] group-hover:text-[var(--text-primary)]'} transition-colors`}>Include Hyphens</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer group">
             <input 
               type="checkbox" 
               checked={useUppercase} 
               onChange={() => setUseUppercase(!useUppercase)} 
-              className="w-4 h-4 bg-black border-neutral-700 text-white rounded-none focus:ring-0" 
+              className="w-4 h-4 bg-[var(--bg-input)] border-[var(--border)] text-[var(--text-primary)] rounded-none focus:ring-0" 
             />
-            <span className="text-xs text-neutral-400 group-hover:text-neutral-200 transition-colors">Uppercase Results</span>
+            <span className="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors">Uppercase Results</span>
           </label>
         </div>
       </div>

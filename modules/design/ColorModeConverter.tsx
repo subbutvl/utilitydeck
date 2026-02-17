@@ -126,12 +126,12 @@ export const ColorModeConverter: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0 overflow-hidden">
         {/* Left: Inputs */}
         <div className="lg:col-span-5 flex flex-col gap-6 overflow-y-auto pr-2">
-          <div className="bg-[#111] border border-neutral-800 p-8 space-y-8">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block border-b border-neutral-800 pb-2">Configuration</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-8 space-y-8">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block border-b border-[var(--border)] pb-2">Configuration</span>
             
             <div className="space-y-6">
               <div>
-                <label className="text-[10px] uppercase text-neutral-600 mb-3 block tracking-widest">Base Color</label>
+                <label className="text-[10px] uppercase text-[var(--text-muted)] mb-3 block tracking-widest">Base Color</label>
                 <div className="flex gap-4 items-center">
                   <input 
                     type="color" value={hex} onChange={(e) => setHex(e.target.value.toUpperCase())}
@@ -140,24 +140,24 @@ export const ColorModeConverter: React.FC = () => {
                   <div className="flex-1 space-y-2">
                     <input 
                       type="text" value={hex} onChange={(e) => setHex(e.target.value.toUpperCase())}
-                      className="w-full bg-black border border-neutral-800 p-3 text-sm font-mono text-white focus:border-neutral-600 uppercase"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-3 text-sm font-mono text-[var(--text-primary)] focus:border-[var(--border-hover)] uppercase"
                     />
-                    <div className="text-[9px] text-neutral-700 uppercase font-bold tracking-widest">Enter Hex (e.g. #FFFFFF)</div>
+                    <div className="text-[9px] text-[var(--text-muted)] uppercase font-bold tracking-widest">Enter Hex (e.g. #FFFFFF)</div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="text-[10px] uppercase text-neutral-600 mb-3 block tracking-widest flex justify-between">Alpha Channel <span>{Math.round(alpha * 100)}%</span></label>
+                <label className="text-[10px] uppercase text-[var(--text-muted)] mb-3 block tracking-widest flex justify-between">Alpha Channel <span>{Math.round(alpha * 100)}%</span></label>
                 <input 
                   type="range" min="0" max="1" step="0.01" value={alpha}
                   onChange={(e) => setAlpha(parseFloat(e.target.value))}
-                  className="w-full h-1 bg-neutral-800 appearance-none accent-white cursor-pointer"
+                  className="w-full h-1 bg-[var(--bg-hover)] appearance-none accent-white cursor-pointer"
                 />
               </div>
             </div>
 
-            <div className="pt-4 border-t border-neutral-800 flex flex-col items-center gap-4">
+            <div className="pt-4 border-t border-[var(--border)] flex flex-col items-center gap-4">
               <div 
                 className="w-full h-24 border border-white/10 shadow-2xl relative bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"
               >
@@ -166,17 +166,17 @@ export const ColorModeConverter: React.FC = () => {
                    style={{ backgroundColor: `rgba(${hexToRgb(hex).r}, ${hexToRgb(hex).g}, ${hexToRgb(hex).b}, ${alpha})` }}
                 />
               </div>
-              <span className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Live Preview</span>
+              <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Live Preview</span>
             </div>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 p-6 space-y-4">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block border-b border-neutral-800 pb-2">Glossary</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-4">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block border-b border-[var(--border)] pb-2">Glossary</span>
             <div className="grid grid-cols-1 gap-4">
               {definitions.map(d => (
                 <div key={d.name}>
-                  <div className="text-[10px] font-bold text-neutral-400 mb-1">{d.name}</div>
-                  <div className="text-xs text-neutral-600 leading-relaxed">{d.desc}</div>
+                  <div className="text-[10px] font-bold text-[var(--text-muted)] mb-1">{d.name}</div>
+                  <div className="text-xs text-[var(--text-muted)] leading-relaxed">{d.desc}</div>
                 </div>
               ))}
             </div>
@@ -187,14 +187,14 @@ export const ColorModeConverter: React.FC = () => {
         <div className="lg:col-span-7 flex flex-col gap-4 overflow-y-auto pr-1 pb-10">
           <div className="grid grid-cols-1 gap-3">
             {conversions.map(m => (
-              <div key={m.id} className="bg-[#111] border border-neutral-800 p-5 group hover:border-neutral-500 transition-all flex items-center justify-between">
+              <div key={m.id} className="bg-[var(--bg-card)] border border-[var(--border)] p-5 group hover:border-[var(--border-hover)] transition-all flex items-center justify-between">
                 <div>
-                  <div className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest mb-1">{m.label}</div>
-                  <code className="text-xs text-neutral-300 font-mono break-all">{m.value}</code>
+                  <div className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest mb-1">{m.label}</div>
+                  <code className="text-xs text-[var(--text-primary)] font-mono break-all">{m.value}</code>
                 </div>
                 <button 
                   onClick={() => navigator.clipboard.writeText(m.value)}
-                  className="px-4 py-2 border border-neutral-800 text-[9px] uppercase font-bold tracking-widest text-neutral-500 hover:text-white hover:border-neutral-600 transition-all shrink-0"
+                  className="px-4 py-2 border border-[var(--border)] text-[9px] uppercase font-bold tracking-widest text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-all shrink-0"
                 >
                   Copy
                 </button>
@@ -202,7 +202,7 @@ export const ColorModeConverter: React.FC = () => {
             ))}
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 p-6 text-[10px] text-neutral-600 uppercase tracking-widest leading-relaxed mt-4 italic">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 text-[10px] text-[var(--text-muted)] uppercase tracking-widest leading-relaxed mt-4 italic">
             * Most modern formats like OKLCH are supported in Evergreen browsers (Chrome 111+, Safari 16.4+, Firefox 113+).
           </div>
         </div>

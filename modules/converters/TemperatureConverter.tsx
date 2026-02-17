@@ -25,14 +25,14 @@ export const TemperatureConverter: React.FC = () => {
   return (
     <div className="h-full flex flex-col gap-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
-        <div className="lg:col-span-4 bg-[#111] border border-neutral-800 p-8 space-y-6 h-fit">
+        <div className="lg:col-span-4 bg-[var(--bg-card)] border border-[var(--border)] p-8 space-y-6 h-fit">
           <div>
-            <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Temperature</label>
-            <input type="number" value={value} onChange={(e) => setValue(e.target.value)} className="w-full bg-black border border-neutral-800 p-4 text-xl font-mono text-white focus:border-neutral-600 outline-none" />
+            <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Temperature</label>
+            <input type="number" value={value} onChange={(e) => setValue(e.target.value)} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-4 text-xl font-mono text-[var(--text-primary)] focus:border-[var(--border-hover)] outline-none" />
           </div>
           <div>
-            <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Scale</label>
-            <select value={fromUnit} onChange={(e) => setFromUnit(e.target.value as TempUnit)} className="w-full bg-black border border-neutral-800 p-4 text-sm text-neutral-300 outline-none">
+            <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Scale</label>
+            <select value={fromUnit} onChange={(e) => setFromUnit(e.target.value as TempUnit)} className="w-full bg-[var(--bg-input)] border border-[var(--border)] p-4 text-sm text-[var(--text-primary)] outline-none">
               <option value="Celsius">Celsius (°C)</option>
               <option value="Fahrenheit">Fahrenheit (°F)</option>
               <option value="Kelvin">Kelvin (K)</option>
@@ -41,12 +41,12 @@ export const TemperatureConverter: React.FC = () => {
         </div>
         <div className="lg:col-span-8 space-y-4">
           {results.map(r => (
-            <div key={r.unit} className="bg-[#111] border border-neutral-800 p-6 flex items-center justify-between">
+            <div key={r.unit} className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex items-center justify-between">
               <div>
-                <div className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest mb-1">{r.unit}</div>
-                <div className="text-3xl font-mono text-white">{r.value.toFixed(2)}</div>
+                <div className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest mb-1">{r.unit}</div>
+                <div className="text-3xl font-mono text-[var(--text-primary)]">{r.value.toFixed(2)}</div>
               </div>
-              <button onClick={() => navigator.clipboard.writeText(r.value.toFixed(2))} className="px-6 py-2 border border-neutral-800 text-[10px] uppercase tracking-widest hover:text-white transition-all">Copy Result</button>
+              <button onClick={() => navigator.clipboard.writeText(r.value.toFixed(2))} className="px-6 py-2 border border-[var(--border)] text-[10px] uppercase tracking-widest hover:text-[var(--text-primary)] transition-all">Copy Result</button>
             </div>
           ))}
         </div>

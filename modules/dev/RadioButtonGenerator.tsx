@@ -59,13 +59,13 @@ export const RadioButtonGenerator: React.FC = () => {
         <div className="lg:col-span-5 space-y-4 overflow-y-auto pr-2 pb-10">
           
           <div className="grid grid-cols-3 gap-2 mb-2">
-            <button onClick={() => applyPreset('solid')} className="py-2 border border-neutral-800 text-[9px] uppercase font-bold hover:bg-neutral-800 transition-colors">Solid</button>
-            <button onClick={() => applyPreset('outline')} className="py-2 border border-neutral-800 text-[9px] uppercase font-bold hover:bg-neutral-800 transition-colors">Outline</button>
-            <button onClick={() => applyPreset('brutal')} className="py-2 border border-neutral-800 text-[9px] uppercase font-bold hover:bg-neutral-800 transition-colors">Brutal</button>
+            <button onClick={() => applyPreset('solid')} className="py-2 border border-[var(--border)] text-[9px] uppercase font-bold hover:bg-[var(--bg-hover)] transition-colors">Solid</button>
+            <button onClick={() => applyPreset('outline')} className="py-2 border border-[var(--border)] text-[9px] uppercase font-bold hover:bg-[var(--bg-hover)] transition-colors">Outline</button>
+            <button onClick={() => applyPreset('brutal')} className="py-2 border border-[var(--border)] text-[9px] uppercase font-bold hover:bg-[var(--bg-hover)] transition-colors">Brutal</button>
           </div>
 
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block mb-2 border-b border-neutral-800 pb-2">Radio Properties</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block mb-2 border-b border-[var(--border)] pb-2">Radio Properties</span>
             
             <div className="grid grid-cols-2 gap-4">
               <RangeControl label="Outer Size" value={size} min={12} max={64} onChange={setSize} />
@@ -86,7 +86,7 @@ export const RadioButtonGenerator: React.FC = () => {
               onClick={() => {
                 setSize(20); setColor('#ffffff'); setBg('#1a1a1a'); setBorderColor('#444444'); setBorderWidth(1); setDotScale(0.5);
               }} 
-              className="w-full py-2 text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold transition-colors"
+              className="w-full py-2 text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold transition-colors"
             >
               Reset Designer
             </button>
@@ -94,13 +94,13 @@ export const RadioButtonGenerator: React.FC = () => {
         </div>
 
         <div className="lg:col-span-7 flex flex-col gap-6">
-          <div className={`flex-1 border border-neutral-800 flex items-center justify-center p-20 relative transition-colors duration-300 ${previewBg === 'dark' ? 'bg-[#0a0a0a]' : 'bg-[#f5f5f5]'}`}>
-            <div className="absolute top-4 right-4 flex items-center gap-2 bg-[#111] border border-neutral-800 p-1">
-              <button onClick={() => setPreviewBg('dark')} className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'dark' ? 'bg-white text-black' : 'text-neutral-500 hover:text-white'}`}>Dark</button>
-              <button onClick={() => setPreviewBg('light')} className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'light' ? 'bg-black text-white' : 'text-neutral-500 hover:text-black'}`}>Light</button>
+          <div className={`flex-1 border border-[var(--border)] flex items-center justify-center p-20 relative transition-colors duration-300 ${previewBg === 'dark' ? 'bg-[var(--bg-page)]' : 'bg-[#f5f5f5]'}`}>
+            <div className="absolute top-4 right-4 flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--border)] p-1">
+              <button onClick={() => setPreviewBg('dark')} className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'dark' ? 'bg-white text-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}>Dark</button>
+              <button onClick={() => setPreviewBg('light')} className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all ${previewBg === 'light' ? 'bg-[var(--bg-input)] text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-black'}`}>Light</button>
             </div>
             
-            <div className="absolute top-4 left-4 text-[10px] text-neutral-500 uppercase tracking-widest font-bold italic">Preview Canvas</div>
+            <div className="absolute top-4 left-4 text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-bold italic">Preview Canvas</div>
 
             <div className="flex flex-col items-center gap-4">
                <div 
@@ -124,18 +124,18 @@ export const RadioButtonGenerator: React.FC = () => {
                    />
                  )}
                </div>
-               <span className={`text-[10px] uppercase tracking-widest font-bold ${previewBg === 'dark' ? 'text-neutral-600' : 'text-neutral-400'}`}>
+               <span className={`text-[10px] uppercase tracking-widest font-bold ${previewBg === 'dark' ? 'text-[var(--text-muted)]' : 'text-[var(--text-muted)]'}`}>
                  State: {checked ? 'Active' : 'Inactive'}
                </span>
             </div>
           </div>
 
-          <div className="bg-[#111] border border-neutral-800 p-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Radio Button CSS</span>
-              <button onClick={() => navigator.clipboard.writeText(getGeneratedCss())} className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold transition-colors">Copy Code</button>
+              <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Radio Button CSS</span>
+              <button onClick={() => navigator.clipboard.writeText(getGeneratedCss())} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors">Copy Code</button>
             </div>
-            <code className="block text-[11px] text-neutral-400 font-mono whitespace-pre bg-black/50 p-4 border border-neutral-900 overflow-x-auto h-32">
+            <code className="block text-[11px] text-[var(--text-muted)] font-mono whitespace-pre bg-[var(--bg-input)]/50 p-4 border border-[var(--border)] overflow-x-auto h-32">
               {getGeneratedCss()}
             </code>
           </div>
@@ -147,17 +147,17 @@ export const RadioButtonGenerator: React.FC = () => {
 
 const ColorControl = ({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) => (
   <div>
-    <label className="text-[9px] uppercase text-neutral-600 mb-1 block">{label}</label>
+    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 block">{label}</label>
     <div className="flex gap-2">
-      <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-8 h-8 bg-black border border-neutral-800 p-1 cursor-pointer" />
-      <input type="text" value={value.toUpperCase()} onChange={(e) => onChange(e.target.value)} className="flex-1 bg-black border border-neutral-800 px-2 text-[10px] text-neutral-500 font-mono outline-none uppercase" />
+      <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-8 h-8 bg-[var(--bg-input)] border border-[var(--border)] p-1 cursor-pointer" />
+      <input type="text" value={value.toUpperCase()} onChange={(e) => onChange(e.target.value)} className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] px-2 text-[10px] text-[var(--text-muted)] font-mono outline-none uppercase" />
     </div>
   </div>
 );
 
 const RangeControl = ({ label, value, min, max, step = 1, onChange, unit = 'px' }: { label: string; value: number; min: number; max: number; step?: number; onChange: (v: number) => void; unit?: string }) => (
   <div>
-    <label className="text-[9px] uppercase text-neutral-600 mb-1 flex justify-between">{label} <span>{value}{unit}</span></label>
-    <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(parseFloat(e.target.value))} className="w-full h-1 bg-neutral-800 appearance-none accent-white cursor-pointer" />
+    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 flex justify-between">{label} <span>{value}{unit}</span></label>
+    <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(parseFloat(e.target.value))} className="w-full h-1 bg-[var(--bg-hover)] appearance-none accent-white cursor-pointer" />
   </div>
 );

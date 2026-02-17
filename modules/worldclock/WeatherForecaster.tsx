@@ -85,10 +85,10 @@ export const WeatherForecaster: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-[#111] border border-neutral-800 p-8 space-y-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-8 space-y-6">
             <div className="flex justify-between items-center mb-2">
-               <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest">Region Search</span>
-               <button onClick={resetAll} className="text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold">Reset</button>
+               <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Region Search</span>
+               <button onClick={resetAll} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold">Reset</button>
             </div>
             
             <div className="flex gap-2">
@@ -97,7 +97,7 @@ export const WeatherForecaster: React.FC = () => {
                 value={cityInput} 
                 onChange={(e) => setCityInput(e.target.value)}
                 placeholder="Enter city name..."
-                className="flex-1 bg-black border border-neutral-800 p-3 text-sm text-white focus:border-neutral-500 outline-none"
+                className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] p-3 text-sm text-[var(--text-primary)] focus:border-[var(--border-hover)] outline-none"
               />
               <button 
                 onClick={() => fetchWeather(cityInput)}
@@ -107,21 +107,21 @@ export const WeatherForecaster: React.FC = () => {
               </button>
             </div>
 
-            <div className="pt-4 border-t border-neutral-900">
-               <label className="text-[10px] uppercase text-neutral-600 mb-4 block tracking-widest flex items-center gap-2">
+            <div className="pt-4 border-t border-[var(--border)]">
+               <label className="text-[10px] uppercase text-[var(--text-muted)] mb-4 block tracking-widest flex items-center gap-2">
                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
                  AI Weather Advisor
                </label>
                {aiAdvice ? (
-                 <div className="bg-neutral-950 p-4 border border-neutral-900 animate-in fade-in duration-300">
-                    <p className="text-xs text-neutral-400 leading-relaxed italic">"{aiAdvice}"</p>
-                    <button onClick={() => setAiAdvice(null)} className="mt-3 text-[9px] uppercase text-neutral-700 hover:text-white font-bold">Clear Advice</button>
+                 <div className="bg-[var(--bg-card)] p-4 border border-[var(--border)] animate-in fade-in duration-300">
+                    <p className="text-xs text-[var(--text-muted)] leading-relaxed italic">"{aiAdvice}"</p>
+                    <button onClick={() => setAiAdvice(null)} className="mt-3 text-[9px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold">Clear Advice</button>
                  </div>
                ) : (
                  <button 
                   onClick={generateAiAdvice}
                   disabled={isAiLoading || !weather}
-                  className="w-full py-3 bg-neutral-800 border border-neutral-700 text-[10px] font-bold uppercase tracking-widest text-neutral-400 hover:text-white hover:border-neutral-500 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-[var(--bg-hover)] border border-[var(--border)] text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-all flex items-center justify-center gap-2"
                  >
                    {isAiLoading ? 'Analyzing Climate...' : 'Get Travel Advice'}
                  </button>
@@ -134,40 +134,40 @@ export const WeatherForecaster: React.FC = () => {
           {loading ? (
             <div className="flex-1 flex flex-col items-center justify-center">
                <div className="w-12 h-12 border-2 border-indigo-500/20 border-t-indigo-500 animate-spin mb-4" />
-               <span className="text-[10px] uppercase font-bold tracking-[0.4em] text-neutral-600">Syncing Atmosphere...</span>
+               <span className="text-[10px] uppercase font-bold tracking-[0.4em] text-[var(--text-muted)]">Syncing Atmosphere...</span>
             </div>
           ) : weather ? (
             <div className="flex-1 flex flex-col gap-6">
-              <div className="bg-[#0d0d0d] border border-neutral-800 p-12 flex flex-col items-center justify-center relative overflow-hidden group">
-                 <div className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-700 italic">Global Station Monitor</div>
+              <div className="bg-[#0d0d0d] border border-[var(--border)] p-12 flex flex-col items-center justify-center relative overflow-hidden group">
+                 <div className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-muted)] italic">Global Station Monitor</div>
                  <div className="text-center z-10">
-                    <h2 className="text-2xl font-light text-neutral-400 uppercase tracking-[0.4em] mb-4">{weather.city}</h2>
-                    <div className="text-[100px] font-mono leading-none text-white transition-transform duration-500 group-hover:scale-110">
+                    <h2 className="text-2xl font-light text-[var(--text-muted)] uppercase tracking-[0.4em] mb-4">{weather.city}</h2>
+                    <div className="text-[100px] font-mono leading-none text-[var(--text-primary)] transition-transform duration-500 group-hover:scale-110">
                       {weather.temp}<span className="text-4xl align-top">°C</span>
                     </div>
-                    <p className="text-lg text-neutral-500 uppercase tracking-[0.2em] mt-4 font-medium">{weather.condition}</p>
+                    <p className="text-lg text-[var(--text-muted)] uppercase tracking-[0.2em] mt-4 font-medium">{weather.condition}</p>
                  </div>
                  
                  <div className="mt-12 grid grid-cols-2 gap-12 w-full max-w-sm">
-                    <div className="text-center border-r border-neutral-900">
-                       <p className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest mb-1">Humidity</p>
-                       <p className="text-xl font-mono text-neutral-300">{weather.humidity}%</p>
+                    <div className="text-center border-r border-[var(--border)]">
+                       <p className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest mb-1">Humidity</p>
+                       <p className="text-xl font-mono text-[var(--text-primary)]">{weather.humidity}%</p>
                     </div>
                     <div className="text-center">
-                       <p className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest mb-1">Wind Speed</p>
-                       <p className="text-xl font-mono text-neutral-300">{weather.windSpeed} <span className="text-[10px]">km/h</span></p>
+                       <p className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest mb-1">Wind Speed</p>
+                       <p className="text-xl font-mono text-[var(--text-primary)]">{weather.windSpeed} <span className="text-[10px]">km/h</span></p>
                     </div>
                  </div>
               </div>
 
-              <div className="bg-[#111] border border-neutral-800 p-8">
-                 <h3 className="text-[10px] uppercase tracking-widest font-bold text-neutral-500 mb-8 border-b border-neutral-900 pb-2">5-Day Outlook</h3>
+              <div className="bg-[var(--bg-card)] border border-[var(--border)] p-8">
+                 <h3 className="text-[10px] uppercase tracking-widest font-bold text-[var(--text-muted)] mb-8 border-b border-[var(--border)] pb-2">5-Day Outlook</h3>
                  <div className="grid grid-cols-5 gap-4">
                     {weather.forecast.map((f, i) => (
-                      <div key={i} className="bg-black/40 border border-neutral-900 p-4 text-center group hover:border-neutral-600 transition-all cursor-default">
-                        <p className="text-[10px] font-bold text-neutral-600 uppercase mb-2 tracking-widest">{f.day}</p>
+                      <div key={i} className="bg-[var(--bg-input)]/40 border border-[var(--border)] p-4 text-center group hover:border-[var(--border-hover)] transition-all cursor-default">
+                        <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase mb-2 tracking-widest">{f.day}</p>
                         <div className="text-2xl mb-2 grayscale group-hover:grayscale-0 transition-all">{f.icon}</div>
-                        <p className="text-lg font-mono text-neutral-300">{f.temp}°</p>
+                        <p className="text-lg font-mono text-[var(--text-primary)]">{f.temp}°</p>
                       </div>
                     ))}
                  </div>

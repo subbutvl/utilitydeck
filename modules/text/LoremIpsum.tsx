@@ -95,16 +95,16 @@ export const LoremIpsum: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col gap-6">
-      <div className="flex border-b border-neutral-800">
+      <div className="flex border-b border-[var(--border)]">
         <button
           onClick={() => setActiveMode('standard')}
-          className={`px-6 py-3 text-[11px] uppercase tracking-[0.2em] font-bold transition-all border-b-2 ${activeMode === 'standard' ? 'border-white text-white' : 'border-transparent text-neutral-500 hover:text-neutral-300'}`}
+          className={`px-6 py-3 text-[11px] uppercase tracking-[0.2em] font-bold transition-all border-b-2 ${activeMode === 'standard' ? 'border-white text-[var(--text-primary)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
         >
           Standard
         </button>
         <button
           onClick={() => setActiveMode('ai')}
-          className={`px-6 py-3 text-[11px] uppercase tracking-[0.2em] font-bold transition-all border-b-2 ${activeMode === 'ai' ? 'border-white text-white' : 'border-transparent text-neutral-500 hover:text-neutral-300'}`}
+          className={`px-6 py-3 text-[11px] uppercase tracking-[0.2em] font-bold transition-all border-b-2 ${activeMode === 'ai' ? 'border-white text-[var(--text-primary)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
         >
           AI Theme Engine
         </button>
@@ -112,9 +112,9 @@ export const LoremIpsum: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
         <div className="lg:col-span-4 flex flex-col gap-6">
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
             <div>
-              <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Quantity</label>
+              <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Quantity</label>
               <div className="flex items-center gap-4">
                 <input 
                   type="number" 
@@ -122,19 +122,19 @@ export const LoremIpsum: React.FC = () => {
                   min="1"
                   max="100"
                   onChange={(e) => setCount(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-full bg-neutral-950 border border-neutral-800 p-2.5 text-sm text-white focus:outline-none focus:border-neutral-600 rounded-none"
+                  className="w-full bg-[var(--bg-card)] border border-[var(--border)] p-2.5 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)] rounded-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Type</label>
+              <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Type</label>
               <div className="grid grid-cols-2 gap-1">
                 {(['paragraphs', 'sentences', 'words', 'unordered list', 'ordered list'] as const).map(t => (
                   <button
                     key={t}
                     onClick={() => setType(t)}
-                    className={`py-2 text-[10px] uppercase border tracking-tighter ${type === t ? 'bg-white text-black border-white' : 'bg-transparent text-neutral-500 border-neutral-800 hover:border-neutral-600'} ${t === 'paragraphs' ? 'col-span-2' : ''}`}
+                    className={`py-2 text-[10px] uppercase border tracking-tighter ${type === t ? 'bg-white text-black border-white' : 'bg-transparent text-[var(--text-muted)] border-[var(--border)] hover:border-[var(--border-hover)]'} ${t === 'paragraphs' ? 'col-span-2' : ''}`}
                   >
                     {t}
                   </button>
@@ -144,13 +144,13 @@ export const LoremIpsum: React.FC = () => {
 
             {activeMode === 'ai' && (
               <div>
-                <label className="text-[10px] uppercase text-neutral-500 font-bold mb-3 block tracking-widest">Theme / Vibe</label>
+                <label className="text-[10px] uppercase text-[var(--text-muted)] font-bold mb-3 block tracking-widest">Theme / Vibe</label>
                 <input 
                   type="text"
                   placeholder="e.g. Cyberpunk Noir, Space Exploration..."
                   value={aiTheme}
                   onChange={(e) => setAiTheme(e.target.value)}
-                  className="w-full bg-neutral-950 border border-neutral-800 p-2.5 text-sm text-white focus:outline-none focus:border-neutral-600 rounded-none"
+                  className="w-full bg-[var(--bg-card)] border border-[var(--border)] p-2.5 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-hover)] rounded-none"
                 />
               </div>
             )}
@@ -165,14 +165,14 @@ export const LoremIpsum: React.FC = () => {
               </button>
               <button 
                 onClick={resetGenerator}
-                className="w-full py-2 text-neutral-600 hover:text-red-500 text-[10px] uppercase tracking-[0.2em] font-bold transition-colors"
+                className="w-full py-2 text-[var(--text-muted)] hover:text-red-500 text-[10px] uppercase tracking-[0.2em] font-bold transition-colors"
               >
                 Reset Generator
               </button>
             </div>
           </div>
           
-          <div className="text-[10px] text-neutral-600 italic px-2">
+          <div className="text-[10px] text-[var(--text-muted)] italic px-2">
             {activeMode === 'standard' 
               ? '* Traditional Latin placeholder text.' 
               : '* AI generates content based on your chosen thematic keywords.'}
@@ -181,17 +181,17 @@ export const LoremIpsum: React.FC = () => {
 
         <div className="lg:col-span-8 flex flex-col">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[10px] uppercase text-neutral-600 font-bold tracking-widest">Output</span>
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Output</span>
             {output && (
               <button 
                 onClick={() => navigator.clipboard.writeText(output)}
-                className="text-[10px] uppercase text-neutral-500 hover:text-white"
+                className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               >
                 Copy All
               </button>
             )}
           </div>
-          <div className="flex-1 bg-[#0d0d0d] border border-neutral-800 p-6 overflow-auto font-sans leading-relaxed text-neutral-400 select-text">
+          <div className="flex-1 bg-[#0d0d0d] border border-[var(--border)] p-6 overflow-auto font-sans leading-relaxed text-[var(--text-muted)] select-text">
             {output ? (
               <div className="whitespace-pre-wrap">{output}</div>
             ) : (

@@ -109,18 +109,18 @@ export const ColorRangeGenerator: React.FC = () => {
     <div className="h-full flex flex-col gap-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
         <div className="lg:col-span-4 flex flex-col gap-6 overflow-y-auto pr-2 pb-10">
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block border-b border-neutral-800 pb-2">Global Settings</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block border-b border-[var(--border)] pb-2">Global Settings</span>
             
             <div className="grid grid-cols-1 gap-6">
               <div>
-                <label className="text-[10px] uppercase text-neutral-600 mb-2 block tracking-widest">Generation Mode</label>
-                <div className="grid grid-cols-2 gap-1 border border-neutral-800 p-1">
+                <label className="text-[10px] uppercase text-[var(--text-muted)] mb-2 block tracking-widest">Generation Mode</label>
+                <div className="grid grid-cols-2 gap-1 border border-[var(--border)] p-1">
                   {(['shades', 'tints', 'tones', 'tints-shades'] as const).map(m => (
                     <button 
                       key={m}
                       onClick={() => setMode(m)}
-                      className={`py-2 text-[10px] uppercase font-bold tracking-tight transition-all ${mode === m ? 'bg-white text-black' : 'text-neutral-500 hover:text-white'}`}
+                      className={`py-2 text-[10px] uppercase font-bold tracking-tight transition-all ${mode === m ? 'bg-white text-black' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                     >
                       {m.replace('-', ' & ')}
                     </button>
@@ -129,20 +129,20 @@ export const ColorRangeGenerator: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-[9px] uppercase text-neutral-600 mb-1 flex justify-between tracking-widest">Steps (Precision) <span>{steps}</span></label>
+                <label className="text-[9px] uppercase text-[var(--text-muted)] mb-1 flex justify-between tracking-widest">Steps (Precision) <span>{steps}</span></label>
                 <input 
                   type="range" min="3" max="25" step={mode === 'tints-shades' ? 2 : 1} value={steps}
                   onChange={(e) => setSteps(parseInt(e.target.value))}
-                  className="w-full h-1 bg-neutral-800 appearance-none accent-white cursor-pointer"
+                  className="w-full h-1 bg-[var(--bg-hover)] appearance-none accent-white cursor-pointer"
                 />
-                <p className="text-[8px] text-neutral-700 mt-1 uppercase italic">* Tints & Shades requires odd steps for center alignment.</p>
+                <p className="text-[8px] text-[var(--text-muted)] mt-1 uppercase italic">* Tints & Shades requires odd steps for center alignment.</p>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-neutral-800">
+            <div className="pt-4 border-t border-[var(--border)]">
                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest">Base Anchors</span>
-                  <button onClick={addColor} className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold transition-colors">+ Add Color</button>
+                  <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Base Anchors</span>
+                  <button onClick={addColor} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors">+ Add Color</button>
                </div>
                
                <div className="space-y-3">
@@ -158,11 +158,11 @@ export const ColorRangeGenerator: React.FC = () => {
                         type="text" 
                         value={color.toUpperCase()}
                         onChange={(e) => updateBaseColor(idx, e.target.value)}
-                        className="flex-1 bg-black border border-neutral-800 px-3 py-2 text-xs font-mono text-neutral-400 focus:outline-none focus:border-neutral-600 uppercase"
+                        className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] px-3 py-2 text-xs font-mono text-[var(--text-muted)] focus:outline-none focus:border-[var(--border-hover)] uppercase"
                       />
                       <button 
                         onClick={() => removeColor(idx)}
-                        className="p-2 text-neutral-700 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 disabled:opacity-0"
+                        className="p-2 text-[var(--text-muted)] hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 disabled:opacity-0"
                         disabled={baseColors.length === 1}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
@@ -173,32 +173,32 @@ export const ColorRangeGenerator: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 p-6 space-y-4">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block mb-2 border-b border-neutral-800 pb-2">Designer Tips</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-4">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block mb-2 border-b border-[var(--border)] pb-2">Designer Tips</span>
             <div className="space-y-4">
                <div>
-                  <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Tints & Shades</p>
-                  <p className="text-xs text-neutral-600 leading-relaxed italic">The "Full Spectrum" approach. Anchors your base in the center, providing a complete range from shadow to highlight.</p>
+                  <p className="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-1">Tints & Shades</p>
+                  <p className="text-xs text-[var(--text-muted)] leading-relaxed italic">The "Full Spectrum" approach. Anchors your base in the center, providing a complete range from shadow to highlight.</p>
                </div>
                <div>
-                  <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Accessibility</p>
-                  <p className="text-xs text-neutral-600 leading-relaxed italic">Use the far ends of the range for text/background contrast. Inner steps are better for borders and disabled states.</p>
+                  <p className="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-1">Accessibility</p>
+                  <p className="text-xs text-[var(--text-muted)] leading-relaxed italic">Use the far ends of the range for text/background contrast. Inner steps are better for borders and disabled states.</p>
                </div>
             </div>
           </div>
         </div>
 
         <div className="lg:col-span-8 flex flex-col gap-6">
-          <div className="flex-1 border border-neutral-800 flex flex-col p-8 bg-[#0a0a0a] overflow-y-auto relative">
+          <div className="flex-1 border border-[var(--border)] flex flex-col p-8 bg-[var(--bg-page)] overflow-y-auto relative">
             <div className="mb-8 flex items-center justify-between">
-               <span className="text-[10px] text-neutral-600 uppercase tracking-[0.3em] font-bold italic">Output Visualization</span>
+               <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-[0.3em] font-bold italic">Output Visualization</span>
                <div className="flex items-center gap-4">
-                 <button onClick={copyJson} className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold transition-colors flex items-center gap-2 bg-[#111] px-3 py-1.5 border border-neutral-800 hover:border-neutral-600">
+                 <button onClick={copyJson} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold transition-colors flex items-center gap-2 bg-[var(--bg-card)] px-3 py-1.5 border border-[var(--border)] hover:border-[var(--border-hover)]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                     Copy JSON
                  </button>
                  <div className="flex gap-2">
-                   <div className="w-2 h-2 bg-black border border-white/20"></div>
+                   <div className="w-2 h-2 bg-[var(--bg-input)] border border-white/20"></div>
                    <div className="w-2 h-2 bg-white border border-white/20"></div>
                  </div>
                </div>
@@ -208,10 +208,10 @@ export const ColorRangeGenerator: React.FC = () => {
               {allRanges.map((r, rowIdx) => (
                 <div key={rowIdx} className="space-y-3 animate-in fade-in slide-in-from-left-2 duration-300">
                   <div className="flex items-center justify-between px-1">
-                    <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest font-bold">Base: {r.base}</span>
-                    <span className="text-[9px] text-neutral-700 uppercase font-bold tracking-widest">{mode} distribution</span>
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">Base: {r.base}</span>
+                    <span className="text-[9px] text-[var(--text-muted)] uppercase font-bold tracking-widest">{mode} distribution</span>
                   </div>
-                  <div className="flex h-24 w-full border border-white/5 bg-neutral-900 shadow-2xl overflow-hidden">
+                  <div className="flex h-24 w-full border border-white/5 bg-[var(--bg-card)] shadow-2xl overflow-hidden">
                     {r.range.map((hex, i) => {
                       const isBase = mode === 'tints-shades' ? i === (steps - 1) / 2 : (i === 0);
                       return (
@@ -221,19 +221,19 @@ export const ColorRangeGenerator: React.FC = () => {
                           style={{ backgroundColor: hex }}
                           onClick={() => navigator.clipboard.writeText(hex)}
                         >
-                          <div className={`absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 backdrop-blur-[2px] ${parseInt(hex.slice(1), 16) > 0xffffff / 1.5 ? 'text-black' : 'text-white'}`}>
+                          <div className={`absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--bg-input)]/30 backdrop-blur-[2px] ${parseInt(hex.slice(1), 16) > 0xffffff / 1.5 ? 'text-black' : 'text-[var(--text-primary)]'}`}>
                             <span className="text-[9px] font-mono font-bold">{hex}</span>
                             <span className="text-[7px] uppercase font-bold tracking-tighter mt-1">Copy</span>
                           </div>
                           
                           {isBase && (
                             <div className="absolute top-2 left-0 right-0 text-center">
-                               <div className="inline-block px-1.5 py-0.5 bg-black/20 text-[7px] uppercase font-bold text-white tracking-widest backdrop-blur-sm">Source</div>
+                               <div className="inline-block px-1.5 py-0.5 bg-[var(--bg-input)]/20 text-[7px] uppercase font-bold text-[var(--text-primary)] tracking-widest backdrop-blur-sm">Source</div>
                             </div>
                           )}
                           
                           {(i === 0 || i === steps - 1) && (
-                             <div className={`absolute bottom-1 left-1 right-1 text-center text-[8px] font-mono opacity-30 ${parseInt(hex.slice(1), 16) > 0xffffff / 1.5 ? 'text-black' : 'text-white'}`}>
+                             <div className={`absolute bottom-1 left-1 right-1 text-center text-[8px] font-mono opacity-30 ${parseInt(hex.slice(1), 16) > 0xffffff / 1.5 ? 'text-black' : 'text-[var(--text-primary)]'}`}>
                                 {i === 0 ? 'START' : 'END'}
                              </div>
                           )}

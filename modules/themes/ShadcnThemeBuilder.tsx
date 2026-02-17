@@ -93,30 +93,30 @@ export const ShadcnThemeBuilder: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col gap-6">
-      <div className="flex border-b border-neutral-800">
-        <button onClick={() => setActiveTab('manual')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'manual' ? 'border-b-2 border-white text-white' : 'text-neutral-500'}`}>Variables</button>
-        <button onClick={() => setActiveTab('ai')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'ai' ? 'border-b-2 border-white text-white' : 'text-neutral-500'}`}>AI Vibe</button>
+      <div className="flex border-b border-[var(--border)]">
+        <button onClick={() => setActiveTab('manual')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'manual' ? 'border-b-2 border-white text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>Variables</button>
+        <button onClick={() => setActiveTab('ai')} className={`px-6 py-3 text-[11px] uppercase tracking-widest font-bold ${activeTab === 'ai' ? 'border-b-2 border-white text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>AI Vibe</button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
         <div className="lg:col-span-4 overflow-y-auto pb-10">
           {activeTab === 'manual' ? (
-            <div className="bg-[#111] border border-neutral-800 p-6 space-y-4">
+            <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-4">
               {(Object.keys(theme) as Array<keyof ShadcnTheme>).map(key => (
                 <div key={key} className="flex items-center gap-3">
-                  <div className="w-28 text-[9px] uppercase text-neutral-500 font-bold">{key.replace(/([A-Z])/g, '-$1')}</div>
+                  <div className="w-28 text-[9px] uppercase text-[var(--text-muted)] font-bold">{key.replace(/([A-Z])/g, '-$1')}</div>
                   <input type="color" value={theme[key]} onChange={(e) => setTheme(prev => ({...prev, [key]: e.target.value}))} className="w-8 h-8 bg-transparent cursor-pointer" />
-                  <input type="text" value={theme[key].toUpperCase()} onChange={(e) => setTheme(prev => ({...prev, [key]: e.target.value}))} className="flex-1 bg-black border border-neutral-800 p-2 text-[10px] font-mono uppercase text-neutral-600 outline-none" />
+                  <input type="text" value={theme[key].toUpperCase()} onChange={(e) => setTheme(prev => ({...prev, [key]: e.target.value}))} className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] p-2 text-[10px] font-mono uppercase text-[var(--text-muted)] outline-none" />
                 </div>
               ))}
-              <button onClick={resetAll} className="w-full py-2 text-[10px] uppercase text-neutral-700 hover:text-red-500 font-bold transition-colors pt-4 border-t border-neutral-800">Reset</button>
+              <button onClick={resetAll} className="w-full py-2 text-[10px] uppercase text-[var(--text-muted)] hover:text-red-500 font-bold transition-colors pt-4 border-t border-[var(--border)]">Reset</button>
             </div>
           ) : (
-            <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
+            <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
               <textarea 
                 value={aiPrompt} onChange={(e) => setAiPrompt(e.target.value)}
                 placeholder="Describe a professional UI vibe..."
-                className="w-full h-40 bg-black border border-neutral-800 p-4 text-sm text-white focus:border-neutral-600 outline-none resize-none"
+                className="w-full h-40 bg-[var(--bg-input)] border border-[var(--border)] p-4 text-sm text-[var(--text-primary)] focus:border-[var(--border-hover)] outline-none resize-none"
               />
               <button onClick={generateWithAi} disabled={loading} className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest text-xs">Analyze & Suggest</button>
             </div>
@@ -124,7 +124,7 @@ export const ShadcnThemeBuilder: React.FC = () => {
         </div>
 
         <div className="lg:col-span-8 flex flex-col gap-6">
-          <div className="flex-1 border border-neutral-800 p-12 overflow-auto transition-colors duration-500" style={{ backgroundColor: theme.background }}>
+          <div className="flex-1 border border-[var(--border)] p-12 overflow-auto transition-colors duration-500" style={{ backgroundColor: theme.background }}>
              <div className="max-w-sm mx-auto space-y-6">
                 <div className="space-y-1">
                    <h2 className="text-xl font-bold" style={{ color: theme.foreground }}>Authentication</h2>
@@ -146,12 +146,12 @@ export const ShadcnThemeBuilder: React.FC = () => {
              </div>
           </div>
 
-          <div className="bg-[#111] border border-neutral-800 p-6 flex flex-col gap-4">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 flex flex-col gap-4">
              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest">Global CSS Output</span>
-                <button onClick={() => navigator.clipboard.writeText(cssOutput)} className="text-[10px] uppercase text-neutral-400 hover:text-white font-bold">Copy CSS</button>
+                <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest">Global CSS Output</span>
+                <button onClick={() => navigator.clipboard.writeText(cssOutput)} className="text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold">Copy CSS</button>
              </div>
-             <code className="block p-4 bg-black border border-neutral-900 text-xs text-neutral-400 font-mono whitespace-pre h-32 overflow-y-auto">
+             <code className="block p-4 bg-[var(--bg-input)] border border-[var(--border)] text-xs text-[var(--text-muted)] font-mono whitespace-pre h-32 overflow-y-auto">
                {cssOutput}
              </code>
           </div>

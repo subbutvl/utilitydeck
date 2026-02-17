@@ -39,15 +39,15 @@ export const ContrastChecker: React.FC = () => {
     <div className="h-full flex flex-col gap-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-[#111] border border-neutral-800 p-6 space-y-6">
-            <span className="text-[10px] uppercase text-neutral-500 font-bold tracking-widest block border-b border-neutral-800 pb-2">Contrast Config</span>
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
+            <span className="text-[10px] uppercase text-[var(--text-muted)] font-bold tracking-widest block border-b border-[var(--border)] pb-2">Contrast Config</span>
             
             <div className="space-y-4">
               <ColorInput label="Foreground" value={fg} onChange={setFg} />
               <div className="flex justify-center">
                 <button 
                   onClick={swapColors}
-                  className="p-2 border border-neutral-800 text-neutral-500 hover:text-white hover:border-neutral-600 transition-all"
+                  className="p-2 border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-all"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
                 </button>
@@ -56,10 +56,10 @@ export const ContrastChecker: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 p-6 space-y-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6 space-y-6">
              <div className="text-center py-4">
-                <div className="text-4xl font-light text-white mb-2">{ratio.toFixed(2)}:1</div>
-                <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Contrast Ratio</div>
+                <div className="text-4xl font-light text-[var(--text-primary)] mb-2">{ratio.toFixed(2)}:1</div>
+                <div className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-bold">Contrast Ratio</div>
              </div>
 
              <div className="space-y-3">
@@ -73,7 +73,7 @@ export const ContrastChecker: React.FC = () => {
 
         <div className="lg:col-span-8 flex flex-col gap-6">
           <div 
-            className="flex-1 border border-neutral-800 p-12 flex flex-col gap-10 overflow-auto"
+            className="flex-1 border border-[var(--border)] p-12 flex flex-col gap-10 overflow-auto"
             style={{ backgroundColor: bg }}
           >
             <div className="space-y-4">
@@ -99,7 +99,7 @@ export const ContrastChecker: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 bg-neutral-900 border border-neutral-800 text-[10px] text-neutral-600 uppercase tracking-widest text-center italic">
+          <div className="p-4 bg-[var(--bg-card)] border border-[var(--border)] text-[10px] text-[var(--text-muted)] uppercase tracking-widest text-center italic">
             WCAG 2.1 accessibility guidelines recommend a minimum contrast ratio of 4.5:1 for normal text.
           </div>
         </div>
@@ -110,7 +110,7 @@ export const ContrastChecker: React.FC = () => {
 
 const ColorInput = ({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) => (
   <div>
-    <label className="text-[9px] uppercase text-neutral-600 mb-2 block tracking-widest">{label}</label>
+    <label className="text-[9px] uppercase text-[var(--text-muted)] mb-2 block tracking-widest">{label}</label>
     <div className="flex gap-2">
       <input 
         type="color" value={value} onChange={(e) => onChange(e.target.value)}
@@ -118,17 +118,17 @@ const ColorInput = ({ label, value, onChange }: { label: string; value: string; 
       />
       <input 
         type="text" value={value.toUpperCase()} onChange={(e) => onChange(e.target.value)}
-        className="flex-1 bg-black border border-neutral-800 px-3 text-xs font-mono text-neutral-400 focus:outline-none focus:border-neutral-600"
+        className="flex-1 bg-[var(--bg-input)] border border-[var(--border)] px-3 text-xs font-mono text-[var(--text-muted)] focus:outline-none focus:border-[var(--border-hover)]"
       />
     </div>
   </div>
 );
 
 const ResultRow = ({ label, pass, req }: { label: string; pass: boolean; req: string }) => (
-  <div className="flex items-center justify-between py-2 border-b border-neutral-800/50">
+  <div className="flex items-center justify-between py-2 border-b border-[var(--border)]/50">
     <div className="flex flex-col">
-      <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-tight">{label}</span>
-      <span className="text-[8px] text-neutral-600">Req: {req}</span>
+      <span className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-tight">{label}</span>
+      <span className="text-[8px] text-[var(--text-muted)]">Req: {req}</span>
     </div>
     <div className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest border ${pass ? 'border-green-500/30 text-green-500 bg-green-500/5' : 'border-red-500/30 text-red-500 bg-red-500/5'}`}>
       {pass ? 'Pass' : 'Fail'}

@@ -125,13 +125,13 @@ export const HtmlColorNames: React.FC = () => {
     <div className="h-full flex flex-col gap-6">
       <div className="flex flex-col gap-4">
         {/* Color Family Filters */}
-        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar border-b border-neutral-800/50">
+        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar border-b border-[var(--border)]/50">
           {FAMILIES.map(f => (
             <button
               key={f.name}
               onClick={() => setActiveFamily(f.name)}
               className={`flex items-center gap-2 px-3 py-1.5 border transition-all shrink-0 text-[10px] uppercase font-bold tracking-widest ${
-                activeFamily === f.name ? 'bg-white text-black border-white' : 'bg-neutral-900 text-neutral-500 border-neutral-800 hover:border-neutral-600'
+                activeFamily === f.name ? 'bg-white text-black border-white' : 'bg-[var(--bg-card)] text-[var(--text-muted)] border-[var(--border)] hover:border-[var(--border-hover)]'
               }`}
             >
               <div className="w-2 h-2" style={{ backgroundColor: f.color }}></div>
@@ -146,9 +146,9 @@ export const HtmlColorNames: React.FC = () => {
             value={search} 
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search W3C color names (e.g. 'Steel' or 'Cyan')..."
-            className="w-full bg-[#111] border border-neutral-800 p-4 text-sm text-white focus:border-neutral-500 outline-none transition-colors"
+            className="w-full bg-[var(--bg-card)] border border-[var(--border)] p-4 text-sm text-[var(--text-primary)] focus:border-[var(--border-hover)] outline-none transition-colors"
           />
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-600">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]">
              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
         </div>
@@ -159,7 +159,7 @@ export const HtmlColorNames: React.FC = () => {
           {filtered.map(c => (
             <div 
               key={c.name}
-              className="bg-[#111] border border-neutral-800 p-3 flex flex-col gap-3 group hover:border-neutral-500 transition-all cursor-pointer relative"
+              className="bg-[var(--bg-card)] border border-[var(--border)] p-3 flex flex-col gap-3 group hover:border-[var(--border-hover)] transition-all cursor-pointer relative"
               onClick={() => handleCopy(c.name)}
             >
               <div 
@@ -167,20 +167,20 @@ export const HtmlColorNames: React.FC = () => {
                 style={{ backgroundColor: c.hex }}
               />
               <div>
-                <span className="text-[10px] uppercase font-bold text-neutral-400 group-hover:text-white transition-colors block truncate tracking-widest">{c.name}</span>
-                <code className="text-[9px] font-mono text-neutral-600 group-hover:text-neutral-500">{c.hex}</code>
+                <span className="text-[10px] uppercase font-bold text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors block truncate tracking-widest">{c.name}</span>
+                <code className="text-[9px] font-mono text-[var(--text-muted)] group-hover:text-[var(--text-muted)]">{c.hex}</code>
               </div>
               
               <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 flex flex-col gap-1 items-end">
                 <button 
                   onClick={(e) => { e.stopPropagation(); handleCopy(c.name); }}
-                  className="text-[8px] bg-black/60 px-1.5 py-0.5 text-white/50 hover:text-white uppercase font-bold tracking-tighter backdrop-blur-sm"
+                  className="text-[8px] bg-[var(--bg-input)]/60 px-1.5 py-0.5 text-[var(--text-primary)]/50 hover:text-[var(--text-primary)] uppercase font-bold tracking-tighter backdrop-blur-sm"
                 >
                   Name
                 </button>
                 <button 
                   onClick={(e) => { e.stopPropagation(); handleCopy(c.hex); }}
-                  className="text-[8px] bg-black/60 px-1.5 py-0.5 text-white/50 hover:text-white uppercase font-bold tracking-tighter backdrop-blur-sm"
+                  className="text-[8px] bg-[var(--bg-input)]/60 px-1.5 py-0.5 text-[var(--text-primary)]/50 hover:text-[var(--text-primary)] uppercase font-bold tracking-tighter backdrop-blur-sm"
                 >
                   Hex
                 </button>
@@ -195,14 +195,14 @@ export const HtmlColorNames: React.FC = () => {
           ))}
 
           {filtered.length === 0 && (
-            <div className="col-span-full py-20 text-center border border-dashed border-neutral-800 opacity-30 italic text-xs uppercase tracking-widest">
+            <div className="col-span-full py-20 text-center border border-dashed border-[var(--border)] opacity-30 italic text-xs uppercase tracking-widest">
               No matching colors in this category
             </div>
           )}
         </div>
       </div>
 
-      <div className="bg-neutral-900/30 p-3 border border-neutral-800 text-[10px] text-neutral-600 uppercase tracking-widest text-center font-bold">
+      <div className="bg-[var(--bg-card)]/30 p-3 border border-[var(--border)] text-[10px] text-[var(--text-muted)] uppercase tracking-widest text-center font-bold">
         Found {filtered.length} colors. Reference for W3C standardized names.
       </div>
     </div>
